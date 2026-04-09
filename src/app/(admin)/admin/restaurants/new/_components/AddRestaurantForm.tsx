@@ -292,6 +292,9 @@ export function RestaurantForm({
             <img
               src={coverUrl}
               alt="Обложка"
+              width={1600}
+              height={900}
+              loading="lazy"
               className="w-full aspect-video object-cover rounded-lg mb-3"
             />
           ) : null}

@@ -1,9 +1,8 @@
-import Link from "next/link";
 import { Coins, MapPin, Star } from "lucide-react";
 import { FeatureCard } from "@/components/desktop/FeatureCard";
 import { SearchHomeForm } from "./SearchHomeForm";
 import { HeroFloatingCards } from "./HeroFloatingCards";
-import { formatDistance, formatRating } from "@/lib/utils/format";
+import { DesktopPopularRestaurantsGrid } from "./DesktopPopularRestaurantsGrid";
 import { cn } from "@/lib/utils/cn";
 
 export interface DesktopHomeRestaurant {
@@ -123,49 +122,7 @@ export function DesktopHome({
         <h2 className="text-[28px] font-bold text-fg-primary">
           Популярные рестораны
         </h2>
-        <div className="grid grid-cols-4 gap-5">
-          {popularRestaurants.slice(0, 4).map((r) => (
-            <Link
-              key={r.id}
-              href={{ pathname: `/restaurant/${r.slug}` }}
-              className="group rounded-2xl border border-border-light bg-surface-primary shadow-sm overflow-hidden transition-shadow hover:shadow-md"
-            >
-              <div className="h-40 w-full bg-surface-secondary overflow-hidden">
-                {r.coverUrl ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={r.coverUrl}
-                    alt={r.name}
-                    className="h-full w-full object-cover transition-transform group-hover:scale-[1.02]"
-                  />
-                ) : (
-                  <div className="h-full w-full grid place-items-center text-fg-muted text-sm">
-                    {r.category}
-                  </div>
-                )}
-              </div>
-              <div className="flex flex-col gap-2 p-4">
-                <h3 className="text-[16px] font-semibold text-fg-primary truncate">
-                  {r.name}
-                </h3>
-                <div className="flex items-center gap-1.5 text-[13px] text-fg-secondary">
-                  <Star
-                    className="h-3.5 w-3.5 fill-amber-400 text-amber-400"
-                    aria-hidden="true"
-                  />
-                  <span className="font-medium">{formatRating(r.rating)}</span>
-                  <span className="text-fg-muted">·</span>
-                  <span className="truncate">{r.category}</span>
-                </div>
-                {r.distanceMeters !== null ? (
-                  <div className="text-[12px] text-accent font-medium">
-                    от {formatDistance(r.distanceMeters)}
-                  </div>
-                ) : null}
-              </div>
-            </Link>
-          ))}
-        </div>
+        <DesktopPopularRestaurantsGrid items={popularRestaurants} />
       </section>
     </div>
   );

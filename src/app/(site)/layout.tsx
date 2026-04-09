@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { BottomTabBar } from "@/components/mobile/BottomTabBar";
+import { TelegramWebAppBootstrap } from "@/components/mobile/TelegramWebAppBootstrap";
 import { TopNav } from "@/components/desktop/TopNav";
+import { RouteProgress } from "@/components/ui/RouteProgress";
 
 export const metadata: Metadata = {
   title: "lancHunter — поиск бизнес-ланчей рядом",
@@ -29,6 +31,17 @@ export default function SiteLayout({
 }): React.JSX.Element {
   return (
     <div className="min-h-screen">
+      {/* Глобальный прогресс-бар переходов: рендерится в DOM всегда,
+          но видим только во время pending-навигации (см. RouteProgress). */}
+      <RouteProgress />
+
+      {/* Невидимый client-bootstrap для Telegram WebApp: вызывает
+          WebApp.ready() + WebApp.expand() если приложение открыто внутри
+          Telegram (в т.ч. после redirect с /tg). БЕЗ этого вызова
+          HapticFeedback.* методы no-op в большинстве клиентов. Для
+          обычного веба — silent no-op. */}
+      <TelegramWebAppBootstrap />
+
       {/* Desktop TopNav (hidden <md via TopNav's own md:flex) */}
       <TopNav />
 

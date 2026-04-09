@@ -10,6 +10,18 @@ import { cn } from "@/lib/utils/cn";
  *
  * Подкомпоненты CardHeader/CardBody/CardFooter для композиции
  * (используется для ResultCard, LunchCard, StatCard на dashboard).
+ *
+ * **Press feedback:**
+ * - При `interactive=true` на корневой `<div>` проставляется `role="button"`
+ *   и `tabIndex={0}`. Глобальное правило в `globals.css`
+ *   (`button, a, [role="button"]`) автоматически даёт scale(0.97) на :active
+ *   — локальные `active:scale-*` не нужны.
+ * - Без тактильного отклика — карточки обычно оборачиваются в `Link`,
+ *   а глобальные haptics шлются через интерактивный хук `useHaptics()`
+ *   в локальном `onClick` потребителя; дублировать хаптик здесь не нужно.
+ * - Hover-тень реализована через utility `.shadow-hover` (см. globals.css),
+ *   которая анимирует `opacity` на `::after` псевдоэлементе вместо `box-shadow`
+ *   (GPU-friendly, без перерисовки всей карточки).
  */
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Убирает padding (например если внутри медиа-блок на всю ширину). */
@@ -20,18 +32,27 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(function Card(
-  { className, noPadding = false, interactive = false, children, ...props },
+  {
+    className,
+    noPadding = false,
+    interactive = false,
+    children,
+    role,
+    tabIndex,
+    ...props
+  },
   ref,
 ) {
   return (
     <div
       ref={ref}
+      role={interactive ? (role ?? "button") : role}
+      tabIndex={interactive ? (tabIndex ?? 0) : tabIndex}
       className={cn(
         "bg-surface-primary border border-border rounded-lg",
         "shadow-[0_1px_2px_rgba(0,0,0,0.04)]",
         !noPadding && "p-4",
-        interactive &&
-          "transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] cursor-pointer",
+        interactive && "shadow-hover cursor-pointer",
         className,
       )}
       {...props}

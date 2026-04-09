@@ -1,9 +1,8 @@
-import Link from "next/link";
-import { MapPin, Star } from "lucide-react";
-import { Card } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
 import { getNearbyRestaurants } from "@/lib/db/queries";
-import { formatRating } from "@/lib/utils/format";
+import {
+  RestaurantIndexCardDesktop,
+  RestaurantIndexCardMobile,
+} from "./_components/RestaurantIndexCards";
 
 export const dynamic = "force-dynamic";
 
@@ -21,6 +20,12 @@ const DEFAULT_LNG = 37.6173;
  *   секцию «Рядом с вами» Home, но в полноразмерном вертикальном виде.
  * - Desktop (`md+`): сетка `xl:grid-cols-4 md:grid-cols-2`, аналогичная
  *   секции «Популярные рестораны» из DesktopHome.
+ *
+ * Карточки вынесены в client-компоненты
+ * {@link RestaurantIndexCardDesktop}/{@link RestaurantIndexCardMobile} из
+ * `_components/RestaurantIndexCards.tsx`, чтобы можно было использовать
+ * {@link usePrefetchImage} hook для image prefetch на
+ * onPointerEnter/onPointerDown (ANIMATIONS_GUIDE §9 long-press prefetch).
  */
 export default async function RestaurantIndexPage(): Promise<React.JSX.Element> {
   const restaurants = await getNearbyRestaurants({
@@ -50,52 +55,7 @@ export default async function RestaurantIndexPage(): Promise<React.JSX.Element> 
           ) : (
             <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
               {restaurants.map((r) => (
-                <Link
-                  key={r.id}
-                  href={{ pathname: `/restaurant/${r.slug}` }}
-                  className="group rounded-2xl border border-border-light bg-surface-primary shadow-sm overflow-hidden transition-shadow hover:shadow-md"
-                >
-                  <div className="h-40 w-full bg-surface-secondary overflow-hidden">
-                    {r.coverUrl ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={r.coverUrl}
-                        alt={r.name}
-                        className="h-full w-full object-cover transition-transform group-hover:scale-[1.02]"
-                      />
-                    ) : (
-                      <div className="h-full w-full grid place-items-center text-fg-muted text-sm">
-                        {r.category}
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex flex-col gap-2 p-4">
-                    <div className="flex items-center justify-between gap-2">
-                      <h3 className="text-[16px] font-semibold text-fg-primary truncate">
-                        {r.name}
-                      </h3>
-                      <span className="inline-flex items-center gap-1 text-[13px] text-fg-secondary shrink-0">
-                        <Star
-                          className="h-3.5 w-3.5 fill-amber-400 text-amber-400"
-                          aria-hidden="true"
-                        />
-                        <span className="font-medium">
-                          {formatRating(r.rating)}
-                        </span>
-                      </span>
-                    </div>
-                    <Badge variant="neutral" className="self-start">
-                      {r.category}
-                    </Badge>
-                    <div className="flex items-start gap-1.5 text-[12px] text-fg-secondary">
-                      <MapPin
-                        className="h-3.5 w-3.5 mt-0.5 shrink-0"
-                        aria-hidden="true"
-                      />
-                      <span className="line-clamp-2">{r.address}</span>
-                    </div>
-                  </div>
-                </Link>
+                <RestaurantIndexCardDesktop key={r.id} r={r} />
               ))}
             </div>
           )}
@@ -120,55 +80,7 @@ export default async function RestaurantIndexPage(): Promise<React.JSX.Element> 
             </div>
           ) : (
             restaurants.map((r) => (
-              <Link
-                key={r.id}
-                href={{ pathname: `/restaurant/${r.slug}` }}
-                className="block"
-              >
-                <Card noPadding interactive className="overflow-hidden">
-                  <div className="flex gap-3">
-                    <div className="h-24 w-24 shrink-0 bg-surface-secondary grid place-items-center text-fg-muted text-[10px]">
-                      {r.coverUrl ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={r.coverUrl}
-                          alt={r.name}
-                          className="h-full w-full object-cover"
-                        />
-                      ) : (
-                        <span>{r.category}</span>
-                      )}
-                    </div>
-                    <div className="flex-1 min-w-0 py-2.5 pr-3">
-                      <div className="flex items-center justify-between gap-2">
-                        <h3 className="text-[14px] font-semibold text-fg-primary truncate">
-                          {r.name}
-                        </h3>
-                        <span className="inline-flex items-center gap-0.5 text-[11px] text-fg-secondary shrink-0">
-                          <Star
-                            className="h-3 w-3 fill-amber-400 text-amber-400"
-                            aria-hidden="true"
-                          />
-                          {formatRating(r.rating)}
-                        </span>
-                      </div>
-                      <Badge
-                        variant="neutral"
-                        className="mt-1 text-[10px] py-0"
-                      >
-                        {r.category}
-                      </Badge>
-                      <div className="mt-1.5 flex items-start gap-1 text-[11px] text-fg-secondary">
-                        <MapPin
-                          className="h-3 w-3 mt-0.5 shrink-0"
-                          aria-hidden="true"
-                        />
-                        <span className="line-clamp-2">{r.address}</span>
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              </Link>
+              <RestaurantIndexCardMobile key={r.id} r={r} />
             ))
           )}
         </div>

@@ -95,7 +95,7 @@ export function PWAInstallBanner({
         <button
           type="button"
           onClick={handleInstall}
-          className="shrink-0 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-[#FF5C00] transition active:scale-95"
+          className="shrink-0 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-[#FF5C00] transition-colors"
         >
           Установить
         </button>

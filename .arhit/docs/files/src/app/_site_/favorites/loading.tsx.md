@@ -1,0 +1,3 @@
+# src/app/(site)/favorites/loading.tsx
+
+Скелет страницы /favorites. Повторяет page.tsx (которая имеет разные состояния — гость / empty / с данными; скелет эмулирует состояние 'с данными'): mobile header (Избранное + count subtitle) + 6 inline-карточек (rounded-2xl border bg-surface-primary: 96×96 thumb слева + body справа с названием/категорией/адресом). Desktop — bg-surface-secondary большой header (44px title + 18px subtitle) + одна секция с заголовком (140px title + count) и grid 2×3 = 6 карточек (h-40 cover + body: название/rating/badge/address). Server component, Skeleton из @/components/ui.

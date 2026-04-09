@@ -19,10 +19,8 @@ interface SlotStyle {
   kind: CardKind;
   /** Позиция на hero-контейнере (absolute, %/px) */
   position: CSSProperties;
-  /** Угол наклона, передаётся как CSS-переменная --tilt */
+  /** Угол наклона (передаётся inline как transform: rotate) */
   tilt: string;
-  /** CSS-класс анимации (float A/B/C) */
-  animationClass: "hero-card" | "hero-card-b" | "hero-card-c";
   /** Размер карточки */
   size: { w: number; h: number };
   /** Дополнительные классы (напр. hidden на маленьких экранах) */
@@ -40,14 +38,12 @@ const SLOTS: SlotStyle[] = [
     kind: "restaurant",
     position: { top: "6%", left: "3%" },
     tilt: "-9deg",
-    animationClass: "hero-card",
     size: { w: 180, h: 220 },
   },
   {
     kind: "menu",
     position: { top: "52%", left: "1%" },
     tilt: "7deg",
-    animationClass: "hero-card-b",
     size: { w: 175, h: 215 },
     hideBelow: "lg",
   },
@@ -55,7 +51,6 @@ const SLOTS: SlotStyle[] = [
     kind: "lunch",
     position: { top: "22%", left: "19%" },
     tilt: "-4deg",
-    animationClass: "hero-card-c",
     size: { w: 200, h: 150 },
     hideBelow: "xl",
   },
@@ -64,14 +59,12 @@ const SLOTS: SlotStyle[] = [
     kind: "menu",
     position: { top: "5%", right: "4%" },
     tilt: "11deg",
-    animationClass: "hero-card-c",
     size: { w: 185, h: 225 },
   },
   {
     kind: "map",
     position: { top: "50%", right: "2%" },
     tilt: "-10deg",
-    animationClass: "hero-card",
     size: { w: 200, h: 170 },
     hideBelow: "lg",
   },
@@ -79,7 +72,6 @@ const SLOTS: SlotStyle[] = [
     kind: "lunch",
     position: { top: "68%", right: "22%" },
     tilt: "6deg",
-    animationClass: "hero-card-b",
     size: { w: 200, h: 150 },
     hideBelow: "xl",
   },
@@ -94,16 +86,18 @@ const FALLBACK_GRADIENTS = [
   "linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)",
 ];
 
-const CARD_SHELL =
-  "absolute rounded-2xl bg-white shadow-[0_20px_60px_-15px_rgba(255,92,0,0.25),0_8px_20px_-8px_rgba(0,0,0,0.12)] ring-1 ring-black/5 overflow-hidden will-change-transform";
+const CARD_SHELL_INNER =
+  "h-full w-full rounded-2xl bg-white shadow-[0_20px_60px_-15px_rgba(255,92,0,0.25),0_8px_20px_-8px_rgba(0,0,0,0.12)] ring-1 ring-black/5 overflow-hidden will-change-transform";
 
 /** Карточка ресторана — обложка + имя + рейтинг + категория. */
 function RestaurantCard({
   restaurant,
   gradient,
+  size,
 }: {
   restaurant: DesktopHomeRestaurant | undefined;
   gradient: string;
+  size: { w: number; h: number };
 }): React.JSX.Element {
   const cover = restaurant?.coverUrl ?? null;
   return (
@@ -114,7 +108,14 @@ function RestaurantCard({
       >
         {cover ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={cover} alt="" className="h-full w-full object-cover" />
+          <img
+            src={cover}
+            alt=""
+            width={size.w}
+            height={Math.round(size.h * 0.65)}
+            loading="lazy"
+            className="h-full w-full object-cover"
+          />
         ) : (
           <div className="h-full w-full grid place-items-center text-white/90 text-3xl">
             🍽
@@ -145,9 +146,11 @@ function RestaurantCard({
 function MenuCard({
   item,
   gradient,
+  size,
 }: {
   item: DesktopHomeHeroMenuItem | undefined;
   gradient: string;
+  size: { w: number; h: number };
 }): React.JSX.Element {
   const photo = item?.photoUrl ?? null;
   return (
@@ -158,7 +161,14 @@ function MenuCard({
       >
         {photo ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={photo} alt="" className="h-full w-full object-cover" />
+          <img
+            src={photo}
+            alt=""
+            width={size.w}
+            height={Math.round(size.h * 0.62)}
+            loading="lazy"
+            className="h-full w-full object-cover"
+          />
         ) : (
           <div className="h-full w-full grid place-items-center text-white/90 text-3xl">
             🍝
@@ -324,9 +334,10 @@ function MapCard(): React.JSX.Element {
  * HeroFloatingCards — декоративный фон для hero главной страницы.
  *
  * Рендерит наклонённые карточки четырёх типов — restaurant / menu / lunch /
- * map — с бесконечной float-анимацией и fade-in на загрузке. Карточки
- * используют реальные данные витрины (рестораны, позиции меню, бизнес-ланчи),
- * кусок карты — декоративный SVG с пином. Респектит `prefers-reduced-motion`.
+ * map — с одноразовой hero-enter анимацией (fade + translate + scale)
+ * и stagger через animation-delay. Карточки используют реальные данные
+ * витрины (рестораны, позиции меню, бизнес-ланчи), кусок карты —
+ * декоративный SVG с пином. Респектит `prefers-reduced-motion`.
  *
  * Карточки расположены абсолютно по периметру hero-секции, центр закрыт
  * radial-gradient оверлеем в `DesktopHome`, чтобы h1 и поисковая строка
@@ -360,11 +371,19 @@ export function HeroFloatingCards({
               ? "hidden lg:block"
               : "";
 
-        const style: CSSProperties = {
+        // Внешний контейнер задаёт position + tilt (статично).
+        // Внутренний — fade-in enter (animate-hero-enter), чтобы не
+        // конфликтовать с transform: rotate на внешнем.
+        const outerStyle: CSSProperties = {
           ...slot.position,
           width: `${slot.size.w}px`,
           height: `${slot.size.h}px`,
-          ["--tilt" as string]: slot.tilt,
+          transform: `rotate(${slot.tilt})`,
+        };
+        // Stagger через inline animationDelay: каждая карточка появляется
+        // на 80ms позже предыдущей (total ~480ms на 6 карточек).
+        const innerStyle: CSSProperties = {
+          animationDelay: `${i * 80}ms`,
         };
 
         let content: React.JSX.Element;
@@ -374,6 +393,7 @@ export function HeroFloatingCards({
               <RestaurantCard
                 restaurant={restaurants[idx % Math.max(restaurants.length, 1)]}
                 gradient={gradient}
+                size={slot.size}
               />
             );
             break;
@@ -382,6 +402,7 @@ export function HeroFloatingCards({
               <MenuCard
                 item={menuItems[idx % Math.max(menuItems.length, 1)]}
                 gradient={gradient}
+                size={slot.size}
               />
             );
             break;
@@ -400,10 +421,15 @@ export function HeroFloatingCards({
         return (
           <div
             key={i}
-            style={style}
-            className={`${CARD_SHELL} ${hideClass} ${slot.animationClass}`}
+            style={outerStyle}
+            className={`absolute ${hideClass}`}
           >
-            {content}
+            <div
+              style={innerStyle}
+              className={`${CARD_SHELL_INNER} animate-hero-enter`}
+            >
+              {content}
+            </div>
           </div>
         );
       })}

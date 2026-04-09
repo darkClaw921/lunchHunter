@@ -1,0 +1,3 @@
+# src/app/(site)/search/loading.tsx
+
+Скелет страницы результатов поиска (/search). Повторяет геометрию реального page.tsx: mobile — header с кнопкой назад + строка поиска + filter chips row + sort indicator + 6 карточек в колонку с min-height 140px, каждая повторяет MobileSearchResults (контент слева + прямоугольная map-thumbnail 110px справа). Desktop — split-view: левая панель 55% (sort row + 6 результатов с 72×72 thumbnail, повторяют DesktopSearchResults), правая панель 45% (серый прямоугольник вместо map). Оба варианта через md:hidden / hidden md:flex. Server component, использует Skeleton из @/components/ui.

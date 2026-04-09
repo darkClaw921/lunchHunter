@@ -1,10 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState, useCallback } from "react";
+import type { MouseEvent as ReactMouseEvent } from "react";
 import { Star, X } from "lucide-react";
 import type { MapMarker } from "@/components/map/MapView";
 import { MapView } from "@/components/map/MapView";
+import { navigate, supportsViewTransitions } from "@/lib/transitions";
+import { usePrefetchImage } from "@/lib/hooks/usePrefetchImage";
 import {
   formatPrice,
   formatDistance,
@@ -21,6 +25,13 @@ interface MobileSearchResultsProps {
  * Мобильный список результатов поиска с миниатюрой карты справа
  * в каждой карточке. По клику на миниатюру открывается модальное
  * окно с интерактивной картой — закрывается кликом по фону.
+ *
+ * Каждая карточка — {@link MobileSearchResultCard} с чистым {@link Link}
+ * из `next/link` поверх левой (непрозрачной) зоны. shared-element morph
+ * через inline `viewTransitionName: 'restaurant-image-${r.restaurantId}'`
+ * на карточке и `restaurant-title-${r.restaurantId}` на заголовке.
+ * В Telegram WebView (без VT API) fallback через `navigate()`, который
+ * запускает manualFlipMorph — на мобиле Telegram это критичный путь.
  */
 export function MobileSearchResults({
   query,
@@ -49,55 +60,12 @@ export function MobileSearchResults({
     <>
       <div className="px-5 mt-3 flex flex-col gap-3">
         {results.map((r) => (
-          <div
+          <MobileSearchResultCard
             key={r.itemId}
-            className="relative overflow-hidden rounded-xl border border-border bg-surface-primary min-h-[140px] hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] transition-shadow"
-          >
-            {/* Карта-миниатюра (фон карточки справа) — кликабельна
-                в видимой правой зоне, открывает карту */}
-            <MapThumbnail
-              lat={r.lat}
-              lng={r.lng}
-              onOpen={() => setSelected(r)}
-            />
-
-            {/* Контент карточки — Link поверх левой + blur-зоны.
-                Абсолютно спозиционирован с правым отступом, чтобы
-                не перекрывать видимую (неразмытую) часть карты. */}
-            <Link
-              href={{
-                pathname: `/restaurant/${r.restaurantSlug}`,
-                query: { q: query },
-              }}
-              className="absolute inset-y-0 left-0 right-[110px] z-10 block p-4"
-            >
-              <div className="min-w-0">
-                <div className="text-[12px] font-medium text-fg-muted">
-                  {r.restaurantName}
-                </div>
-                <div className="text-[15px] font-semibold text-fg-primary mt-0.5 line-clamp-1">
-                  {r.itemName}
-                </div>
-                <div className="flex items-center gap-2 mt-2 text-[12px] text-fg-secondary">
-                  <span className="inline-flex items-center gap-0.5">
-                    <Star
-                      className="h-3 w-3 fill-current"
-                      aria-hidden="true"
-                    />
-                    {formatRating(r.rating)}
-                  </span>
-                  {r.distanceMeters !== null ? (
-                    <span className="inline-flex items-center h-5 px-2 rounded-full bg-accent-light text-accent text-[11px] font-medium">
-                      {formatDistance(r.distanceMeters)}
-                    </span>
-                  ) : null}
-                </div>
-                <div className="text-[20px] font-bold text-accent leading-none mt-3">
-                  {formatPrice(r.price)}
-                </div>
-              </div>
-            </Link>
-          </div>
+            result={r}
+            query={query}
+            onOpenMap={() => setSelected(r)}
+          />
         ))}
       </div>
 
@@ -161,6 +129,104 @@ export function MobileSearchResults({
         </div>
       ) : null}
     </>
+  );
+}
+
+interface MobileSearchResultCardProps {
+  result: SearchResultItem;
+  query: string;
+  onOpenMap: () => void;
+}
+
+/**
+ * Отдельный компонент карточки — имеет свой `linkRef` для FLIP fallback.
+ * Верстка та же: карта-миниатюра справа (кликабельная область) + Link
+ * на абсолютный блок слева. `viewTransitionName` ставится на внешний
+ * контейнер, чтобы морфилась вся карточка, а не только overlay-link.
+ */
+function MobileSearchResultCard({
+  result: r,
+  query,
+  onOpenMap,
+}: MobileSearchResultCardProps): React.JSX.Element {
+  const router = useRouter();
+  const linkRef = useRef<HTMLAnchorElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const prefetchImage = usePrefetchImage();
+  const href = `/restaurant/${r.restaurantSlug}?q=${encodeURIComponent(query)}`;
+
+  const handleClick = (event: ReactMouseEvent<HTMLAnchorElement>): void => {
+    if (supportsViewTransitions()) return;
+    event.preventDefault();
+    // Source — внешняя карточка целиком (а не overlay-link), чтобы FLIP
+    // клонировал визуально осмысленный прямоугольник.
+    navigate(router, href, {
+      sourceEl: cardRef.current,
+      targetSelector: `[data-vt-target="restaurant-image-${r.restaurantId}"]`,
+    });
+  };
+
+  const handlePrefetch = (): void => {
+    prefetchImage(r.restaurantCoverUrl);
+  };
+
+  return (
+    // Внешний врапер держит shadow-hover: hover-тень через ::after не
+    // обрезается overflow-hidden внутреннего div (что критично для blur
+    // и маски MapThumbnail). rounded-xl здесь нужен чтобы ::after
+    // унаследовал border-radius через `border-radius: inherit`.
+    <div className="rounded-xl shadow-hover">
+      <div
+        ref={cardRef}
+        data-search-card
+        style={{ viewTransitionName: `restaurant-image-${r.restaurantId}` }}
+        className="relative overflow-hidden rounded-xl border border-border bg-surface-primary min-h-[140px]"
+      >
+        {/* Карта-миниатюра (фон карточки справа) — кликабельна
+            в видимой правой зоне, открывает модалку */}
+        <MapThumbnail lat={r.lat} lng={r.lng} onOpen={onOpenMap} />
+
+        {/* Контент карточки — Link поверх левой + blur-зоны.
+            Абсолютно спозиционирован с правым отступом, чтобы
+            не перекрывать видимую (неразмытую) часть карты. */}
+        <Link
+          ref={linkRef}
+          href={href}
+          onClick={handleClick}
+          onPointerEnter={handlePrefetch}
+          onPointerDown={handlePrefetch}
+          className="absolute inset-y-0 left-0 right-[110px] z-10 block p-4"
+        >
+          <div className="min-w-0">
+            <div className="text-[12px] font-medium text-fg-muted min-h-[1rem]">
+              {r.restaurantName}
+            </div>
+            <div
+              style={{
+                viewTransitionName: `restaurant-title-${r.restaurantId}`,
+              }}
+              className="text-[15px] font-semibold text-fg-primary mt-0.5 line-clamp-1 min-h-[1.25rem]"
+            >
+              {r.itemName}
+            </div>
+            <div className="flex items-center gap-2 mt-2 text-[12px] text-fg-secondary">
+              <span className="inline-flex items-center gap-0.5">
+                <Star className="h-3 w-3 fill-current" aria-hidden="true" />
+                {formatRating(r.rating)}
+              </span>
+              {r.distanceMeters !== null ? (
+                <span className="inline-flex items-center h-5 px-2 rounded-full bg-accent-light text-accent text-[11px] font-medium">
+                  {formatDistance(r.distanceMeters)}
+                </span>
+              ) : null}
+            </div>
+            <div className="text-[20px] font-bold text-accent leading-none mt-3">
+              {formatPrice(r.price)}
+            </div>
+          </div>
+        </Link>
+      </div>
+    </div>
   );
 }
 
@@ -242,6 +308,8 @@ function MapThumbnail({
             src={`https://tile.openstreetmap.org/${z}/${t.x}/${t.y}.png`}
             alt=""
             aria-hidden="true"
+            width={256}
+            height={256}
             loading="lazy"
             decoding="async"
             draggable={false}
@@ -294,7 +362,6 @@ function MapThumbnail({
         className="absolute inset-y-0 left-0 w-full pointer-events-none"
         style={{
           background:
-            
             "linear-gradient(to right, var(--color-surface-primary, #ffffff) 0%, var(--color-surface-primary, #ffffff) 15%, rgba(255,255,255,0.85) 35%, rgba(255,255,255,0.4) 60%, rgba(255,255,255,0) 90%)",
         }}
       />

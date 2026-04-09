@@ -148,28 +148,48 @@ export default async function RestaurantDetailPage({
         className="hidden md:flex"
       />
       <div className="flex flex-col md:hidden">
-      {/* Hero */}
+      {/* Hero — landing target для shared-element VT через
+          `viewTransitionName: 'restaurant-image-${restaurant.id}'`. Парный
+          элемент к обложкам карточек ресторана из списков
+          (NearbyRestaurantsRow, MobileSearchResults, DesktopSearchResults,
+          MobileMapView, DesktopPopularRestaurantsGrid) — все карточки
+          используют то же имя с numeric restaurant id, поэтому браузер
+          автоматически морфит пару. `data-vt-target` используется
+          manualFlipMorph как querySelector target на устройствах без VT API
+          (Telegram WebView). Mobile- и desktop-версии не конфликтуют,
+          потому что `hidden`/`md:hidden` → `display: none`, а скрытые
+          элементы не участвуют в снимке VT API. */}
       <div className="relative">
-        <div className="h-[220px] w-full bg-surface-secondary overflow-hidden">
-          {heroUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={heroUrl}
-              alt={restaurant.name}
-              className="h-full w-full object-cover"
-            />
-          ) : (
-            <div className="h-full w-full grid place-items-center text-fg-muted text-sm">
-              {restaurant.category}
-            </div>
-          )}
-        </div>
+        {heroUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={heroUrl}
+            alt={restaurant.name}
+            width={1200}
+            height={700}
+            fetchPriority="high"
+            data-vt-target={`restaurant-image-${restaurant.id}`}
+            style={{ viewTransitionName: `restaurant-image-${restaurant.id}` }}
+            className="h-[220px] w-full object-cover bg-surface-secondary"
+          />
+        ) : (
+          <div
+            data-vt-target={`restaurant-image-${restaurant.id}`}
+            style={{ viewTransitionName: `restaurant-image-${restaurant.id}` }}
+            className="h-[220px] w-full bg-surface-secondary grid place-items-center text-fg-muted text-sm"
+          >
+            {restaurant.category}
+          </div>
+        )}
         <BackButton variant="icon" />
       </div>
 
       {/* Info */}
       <div className="px-5 pt-4">
-        <h1 className="text-[24px] font-bold text-fg-primary leading-tight">
+        <h1
+          style={{ viewTransitionName: `restaurant-title-${restaurant.id}` }}
+          className="text-[24px] font-bold text-fg-primary leading-tight min-h-[2rem]"
+        >
           {restaurant.name}
         </h1>
         <div className="mt-2 flex items-center gap-1 text-fg-secondary">

@@ -1,0 +1,3 @@
+# prefersReducedMotion
+
+SSR-safe синхронная проверка пользовательской настройки prefers-reduced-motion: reduce. Сигнатура: prefersReducedMotion(): boolean. На сервере (typeof window === 'undefined') всегда возвращает false. В браузере читает window.matchMedia('(prefers-reduced-motion: reduce)').matches. Синхронная — подходит для одноразовой проверки в client code (onClick handlers, navigate() branching). Для РЕАКТИВНОГО отслеживания используется usePrefersReducedMotion хук из @/lib/hooks/usePrefersReducedMotion. Используется в navigate(), navigateBack() и useHaptics. Файл: src/lib/transitions.ts.

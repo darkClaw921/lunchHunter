@@ -1,10 +1,14 @@
 import Link from "next/link";
-import { Heart, MapPin, Star, Clock, UtensilsCrossed } from "lucide-react";
+import { Heart, Clock, UtensilsCrossed } from "lucide-react";
 import { validateSession } from "@/lib/auth/session";
 import { getUserFavorites } from "@/lib/db/favorites";
 import { Card } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
-import { formatRating, formatPrice } from "@/lib/utils/format";
+import { formatPrice } from "@/lib/utils/format";
+import {
+  FavoriteRestaurantCardDesktop,
+  FavoriteRestaurantCardMobile,
+  PrefetchRestaurantLink,
+} from "./_components/FavoriteRestaurantCards";
 
 export const dynamic = "force-dynamic";
 
@@ -61,13 +65,13 @@ export default async function FavoritesPage(): Promise<React.JSX.Element> {
             {/* Desktop */}
             <div className="hidden md:grid gap-5 md:grid-cols-2 xl:grid-cols-4">
               {restaurants.map((r) => (
-                <RestaurantCardDesktop key={r.id} r={r} />
+                <FavoriteRestaurantCardDesktop key={r.id} r={r} />
               ))}
             </div>
             {/* Mobile */}
             <div className="md:hidden flex flex-col gap-3">
               {restaurants.map((r) => (
-                <RestaurantCardMobile key={r.id} r={r} />
+                <FavoriteRestaurantCardMobile key={r.id} r={r} />
               ))}
             </div>
           </section>
@@ -78,9 +82,10 @@ export default async function FavoritesPage(): Promise<React.JSX.Element> {
             <SectionTitle title="Блюда" count={menuItems.length} />
             <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
               {menuItems.map((i) => (
-                <Link
+                <PrefetchRestaurantLink
                   key={i.id}
-                  href={{ pathname: `/restaurant/${i.restaurantSlug}` }}
+                  href={`/restaurant/${i.restaurantSlug}`}
+                  restaurantCoverUrl={i.restaurantCoverUrl}
                   className="block"
                 >
                   <Card noPadding interactive className="overflow-hidden">
@@ -91,6 +96,9 @@ export default async function FavoritesPage(): Promise<React.JSX.Element> {
                           <img
                             src={i.photoUrl}
                             alt={i.name}
+                            width={160}
+                            height={160}
+                            loading="lazy"
                             className="h-full w-full object-cover"
                           />
                         ) : (
@@ -101,7 +109,7 @@ export default async function FavoritesPage(): Promise<React.JSX.Element> {
                         )}
                       </div>
                       <div className="flex-1 min-w-0 py-2.5 pr-3">
-                        <h3 className="text-[14px] font-semibold text-fg-primary line-clamp-1">
+                        <h3 className="text-[14px] font-semibold text-fg-primary line-clamp-1 min-h-[1.125rem]">
                           {i.name}
                         </h3>
                         <div className="text-[11px] text-fg-secondary line-clamp-1 mt-0.5">
@@ -118,7 +126,7 @@ export default async function FavoritesPage(): Promise<React.JSX.Element> {
                       </div>
                     </div>
                   </Card>
-                </Link>
+                </PrefetchRestaurantLink>
               ))}
             </div>
           </section>
@@ -129,9 +137,10 @@ export default async function FavoritesPage(): Promise<React.JSX.Element> {
             <SectionTitle title="Бизнес-ланчи" count={lunches.length} />
             <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
               {lunches.map((l) => (
-                <Link
+                <PrefetchRestaurantLink
                   key={l.id}
-                  href={{ pathname: `/business-lunch/${l.id}` }}
+                  href={`/business-lunch/${l.id}`}
+                  restaurantCoverUrl={l.restaurantCoverUrl}
                   className="block"
                 >
                   <Card noPadding interactive className="overflow-hidden">
@@ -142,6 +151,9 @@ export default async function FavoritesPage(): Promise<React.JSX.Element> {
                           <img
                             src={l.restaurantCoverUrl}
                             alt={l.restaurantName}
+                            width={160}
+                            height={160}
+                            loading="lazy"
                             className="h-full w-full object-cover"
                           />
                         ) : (
@@ -151,7 +163,7 @@ export default async function FavoritesPage(): Promise<React.JSX.Element> {
                         )}
                       </div>
                       <div className="flex-1 min-w-0 py-2.5 pr-3">
-                        <h3 className="text-[14px] font-semibold text-fg-primary line-clamp-1">
+                        <h3 className="text-[14px] font-semibold text-fg-primary line-clamp-1 min-h-[1.125rem]">
                           {l.name}
                         </h3>
                         <div className="text-[11px] text-fg-secondary line-clamp-1 mt-0.5">
@@ -169,7 +181,7 @@ export default async function FavoritesPage(): Promise<React.JSX.Element> {
                       </div>
                     </div>
                   </Card>
-                </Link>
+                </PrefetchRestaurantLink>
               ))}
             </div>
           </section>
@@ -193,111 +205,6 @@ function SectionTitle({
       </h2>
       <span className="text-[12px] md:text-[14px] text-fg-muted">{count}</span>
     </div>
-  );
-}
-
-interface FavoriteRestaurantProps {
-  r: {
-    id: number;
-    slug: string;
-    name: string;
-    category: string;
-    address: string;
-    rating: number | null;
-    coverUrl: string | null;
-  };
-}
-
-function RestaurantCardDesktop({
-  r,
-}: FavoriteRestaurantProps): React.JSX.Element {
-  return (
-    <Link
-      href={{ pathname: `/restaurant/${r.slug}` }}
-      className="group rounded-2xl border border-border-light bg-surface-primary shadow-sm overflow-hidden transition-shadow hover:shadow-md"
-    >
-      <div className="h-40 w-full bg-surface-secondary overflow-hidden">
-        {r.coverUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={r.coverUrl}
-            alt={r.name}
-            className="h-full w-full object-cover transition-transform group-hover:scale-[1.02]"
-          />
-        ) : (
-          <div className="h-full w-full grid place-items-center text-fg-muted text-sm">
-            {r.category}
-          </div>
-        )}
-      </div>
-      <div className="flex flex-col gap-2 p-4">
-        <div className="flex items-center justify-between gap-2">
-          <h3 className="text-[16px] font-semibold text-fg-primary truncate">
-            {r.name}
-          </h3>
-          <span className="inline-flex items-center gap-1 text-[13px] text-fg-secondary shrink-0">
-            <Star
-              className="h-3.5 w-3.5 fill-amber-400 text-amber-400"
-              aria-hidden="true"
-            />
-            <span className="font-medium">{formatRating(r.rating)}</span>
-          </span>
-        </div>
-        <Badge variant="neutral" className="self-start">
-          {r.category}
-        </Badge>
-        <div className="flex items-start gap-1.5 text-[12px] text-fg-secondary">
-          <MapPin className="h-3.5 w-3.5 mt-0.5 shrink-0" aria-hidden="true" />
-          <span className="line-clamp-2">{r.address}</span>
-        </div>
-      </div>
-    </Link>
-  );
-}
-
-function RestaurantCardMobile({
-  r,
-}: FavoriteRestaurantProps): React.JSX.Element {
-  return (
-    <Link href={{ pathname: `/restaurant/${r.slug}` }} className="block">
-      <Card noPadding interactive className="overflow-hidden">
-        <div className="flex gap-3">
-          <div className="h-24 w-24 shrink-0 bg-surface-secondary grid place-items-center text-fg-muted text-[10px]">
-            {r.coverUrl ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={r.coverUrl}
-                alt={r.name}
-                className="h-full w-full object-cover"
-              />
-            ) : (
-              <span>{r.category}</span>
-            )}
-          </div>
-          <div className="flex-1 min-w-0 py-2.5 pr-3">
-            <div className="flex items-center justify-between gap-2">
-              <h3 className="text-[14px] font-semibold text-fg-primary truncate">
-                {r.name}
-              </h3>
-              <span className="inline-flex items-center gap-0.5 text-[11px] text-fg-secondary shrink-0">
-                <Star
-                  className="h-3 w-3 fill-amber-400 text-amber-400"
-                  aria-hidden="true"
-                />
-                {formatRating(r.rating)}
-              </span>
-            </div>
-            <Badge variant="neutral" className="mt-1 text-[10px] py-0">
-              {r.category}
-            </Badge>
-            <div className="mt-1.5 flex items-start gap-1 text-[11px] text-fg-secondary">
-              <MapPin className="h-3 w-3 mt-0.5 shrink-0" aria-hidden="true" />
-              <span className="line-clamp-2">{r.address}</span>
-            </div>
-          </div>
-        </div>
-      </Card>
-    </Link>
   );
 }
 

@@ -128,6 +128,7 @@ export interface FavoriteMenuItemRow {
   restaurantId: number;
   restaurantName: string;
   restaurantSlug: string;
+  restaurantCoverUrl: string | null;
   createdAt: Date;
 }
 
@@ -183,6 +184,7 @@ export async function getUserFavorites(userId: string): Promise<UserFavorites> {
               mi.photo_url AS photoUrl,
               r.id AS restaurantId, r.name AS restaurantName,
               r.slug AS restaurantSlug,
+              r.cover_url AS restaurantCoverUrl,
               f.created_at AS createdAt
          FROM favorites f
          JOIN menu_items mi ON mi.id = f.target_id
@@ -199,6 +201,7 @@ export async function getUserFavorites(userId: string): Promise<UserFavorites> {
     restaurantId: number;
     restaurantName: string;
     restaurantSlug: string;
+    restaurantCoverUrl: string | null;
     createdAt: number;
   }[];
 

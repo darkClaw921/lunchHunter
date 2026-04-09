@@ -164,15 +164,18 @@ export function DesktopBusinessLunch({
               <Link
                 key={l.id}
                 href={{ pathname: `/business-lunch/${l.id}` }}
-                className="group rounded-2xl bg-surface-primary border border-border-light overflow-hidden shadow-sm hover:shadow-lg transition-shadow flex flex-col"
+                className="group rounded-2xl bg-surface-primary border border-border-light shadow-sm shadow-hover flex flex-col"
               >
                 {/* Cover */}
-                <div className="relative h-[180px] w-full bg-surface-secondary overflow-hidden">
+                <div className="relative h-[180px] w-full bg-surface-secondary overflow-hidden rounded-t-2xl">
                   {l.coverUrl ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
                       src={l.coverUrl}
                       alt={l.restaurantName}
+                      width={400}
+                      height={300}
+                      loading="lazy"
                       className="h-full w-full object-cover transition-transform group-hover:scale-[1.02]"
                     />
                   ) : (
@@ -190,7 +193,7 @@ export function DesktopBusinessLunch({
 
                 {/* Body */}
                 <div className="flex flex-col gap-2 p-5">
-                  <h3 className="text-[16px] font-bold text-fg-primary truncate">
+                  <h3 className="text-[16px] font-bold text-fg-primary truncate min-h-[1.375rem]">
                     {l.restaurantName}
                   </h3>
                   <div className="text-[28px] font-bold text-accent leading-none">

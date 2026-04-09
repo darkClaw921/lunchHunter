@@ -1,0 +1,3 @@
+# src/app/(site)/restaurant/[id]/loading.tsx
+
+Скелет страницы ресторана /restaurant/[id]. Повторяет реальный page.tsx: mobile — hero-блок с aspect-[4/3] (server-style style={{ viewTransitionName: 'restaurant-hero' }} — landing target для shared-element VT API из карточки списка), back button placeholder, info блок (название 28px + rating + адрес), заголовок 'Меню', Tabs chips row (4 шт.), 4 карточки блюд. Desktop — back button row, hero 220px c title placeholder внизу слева, info row (rating pill + address + hours + phone), 2-колоночный layout: левая колонка меню (Tabs + 4 items), правая 420px aside (Местоположение 200px mini-map + 3 отзыва). VT name 'restaurant-hero' на hero — парный с data-vt на карточках списка (Фаза 5). Server component, Skeleton из @/components/ui.

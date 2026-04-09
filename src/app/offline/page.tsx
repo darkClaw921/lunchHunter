@@ -35,7 +35,7 @@ export default function OfflinePage(): React.JSX.Element {
       </div>
       <Link
         href="/"
-        className="rounded-full bg-[#FF5C00] px-6 py-3 text-sm font-semibold text-white shadow-sm transition active:scale-95"
+        className="rounded-full bg-[#FF5C00] px-6 py-3 text-sm font-semibold text-white shadow-sm"
       >
         Попробовать снова
       </Link>

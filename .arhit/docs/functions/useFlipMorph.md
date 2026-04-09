@@ -1,0 +1,3 @@
+# useFlipMorph
+
+Тонкая React-обёртка над manualFlipMorph из @/lib/morph. Возвращает стабильный useCallback([]) async функцию, которая принимает UseFlipMorphOptions { sourceEl: HTMLElement | null, targetSelector: string, navigate: () => void }. Если sourceEl == null → просто вызывает opts.navigate() без попытки морфа (упрощает гард в консьюмерах — им не нужно дублировать этот check). Иначе: await manualFlipMorph({sourceEl, targetSelector, navigate}). Используется в консьюмерах (в Phase 3+) для Telegram Mini App fallback когда нативный View Transitions API недоступен. На устройствах с VT API обычно предпочтительнее использовать navigate() из transitions.ts. Файл: src/lib/hooks/useFlipMorph.ts.

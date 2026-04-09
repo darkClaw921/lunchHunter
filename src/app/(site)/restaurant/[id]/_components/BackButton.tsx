@@ -4,6 +4,7 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
+import { navigateBack } from "@/lib/transitions";
 
 export interface BackButtonProps {
   /** Визуальный вариант кнопки. */
@@ -40,11 +41,7 @@ export function BackButton({
   const router = useRouter();
 
   const handleClick = React.useCallback((): void => {
-    if (typeof window !== "undefined" && window.history.length > 1) {
-      router.back();
-      return;
-    }
-    router.push(fallbackHref);
+    navigateBack(router, fallbackHref);
   }, [router, fallbackHref]);
 
   if (variant === "pill") {

@@ -16,9 +16,11 @@ interface PageProps {
 }
 
 interface NearRow {
+  menu_item_id: number;
   restaurant_id: number;
   restaurant_name: string;
   restaurant_slug: string;
+  restaurant_cover_url: string | null;
   item_name: string;
   price: number;
   lat: number;
@@ -37,8 +39,10 @@ function buildFtsMatchQuery(raw: string): string {
 
 function findNearby(q: string, radius: number): {
   id: number;
+  restaurantId: number;
   restaurantName: string;
   restaurantSlug: string;
+  restaurantCoverUrl: string | null;
   itemName: string;
   price: number;
   distanceMeters: number;
@@ -50,7 +54,9 @@ function findNearby(q: string, radius: number): {
   const bbox = bboxFromRadius(DEFAULT_LAT, DEFAULT_LNG, radius);
   const rows = sqlite
     .prepare(
-      `SELECT mi.id AS restaurant_id, r.name AS restaurant_name, r.slug AS restaurant_slug,
+      `SELECT mi.id AS menu_item_id, r.id AS restaurant_id,
+              r.name AS restaurant_name, r.slug AS restaurant_slug,
+              r.cover_url AS restaurant_cover_url,
               mi.name AS item_name, mi.price AS price, r.lat, r.lng
        FROM menu_items_fts
        JOIN menu_items AS mi ON mi.id = menu_items_fts.rowid
@@ -66,9 +72,11 @@ function findNearby(q: string, radius: number): {
 
   return rows
     .map((row) => ({
-      id: row.restaurant_id,
+      id: row.menu_item_id,
+      restaurantId: row.restaurant_id,
       restaurantName: row.restaurant_name,
       restaurantSlug: row.restaurant_slug,
+      restaurantCoverUrl: row.restaurant_cover_url,
       itemName: row.item_name,
       price: row.price,
       distanceMeters: Math.round(

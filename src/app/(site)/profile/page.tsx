@@ -88,7 +88,7 @@ export default async function ProfilePage(): Promise<React.JSX.Element> {
             {initials}
           </div>
         )}
-        <h1 className="text-[20px] font-bold text-fg-primary mt-3">
+        <h1 className="text-[20px] font-bold text-fg-primary mt-3 min-h-[1.75rem]">
           {displayName}
         </h1>
         <div className="text-[13px] text-fg-muted mt-0.5">{subtitle}</div>

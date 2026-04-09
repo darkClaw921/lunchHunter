@@ -272,7 +272,7 @@ export function MenuManagementClient({
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <UtensilsCrossed className="h-6 w-6 text-accent" />
-          <h1 className="text-2xl font-semibold text-fg-primary">
+          <h1 className="text-2xl font-semibold text-fg-primary min-h-[2rem]">
             Меню — {selectedRestaurant.name}
           </h1>
         </div>
@@ -481,6 +481,9 @@ export function MenuManagementClient({
                     <img
                       src={ocrPreviewUrl}
                       alt="Preview"
+                      width={128}
+                      height={128}
+                      loading="lazy"
                       className="h-32 w-32 object-cover rounded-lg border border-border"
                     />
                   ) : null}

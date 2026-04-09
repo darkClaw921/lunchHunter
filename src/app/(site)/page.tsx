@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { Bell, Search } from "lucide-react";
 import { Chip } from "@/components/ui/Chip";
-import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { SearchHomeForm } from "./_components/SearchHomeForm";
 import { DesktopHome } from "./_components/DesktopHome";
+import { NearbyRestaurantsRow } from "./_components/NearbyRestaurantsRow";
 import { PWAInstallBanner } from "@/components/mobile/PWAInstallBanner";
 import {
   getNearbyRestaurants,
@@ -13,7 +13,7 @@ import {
   getFeaturedMenuItems,
   getMinBusinessLunchPrice,
 } from "@/lib/db/queries";
-import { formatPrice, formatDistance, formatRating } from "@/lib/utils/format";
+import { formatPrice } from "@/lib/utils/format";
 
 export const dynamic = "force-dynamic";
 
@@ -170,53 +170,18 @@ export default async function HomePage(): Promise<React.JSX.Element> {
             Все
           </Link>
         </div>
-        <div className="flex gap-3 overflow-x-auto no-scrollbar -mx-5 px-5 pb-1">
-          {nearby.map((r) => (
-            <Link
-              key={r.id}
-              href={{ pathname: `/restaurant/${r.slug}` }}
-              className="w-[160px] shrink-0"
-            >
-              <Card noPadding interactive className="overflow-hidden">
-                <div className="aspect-[4/3] bg-surface-secondary grid place-items-center text-fg-muted text-xs">
-                  {r.coverUrl ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={r.coverUrl}
-                      alt={r.name}
-                      className="h-full w-full object-cover"
-                    />
-                  ) : (
-                    <span>{r.category}</span>
-                  )}
-                </div>
-                <div className="p-3">
-                  <div className="flex items-center justify-between gap-2">
-                    <h3 className="text-[13px] font-semibold text-fg-primary truncate">
-                      {r.name}
-                    </h3>
-                    <span className="text-[11px] text-fg-muted shrink-0">
-                      ★ {formatRating(r.rating)}
-                    </span>
-                  </div>
-                  <p className="text-[11px] text-fg-secondary mt-0.5">
-                    {r.category}
-                  </p>
-                  <div className="flex items-center justify-between mt-2">
-                    <span className="text-[11px] text-fg-muted">
-                      {formatDistance(r.distanceMeters)}
-                    </span>
-                    {r.priceAvg !== null ? (
-                      <span className="text-[11px] font-medium text-fg-secondary">
-                        ~{formatPrice(r.priceAvg)}
-                      </span>
-                    ) : null}
-                  </div>
-                </div>
-              </Card>
-            </Link>
-          ))}
-        </div>
+        <NearbyRestaurantsRow
+          items={nearby.map((r) => ({
+            id: r.id,
+            slug: r.slug,
+            name: r.name,
+            category: r.category,
+            rating: r.rating,
+            distanceMeters: r.distanceMeters,
+            priceAvg: r.priceAvg,
+            coverUrl: r.coverUrl,
+          }))}
+        />
       </section>
       {/* PWA install prompt — shown on mobile home only, hides itself when
           the browser does not fire beforeinstallprompt or the app is already

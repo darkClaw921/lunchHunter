@@ -1,6 +1,8 @@
 "use client";
 
+import * as React from "react";
 import { cn } from "@/lib/utils/cn";
+import { useHaptics } from "@/lib/hooks/useHaptics";
 
 export interface RadiusOption {
   /** Radius value in meters. */
@@ -35,6 +37,14 @@ export interface RadiusSelectorProps {
  * Active pill uses accent background; inactive pills use surface-secondary
  * with border. Designed to be embedded above a `MapView` (mobile) or
  * floating in the top-left of a desktop split-view map panel.
+ *
+ * **Press feedback:**
+ * - Scale-эффект на :active обеспечивается глобальным правилом в
+ *   `globals.css` (`button, a, [role="button"]` → `scale(0.97)`). Pill
+ *   рендерится как `<button>`, локальные `active:scale-*` не нужны.
+ * - `haptics.selection()` — тактильный отклик при смене радиуса. Не
+ *   дёргается, если пользователь тапнул уже активный pill (value не
+ *   изменился).
  */
 export function RadiusSelector({
   value,
@@ -43,6 +53,19 @@ export function RadiusSelector({
   className,
   size = "md",
 }: RadiusSelectorProps): React.JSX.Element {
+  const haptics = useHaptics();
+
+  const handleSelect = React.useCallback(
+    (meters: number) => {
+      // Не дёргаем хаптик, если тапнут уже активный pill — это не смена.
+      if (meters !== value) {
+        haptics.selection();
+      }
+      onChange(meters);
+    },
+    [haptics, onChange, value],
+  );
+
   return (
     <div
       role="radiogroup"
@@ -57,7 +80,7 @@ export function RadiusSelector({
             type="button"
             role="radio"
             aria-checked={active}
-            onClick={() => onChange(opt.meters)}
+            onClick={() => handleSelect(opt.meters)}
             className={cn(
               "inline-flex items-center rounded-full font-semibold transition-colors",
               size === "md" ? "h-9 px-4 text-sm" : "h-7 px-3 text-[12px]",

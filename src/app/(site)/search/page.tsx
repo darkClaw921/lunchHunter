@@ -49,6 +49,7 @@ interface Row {
   restaurant_name: string;
   restaurant_slug: string;
   restaurant_category: string;
+  restaurant_cover_url: string | null;
   rating: number | null;
   address: string;
   lat: number;
@@ -69,6 +70,7 @@ function searchItems(q: string, sort: Sort): SearchResultItem[] {
         mi.id AS item_id, mi.name AS item_name, mi.description AS item_description,
         mi.price AS price, r.id AS restaurant_id, r.name AS restaurant_name,
         r.slug AS restaurant_slug, r.category AS restaurant_category,
+        r.cover_url AS restaurant_cover_url,
         r.rating AS rating, r.address AS address, r.lat AS lat, r.lng AS lng
       FROM menu_items_fts
       JOIN menu_items  AS mi ON mi.id = menu_items_fts.rowid
@@ -92,6 +94,7 @@ function searchItems(q: string, sort: Sort): SearchResultItem[] {
       restaurantName: row.restaurant_name,
       restaurantSlug: row.restaurant_slug,
       restaurantCategory: row.restaurant_category,
+      restaurantCoverUrl: row.restaurant_cover_url,
       rating: row.rating,
       address: row.address,
       lat: row.lat,

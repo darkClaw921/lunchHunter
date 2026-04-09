@@ -12,6 +12,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
+import { useHaptics } from "@/lib/hooks/useHaptics";
 
 /**
  * BottomTabBar — fixed-bottom mobile навигация по pencil lanchHunter.pen.
@@ -22,6 +23,27 @@ import { cn } from "@/lib/utils/cn";
  * Поддерживает safe-area-inset-bottom (env() fallback до 0).
  *
  * Используется внутри (site)/layout.tsx mobile-варианта.
+ *
+ * **Press feedback:**
+ * - Навигация через чистый {@link Link} из `next/link`. На браузерах с
+ *   View Transitions API переход между табами автоматически сопровождается
+ *   кросс-фейдом через `@view-transition { navigation: auto }` в
+ *   globals.css, плюс morph pill-индикатора по `viewTransitionName:
+ *   'bottom-tab-indicator'`.
+ * - `onClick={handleTabClick}` дёргает `haptics.selection()` для Telegram —
+ *   это ощущается как «переключение выбора» в табах, что корректнее чем
+ *   medium impact.
+ * - Scale-эффект на :active обеспечивается глобальным правилом в
+ *   `globals.css` (`button, a, [role="button"] :active { transform:
+ *   scale(0.97) }`) — `<Link>` рендерится как `<a>`, локальные
+ *   `active:scale-*` не нужны.
+ * - `transition-colors` сохраняется для плавного переключения цвета
+ *   active/inactive таба.
+ * - `style={{ viewTransitionName: 'bottom-tab-indicator' }}` — вешается
+ *   ТОЛЬКО на активный таб. При смене таба браузер делает morph
+ *   «скользящего» pill-индикатора через View Transitions API. Имя
+ *   `bottom-tab-indicator` уникально на всё дерево — критично, иначе VT
+ *   API выбросит ошибку дублирования.
  */
 export interface BottomTabItem {
   href: string;
@@ -71,6 +93,11 @@ export function BottomTabBar({
   className,
 }: BottomTabBarProps): React.JSX.Element {
   const pathname = usePathname() ?? "/";
+  const haptics = useHaptics();
+
+  const handleTabClick = React.useCallback(() => {
+    haptics.selection();
+  }, [haptics]);
 
   return (
     <nav
@@ -91,6 +118,12 @@ export function BottomTabBar({
               <Link
                 href={item.href as never}
                 aria-current={active ? "page" : undefined}
+                onClick={handleTabClick}
+                style={
+                  active
+                    ? { viewTransitionName: "bottom-tab-indicator" }
+                    : undefined
+                }
                 className={cn(
                   "flex flex-col items-center justify-center gap-1 h-14 rounded-full",
                   "transition-colors",

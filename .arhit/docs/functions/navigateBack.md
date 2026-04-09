@@ -1,0 +1,3 @@
+# navigateBack
+
+Back-навигация с морфом (src/lib/transitions.ts). Сигнатура: navigateBack(router: AppRouterInstance, fallbackHref: string): void. Поведение: 1) если typeof window === 'undefined' (SSR) → router.push(fallbackHref); 2) если window.history.length <= 1 (прямое открытие страницы по ссылке) → делегирует на navigate(router, fallbackHref) чтобы пройти через стандартную логику морфа; 3) если prefers-reduced-motion: reduce → router.back() без анимаций; 4) иначе → startTransition(() => router.back()), браузер с VT API сам подхватит history navigation через @view-transition { navigation: auto }. Используется в BackButton.tsx.

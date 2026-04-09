@@ -1,13 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useMemo, useRef, useState } from "react";
+import type { MouseEvent as ReactMouseEvent } from "react";
 import { UtensilsCrossed, Star } from "lucide-react";
 import type { SearchResultItem } from "@/app/api/search/route";
 import { formatPrice, formatDistance, formatRating } from "@/lib/utils/format";
 import { cn } from "@/lib/utils/cn";
 import { MapView, type MapMarker } from "@/components/map/MapView";
 import { RadiusSelector } from "@/components/map/RadiusSelector";
+import { navigate, supportsViewTransitions } from "@/lib/transitions";
+import { usePrefetchImage } from "@/lib/hooks/usePrefetchImage";
 
 const MOSCOW_CENTER = { lat: 55.7558, lng: 37.6173 };
 
@@ -42,6 +46,97 @@ function SortChip({ label, active, href }: SortChipProps): React.JSX.Element {
   );
 }
 
+interface SearchResultCardProps {
+  result: SearchResultItem;
+  query: string;
+  activeMarkerId: number | null;
+  onHoverEnter: () => void;
+  onHoverLeave: () => void;
+}
+
+/**
+ * Отдельный компонент карточки результата — имеет собственный useRef для
+ * `linkRef`, который используется как `sourceEl` в `navigate()` fallback
+ * на устройствах без View Transitions API. На устройствах с VT API клик
+ * просто пропускается и браузер сам делает morph через
+ * `@view-transition { navigation: auto }`.
+ */
+function SearchResultCard({
+  result: r,
+  query,
+  activeMarkerId,
+  onHoverEnter,
+  onHoverLeave,
+}: SearchResultCardProps): React.JSX.Element {
+  const router = useRouter();
+  const linkRef = useRef<HTMLAnchorElement>(null);
+  const prefetchImage = usePrefetchImage();
+  const href = `/restaurant/${r.restaurantSlug}?q=${encodeURIComponent(query)}`;
+
+  const handleClick = (event: ReactMouseEvent<HTMLAnchorElement>): void => {
+    if (supportsViewTransitions()) return;
+    event.preventDefault();
+    navigate(router, href, {
+      sourceEl: linkRef.current,
+      targetSelector: `[data-vt-target="restaurant-image-${r.restaurantId}"]`,
+    });
+  };
+
+  const handlePrefetch = (): void => {
+    prefetchImage(r.restaurantCoverUrl);
+  };
+
+  return (
+    <Link
+      ref={linkRef}
+      href={href}
+      onClick={handleClick}
+      onMouseEnter={onHoverEnter}
+      onMouseLeave={onHoverLeave}
+      onPointerEnter={handlePrefetch}
+      onPointerDown={handlePrefetch}
+      className={cn(
+        "flex items-center gap-4 rounded-2xl bg-surface-secondary p-4 shadow-hover",
+        activeMarkerId === r.itemId && "ring-2 ring-accent",
+      )}
+    >
+      <div
+        style={{ viewTransitionName: `restaurant-image-${r.restaurantId}` }}
+        className="h-[72px] w-[72px] shrink-0 rounded-xl bg-accent-light grid place-items-center overflow-hidden"
+      >
+        <UtensilsCrossed
+          className="h-7 w-7 text-accent"
+          aria-hidden="true"
+        />
+      </div>
+      <div className="flex-1 min-w-0 flex flex-col gap-1">
+        <h3
+          style={{ viewTransitionName: `restaurant-title-${r.restaurantId}` }}
+          className="text-[15px] font-semibold text-fg-primary truncate min-h-[1.25rem]"
+        >
+          {r.restaurantName}
+        </h3>
+        <p className="text-[13px] text-fg-secondary truncate">{r.itemName}</p>
+        <div className="mt-0.5 flex items-center gap-3 text-[12px] text-fg-muted">
+          <span className="font-bold text-accent text-[15px]">
+            {formatPrice(r.price)}
+          </span>
+          {r.distanceMeters !== null ? (
+            <span>{formatDistance(r.distanceMeters)}</span>
+          ) : null}
+          <span className="inline-flex items-center gap-0.5">
+            <Star
+              className="h-3 w-3 fill-amber-400 text-amber-400"
+              aria-hidden="true"
+            />
+            {formatRating(r.rating)}
+          </span>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
 
 /**
  * Desktop — Search Results (frame pqZ50 в lanchHunter.pen).
@@ -50,12 +145,14 @@ function SortChip({ label, active, href }: SortChipProps): React.JSX.Element {
  * - Левая панель 790px (≈55%) — sort controls + список результатов
  *   (radius-lg, surface-secondary, 72×72 accent-light thumbnail с иконкой
  *   `utensils`, flex-col info).
- * - Правая панель (≈45%) — map-placeholder (#ECEEF1) с 5 оранжевыми
- *   маркерами в псевдослучайных позициях, floating radius row сверху слева.
+ * - Правая панель (≈45%) — MapLibre GL карта с маркерами.
  *
- * Точки-маркеры projection-based: lat/lng приводятся к относительным
- * координатам в pencil-подобный bbox (центр Москвы). Интеграция реального
- * MapLibre — Phase 5.
+ * Каждая карточка результата — это отдельный {@link SearchResultCard},
+ * обёрнутый в чистый {@link Link} + inline `viewTransitionName` для
+ * shared-element morph к hero на странице ресторана. Имена уникальны
+ * per-restaurant-id (например, `restaurant-image-42`), чтобы несколько
+ * результатов одного ресторана не конфликтовали в снимке VT. В Telegram
+ * WebView (без VT API) используется manual FLIP через `navigate()`.
  */
 export function DesktopSearchResults({
   query,
@@ -129,43 +226,14 @@ export function DesktopSearchResults({
             </div>
           ) : (
             filteredResults.map((r) => (
-              <Link
+              <SearchResultCard
                 key={r.itemId}
-                href={{
-                  pathname: `/restaurant/${r.restaurantSlug}`,
-                  query: { q: query },
-                }}
-                onMouseEnter={() => setActiveMarkerId(r.itemId)}
-                onMouseLeave={() => setActiveMarkerId(null)}
-                className={cn(
-                  "flex items-center gap-4 rounded-2xl bg-surface-secondary p-4 hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] transition-shadow",
-                  activeMarkerId === r.itemId && "ring-2 ring-accent",
-                )}
-              >
-                <div className="h-[72px] w-[72px] shrink-0 rounded-xl bg-accent-light grid place-items-center">
-                  <UtensilsCrossed className="h-7 w-7 text-accent" aria-hidden="true" />
-                </div>
-                <div className="flex-1 min-w-0 flex flex-col gap-1">
-                  <h3 className="text-[15px] font-semibold text-fg-primary truncate">
-                    {r.restaurantName}
-                  </h3>
-                  <p className="text-[13px] text-fg-secondary truncate">
-                    {r.itemName}
-                  </p>
-                  <div className="mt-0.5 flex items-center gap-3 text-[12px] text-fg-muted">
-                    <span className="font-bold text-accent text-[15px]">
-                      {formatPrice(r.price)}
-                    </span>
-                    {r.distanceMeters !== null ? (
-                      <span>{formatDistance(r.distanceMeters)}</span>
-                    ) : null}
-                    <span className="inline-flex items-center gap-0.5">
-                      <Star className="h-3 w-3 fill-amber-400 text-amber-400" aria-hidden="true" />
-                      {formatRating(r.rating)}
-                    </span>
-                  </div>
-                </div>
-              </Link>
+                result={r}
+                query={query}
+                activeMarkerId={activeMarkerId}
+                onHoverEnter={() => setActiveMarkerId(r.itemId)}
+                onHoverLeave={() => setActiveMarkerId(null)}
+              />
             ))
           )}
         </div>
@@ -189,11 +257,7 @@ export function DesktopSearchResults({
           <span className="text-[13px] font-medium text-fg-secondary">
             Радиус:
           </span>
-          <RadiusSelector
-            value={radius}
-            onChange={setRadius}
-            size="sm"
-          />
+          <RadiusSelector value={radius} onChange={setRadius} size="sm" />
         </div>
       </div>
     </div>

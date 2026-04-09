@@ -4,6 +4,7 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { Heart } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
+import { useHaptics } from "@/lib/hooks/useHaptics";
 
 export type FavoriteTargetType = "restaurant" | "menu_item" | "lunch";
 
@@ -30,6 +31,17 @@ export interface FavoriteButtonProps {
  * Оптимистичное обновление: мгновенно переключает состояние, затем
  * синхронизирует с сервером POST /api/favorites. При ошибке откатывается.
  * Неавторизованный пользователь редиректится в /profile (Telegram login).
+ *
+ * **Press feedback:**
+ * - Scale-эффект на :active обеспечивается глобальным правилом в
+ *   `globals.css` (`button, a, [role="button"]` → `scale(0.97)`). Все три
+ *   варианта — обычные `<button>`, локальные `active:scale-*` не нужны.
+ * - `haptics.success()` — при добавлении в избранное (false → true),
+ *   «положительный» паттерн вибрации.
+ * - `haptics.light()` — при удалении из избранного (true → false),
+ *   мягкий тап без лишнего давления.
+ * - Хаптик вызывается мгновенно (до API-запроса), чтобы отклик был
+ *   одновременным с визуальным переключением сердечка.
  */
 export function FavoriteButton({
   targetType,
@@ -43,6 +55,7 @@ export function FavoriteButton({
   labelActive = "В избранном",
 }: FavoriteButtonProps): React.JSX.Element {
   const router = useRouter();
+  const haptics = useHaptics();
   const [favorited, setFavorited] = React.useState(initialFavorited);
   const [pending, setPending] = React.useState(false);
 
@@ -58,6 +71,13 @@ export function FavoriteButton({
       }
 
       const next = !favorited;
+      // Мгновенный тактильный отклик: success — при добавлении,
+      // light — при удалении из избранного.
+      if (next) {
+        haptics.success();
+      } else {
+        haptics.light();
+      }
       setFavorited(next);
       setPending(true);
       try {
@@ -75,7 +95,7 @@ export function FavoriteButton({
         setPending(false);
       }
     },
-    [favorited, isAuthenticated, pending, router, targetId, targetType],
+    [favorited, haptics, isAuthenticated, pending, router, targetId, targetType],
   );
 
   if (variant === "button") {

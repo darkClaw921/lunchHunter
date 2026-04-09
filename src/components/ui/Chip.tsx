@@ -1,6 +1,9 @@
+"use client";
+
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils/cn";
+import { useHaptics } from "@/lib/hooks/useHaptics";
 
 /**
  * Chip / Pill primitive по pencil lanchHunter.pen.
@@ -10,6 +13,13 @@ import { cn } from "@/lib/utils/cn";
  * - default: нейтральный outline (inactive filter)
  * - active: accent solid (selected)
  * - soft: accent-light фон + accent текст (chip популярных запросов)
+ *
+ * **Press feedback:**
+ * - Scale-эффект на :active обеспечивается глобальным правилом в
+ *   `globals.css` (`button, a, [role="button"]` → `scale(0.97)`). Chip
+ *   рендерится как `<button>`, локальные `active:scale-*` не нужны.
+ * - `haptics.selection()` — тактильный отклик «изменение выбора», подходящий
+ *   для фильтр-чипов.
  */
 const chipVariants = cva(
   "inline-flex items-center gap-1.5 rounded-full font-medium transition-colors " +
@@ -46,16 +56,37 @@ export interface ChipProps
 
 export const Chip = React.forwardRef<HTMLButtonElement, ChipProps>(
   function Chip(
-    { className, variant, size, active, leftIcon, children, type = "button", ...props },
+    {
+      className,
+      variant,
+      size,
+      active,
+      leftIcon,
+      children,
+      type = "button",
+      onClick,
+      ...props
+    },
     ref,
   ) {
+    const haptics = useHaptics();
     const resolvedVariant = active ? "active" : variant ?? "default";
+
+    const handleClick = React.useCallback(
+      (event: React.MouseEvent<HTMLButtonElement>) => {
+        haptics.selection();
+        onClick?.(event);
+      },
+      [haptics, onClick],
+    );
+
     return (
       <button
         ref={ref}
         type={type}
         data-active={active ? "true" : undefined}
         className={cn(chipVariants({ variant: resolvedVariant, size }), className)}
+        onClick={handleClick}
         {...props}
       >
         {leftIcon ? <span className="shrink-0">{leftIcon}</span> : null}

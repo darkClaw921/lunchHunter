@@ -255,12 +255,12 @@ export default async function BusinessLunchListPage({
             <Link
               key={l.id}
               href={{ pathname: `/business-lunch/${l.id}` }}
-              className="block rounded-2xl border border-border bg-surface-primary p-4 hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] transition-shadow"
+              className="block rounded-2xl border border-border bg-surface-primary p-4 shadow-hover"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
-                    <h3 className="text-[16px] font-bold text-fg-primary truncate">
+                    <h3 className="text-[16px] font-bold text-fg-primary truncate min-h-[1.375rem]">
                       {l.restaurantName}
                     </h3>
                   </div>

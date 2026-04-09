@@ -1,6 +1,9 @@
+"use client";
+
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils/cn";
+import { useHaptics } from "@/lib/hooks/useHaptics";
 
 /**
  * Button primitive. Стили по pencil lanchHunter.pen:
@@ -11,6 +14,15 @@ import { cn } from "@/lib/utils/cn";
  * - danger: красная заливка
  *
  * Размеры sm/md/lg + опциональная fullWidth.
+ *
+ * **Press feedback:**
+ * - Scale-feedback `scale(0.97)` обеспечивается глобальным правилом в
+ *   `globals.css` (селектор `button, a, [role="button"]`) — локальные
+ *   `active:scale-*` и `transition-transform` здесь не нужны.
+ * - `haptics.tap()` — тактильный отклик через `useHaptics` на каждом клике.
+ *   Вызывается ДО пользовательского onClick, чтобы отклик ощущался мгновенно
+ *   даже если колбэк делает асинхронную работу. disabled-кнопки не срабатывают
+ *   благодаря `disabled:pointer-events-none`.
  */
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 font-medium transition-colors " +
@@ -69,15 +81,27 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       rightIcon,
       type = "button",
       children,
+      onClick,
       ...props
     },
     ref,
   ) {
+    const haptics = useHaptics();
+
+    const handleClick = React.useCallback(
+      (event: React.MouseEvent<HTMLButtonElement>) => {
+        haptics.tap();
+        onClick?.(event);
+      },
+      [haptics, onClick],
+    );
+
     return (
       <button
         ref={ref}
         type={type}
         className={cn(buttonVariants({ variant, size, fullWidth }), className)}
+        onClick={handleClick}
         {...props}
       >
         {leftIcon ? <span className="shrink-0">{leftIcon}</span> : null}

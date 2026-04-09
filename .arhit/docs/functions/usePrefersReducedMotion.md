@@ -1,0 +1,3 @@
+# usePrefersReducedMotion
+
+Реактивный хук для отслеживания media query prefers-reduced-motion: reduce. В отличие от синхронной prefersReducedMotion() из transitions.ts, реактивно перерисовывает компонент при смене настройки. Реализация: useState(false) + useEffect с window.matchMedia('(prefers-reduced-motion: reduce)'), подписка на change event через addEventListener, cleanup через removeEventListener. SSR-safe (первый рендер возвращает false). Safari 14+ поддерживает addEventListener на MediaQueryList, fallback на устаревший addListener не требуется. Используется для мгновенного отключения анимаций при смене системной настройки без перезагрузки страницы. Файл: src/lib/hooks/usePrefersReducedMotion.ts. Паттерн из гайда §6.2.

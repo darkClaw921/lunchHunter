@@ -116,22 +116,35 @@ export default async function BusinessLunchDetailPage({
 
   return (
     <div className="flex flex-col">
-      {/* Hero */}
+      {/* Hero — landing target для shared-element VT. Именование
+          `restaurant-image-${restaurant.id}` (numeric id ресторана) —
+          совпадает с consumer'ами `restaurant-image-${r.id}` на карточках
+          ресторана. Атрибут `data-vt-target` позволяет manualFlipMorph
+          на устройствах без VT API находить элемент через querySelector.
+          В bussiness-lunch списках VT name пока не назначается, поэтому
+          VT-morph сработает только при переходе из страниц ресторана. */}
       <div className="relative">
-        <div className="h-[180px] w-full bg-surface-secondary overflow-hidden">
-          {restaurant.coverUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={restaurant.coverUrl}
-              alt={lunch.name}
-              className="h-full w-full object-cover"
-            />
-          ) : (
-            <div className="h-full w-full grid place-items-center text-fg-muted text-sm">
-              {restaurant.category}
-            </div>
-          )}
-        </div>
+        {restaurant.coverUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={restaurant.coverUrl}
+            alt={lunch.name}
+            width={1200}
+            height={700}
+            fetchPriority="high"
+            data-vt-target={`restaurant-image-${restaurant.id}`}
+            style={{ viewTransitionName: `restaurant-image-${restaurant.id}` }}
+            className="h-[180px] w-full object-cover bg-surface-secondary"
+          />
+        ) : (
+          <div
+            data-vt-target={`restaurant-image-${restaurant.id}`}
+            style={{ viewTransitionName: `restaurant-image-${restaurant.id}` }}
+            className="h-[180px] w-full bg-surface-secondary grid place-items-center text-fg-muted text-sm"
+          >
+            {restaurant.category}
+          </div>
+        )}
         <Link
           href="/business-lunch"
           aria-label="Назад"
@@ -159,7 +172,7 @@ export default async function BusinessLunchDetailPage({
 
       {/* Restaurant name */}
       <div className="px-5 pt-4">
-        <h1 className="text-[22px] font-bold text-fg-primary">
+        <h1 className="text-[22px] font-bold text-fg-primary min-h-[1.875rem]">
           {restaurant.name}
         </h1>
       </div>

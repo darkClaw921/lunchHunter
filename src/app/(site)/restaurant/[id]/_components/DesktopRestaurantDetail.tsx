@@ -107,17 +107,33 @@ export function DesktopRestaurantDetail({
         />
       </div>
 
-      {/* Hero */}
+      {/* Hero — landing target для shared-element VT через
+          `viewTransitionName: 'restaurant-image-${restaurantId}'`. Парный
+          элемент к обложкам карточек из DesktopPopularRestaurantsGrid и
+          DesktopSearchResults (обе используют то же имя с numeric id).
+          Mobile-версия (в page.tsx) в момент десктопного рендера скрыта
+          через `md:hidden` (= `display: none`), поэтому не участвует в
+          снимке VT API — коллизии имён нет. `data-vt-target` используется
+          manualFlipMorph как querySelector target на устройствах без VT. */}
       <div className="relative h-[220px] w-full overflow-hidden bg-surface-secondary">
         {heroUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={heroUrl}
             alt={name}
+            width={1200}
+            height={700}
+            fetchPriority="high"
+            data-vt-target={`restaurant-image-${restaurantId}`}
+            style={{ viewTransitionName: `restaurant-image-${restaurantId}` }}
             className="h-full w-full object-cover"
           />
         ) : (
-          <div className="h-full w-full grid place-items-center text-fg-muted text-sm">
+          <div
+            data-vt-target={`restaurant-image-${restaurantId}`}
+            style={{ viewTransitionName: `restaurant-image-${restaurantId}` }}
+            className="h-full w-full grid place-items-center text-fg-muted text-sm"
+          >
             {category}
           </div>
         )}
@@ -125,7 +141,10 @@ export function DesktopRestaurantDetail({
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 pointer-events-none" />
         {/* Title */}
         <div className="absolute left-8 bottom-8 flex flex-col gap-1.5">
-          <h1 className="text-[28px] font-bold text-white leading-tight">
+          <h1
+            style={{ viewTransitionName: `restaurant-title-${restaurantId}` }}
+            className="text-[28px] font-bold text-white leading-tight min-h-[2.25rem]"
+          >
             {name}
           </h1>
           <p className="text-[14px] text-white/75">{category} · $$</p>

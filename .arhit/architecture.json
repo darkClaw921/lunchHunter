@@ -1,6 +1,6 @@
 {
   "root": "/Users/igorgerasimov/claudeWorkspace/lunchHunter",
-  "generatedAt": "2026-04-09T14:10:23.975Z",
+  "generatedAt": "2026-04-09T19:48:30.998Z",
   "nodes": [
     {
       "id": "drizzle.config.ts",
@@ -291,6 +291,156 @@
       ]
     },
     {
+      "id": "src/lib/morph.ts",
+      "name": "morph.ts",
+      "type": "file",
+      "path": "src/lib/morph.ts",
+      "exports": [
+        "manualFlipMorph"
+      ],
+      "children": [
+        {
+          "id": "src/lib/morph.ts:getDefaultEasing",
+          "name": "getDefaultEasing",
+          "type": "function",
+          "path": "src/lib/morph.ts",
+          "line": 69,
+          "exports": []
+        },
+        {
+          "id": "src/lib/morph.ts:resolveMorphSource",
+          "name": "resolveMorphSource",
+          "type": "function",
+          "path": "src/lib/morph.ts",
+          "line": 95,
+          "exports": []
+        },
+        {
+          "id": "src/lib/morph.ts:waitForElement",
+          "name": "waitForElement",
+          "type": "function",
+          "path": "src/lib/morph.ts",
+          "line": 106,
+          "exports": []
+        },
+        {
+          "id": "src/lib/morph.ts:createOverlayClone",
+          "name": "createOverlayClone",
+          "type": "function",
+          "path": "src/lib/morph.ts",
+          "line": 157,
+          "exports": []
+        },
+        {
+          "id": "src/lib/morph.ts:manualFlipMorph",
+          "name": "manualFlipMorph",
+          "type": "function",
+          "path": "src/lib/morph.ts",
+          "line": 207,
+          "exports": [
+            "manualFlipMorph"
+          ]
+        },
+        {
+          "id": "src/lib/morph.ts:ManualFlipMorphOptions",
+          "name": "ManualFlipMorphOptions",
+          "type": "interface",
+          "path": "src/lib/morph.ts",
+          "line": 46,
+          "exports": []
+        },
+        {
+          "id": "src/lib/morph.ts:DEFAULT_DURATION_MS",
+          "name": "DEFAULT_DURATION_MS",
+          "type": "variable",
+          "path": "src/lib/morph.ts",
+          "line": 62,
+          "exports": []
+        },
+        {
+          "id": "src/lib/morph.ts:DEFAULT_TARGET_TIMEOUT_MS",
+          "name": "DEFAULT_TARGET_TIMEOUT_MS",
+          "type": "variable",
+          "path": "src/lib/morph.ts",
+          "line": 78,
+          "exports": []
+        },
+        {
+          "id": "src/lib/morph.ts:CLONE_FADE_OUT_OFFSET",
+          "name": "CLONE_FADE_OUT_OFFSET",
+          "type": "variable",
+          "path": "src/lib/morph.ts",
+          "line": 84,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/lib/transitions.ts",
+      "name": "transitions.ts",
+      "type": "file",
+      "path": "src/lib/transitions.ts",
+      "exports": [
+        "prefersReducedMotion",
+        "supportsViewTransitions",
+        "navigate",
+        "navigateBack",
+        "NavigateOptions"
+      ],
+      "children": [
+        {
+          "id": "src/lib/transitions.ts:prefersReducedMotion",
+          "name": "prefersReducedMotion",
+          "type": "function",
+          "path": "src/lib/transitions.ts",
+          "line": 23,
+          "exports": [
+            "prefersReducedMotion"
+          ]
+        },
+        {
+          "id": "src/lib/transitions.ts:supportsViewTransitions",
+          "name": "supportsViewTransitions",
+          "type": "function",
+          "path": "src/lib/transitions.ts",
+          "line": 32,
+          "exports": [
+            "supportsViewTransitions"
+          ]
+        },
+        {
+          "id": "src/lib/transitions.ts:navigate",
+          "name": "navigate",
+          "type": "function",
+          "path": "src/lib/transitions.ts",
+          "line": 73,
+          "exports": [
+            "navigate"
+          ]
+        },
+        {
+          "id": "src/lib/transitions.ts:navigateBack",
+          "name": "navigateBack",
+          "type": "function",
+          "path": "src/lib/transitions.ts",
+          "line": 119,
+          "exports": [
+            "navigateBack"
+          ]
+        },
+        {
+          "id": "src/lib/transitions.ts:NavigateOptions",
+          "name": "NavigateOptions",
+          "type": "interface",
+          "path": "src/lib/transitions.ts",
+          "line": 46,
+          "exports": [
+            "NavigateOptions"
+          ]
+        }
+      ]
+    },
+    {
       "id": "tests/unit/haversine.test.ts",
       "name": "haversine.test.ts",
       "type": "file",
@@ -347,7 +497,7 @@
           "name": "SiteLayout",
           "type": "function",
           "path": "src/app/(site)/layout.tsx",
-          "line": 25,
+          "line": 27,
           "exports": [
             "SiteLayout"
           ]
@@ -357,9 +507,30 @@
           "name": "metadata",
           "type": "variable",
           "path": "src/app/(site)/layout.tsx",
-          "line": 5,
+          "line": 7,
           "exports": [
             "metadata"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/loading.tsx",
+      "name": "loading.tsx",
+      "type": "file",
+      "path": "src/app/(site)/loading.tsx",
+      "exports": [
+        "SiteLoading"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/loading.tsx:SiteLoading",
+          "name": "SiteLoading",
+          "type": "function",
+          "path": "src/app/(site)/loading.tsx",
+          "line": 19,
+          "exports": [
+            "SiteLoading"
           ]
         }
       ]
@@ -417,6 +588,27 @@
           "path": "src/app/(site)/page.tsx",
           "line": 24,
           "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/template.tsx",
+      "name": "template.tsx",
+      "type": "file",
+      "path": "src/app/(site)/template.tsx",
+      "exports": [
+        "SiteTemplate"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/template.tsx:SiteTemplate",
+          "name": "SiteTemplate",
+          "type": "function",
+          "path": "src/app/(site)/template.tsx",
+          "line": 23,
+          "exports": [
+            "SiteTemplate"
+          ]
         }
       ]
     },
@@ -802,7 +994,7 @@
           "name": "RadiusSelector",
           "type": "function",
           "path": "src/components/map/RadiusSelector.tsx",
-          "line": 39,
+          "line": 49,
           "exports": [
             "RadiusSelector"
           ]
@@ -812,7 +1004,7 @@
           "name": "RadiusOption",
           "type": "interface",
           "path": "src/components/map/RadiusSelector.tsx",
-          "line": 5,
+          "line": 7,
           "exports": [
             "RadiusOption"
           ]
@@ -822,7 +1014,7 @@
           "name": "RadiusSelectorProps",
           "type": "interface",
           "path": "src/components/map/RadiusSelector.tsx",
-          "line": 19,
+          "line": 21,
           "exports": [
             "RadiusSelectorProps"
           ]
@@ -832,7 +1024,7 @@
           "name": "DEFAULT_RADIUS_OPTIONS",
           "type": "variable",
           "path": "src/components/map/RadiusSelector.tsx",
-          "line": 12,
+          "line": 14,
           "exports": [
             "DEFAULT_RADIUS_OPTIONS"
           ]
@@ -856,7 +1048,7 @@
           "name": "isTabActive",
           "type": "function",
           "path": "src/components/mobile/BottomTabBar.tsx",
-          "line": 55,
+          "line": 77,
           "exports": []
         },
         {
@@ -864,7 +1056,7 @@
           "name": "BottomTabBar",
           "type": "function",
           "path": "src/components/mobile/BottomTabBar.tsx",
-          "line": 69,
+          "line": 91,
           "exports": [
             "BottomTabBar"
           ]
@@ -874,7 +1066,7 @@
           "name": "BottomTabItem",
           "type": "interface",
           "path": "src/components/mobile/BottomTabBar.tsx",
-          "line": 26,
+          "line": 48,
           "exports": [
             "BottomTabItem"
           ]
@@ -884,7 +1076,7 @@
           "name": "BottomTabBarProps",
           "type": "interface",
           "path": "src/components/mobile/BottomTabBar.tsx",
-          "line": 64,
+          "line": 86,
           "exports": [
             "BottomTabBarProps"
           ]
@@ -894,7 +1086,7 @@
           "name": "DEFAULT_TABS",
           "type": "variable",
           "path": "src/components/mobile/BottomTabBar.tsx",
-          "line": 37,
+          "line": 59,
           "exports": [
             "DEFAULT_TABS"
           ]
@@ -934,6 +1126,51 @@
           "type": "variable",
           "path": "src/components/mobile/PWAInstallBanner.tsx",
           "line": 8,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/components/mobile/TelegramWebAppBootstrap.tsx",
+      "name": "TelegramWebAppBootstrap.tsx",
+      "type": "file",
+      "path": "src/components/mobile/TelegramWebAppBootstrap.tsx",
+      "exports": [
+        "TelegramWebAppBootstrap"
+      ],
+      "children": [
+        {
+          "id": "src/components/mobile/TelegramWebAppBootstrap.tsx:TelegramWebAppBootstrap",
+          "name": "TelegramWebAppBootstrap",
+          "type": "function",
+          "path": "src/components/mobile/TelegramWebAppBootstrap.tsx",
+          "line": 40,
+          "exports": [
+            "TelegramWebAppBootstrap"
+          ]
+        },
+        {
+          "id": "src/components/mobile/TelegramWebAppBootstrap.tsx:TelegramWebApp",
+          "name": "TelegramWebApp",
+          "type": "interface",
+          "path": "src/components/mobile/TelegramWebAppBootstrap.tsx",
+          "line": 25,
+          "exports": []
+        },
+        {
+          "id": "src/components/mobile/TelegramWebAppBootstrap.tsx:TelegramNamespace",
+          "name": "TelegramNamespace",
+          "type": "interface",
+          "path": "src/components/mobile/TelegramWebAppBootstrap.tsx",
+          "line": 32,
+          "exports": []
+        },
+        {
+          "id": "src/components/mobile/TelegramWebAppBootstrap.tsx:WindowWithTelegram",
+          "name": "WindowWithTelegram",
+          "type": "interface",
+          "path": "src/components/mobile/TelegramWebAppBootstrap.tsx",
+          "line": 36,
           "exports": []
         }
       ]
@@ -1036,7 +1273,7 @@
           "name": "ButtonProps",
           "type": "interface",
           "path": "src/components/ui/Button.tsx",
-          "line": 52,
+          "line": 64,
           "exports": [
             "ButtonProps"
           ]
@@ -1046,7 +1283,7 @@
           "name": "buttonVariants",
           "type": "variable",
           "path": "src/components/ui/Button.tsx",
-          "line": 15,
+          "line": 27,
           "exports": []
         },
         {
@@ -1054,7 +1291,7 @@
           "name": "Button",
           "type": "variable",
           "path": "src/components/ui/Button.tsx",
-          "line": 61,
+          "line": 73,
           "exports": [
             "Button"
           ]
@@ -1081,7 +1318,7 @@
           "name": "CardProps",
           "type": "interface",
           "path": "src/components/ui/Card.tsx",
-          "line": 14,
+          "line": 26,
           "exports": [
             "CardProps"
           ]
@@ -1091,7 +1328,7 @@
           "name": "Card",
           "type": "variable",
           "path": "src/components/ui/Card.tsx",
-          "line": 22,
+          "line": 34,
           "exports": [
             "Card"
           ]
@@ -1101,7 +1338,7 @@
           "name": "CardHeader",
           "type": "variable",
           "path": "src/components/ui/Card.tsx",
-          "line": 44,
+          "line": 65,
           "exports": [
             "CardHeader"
           ]
@@ -1111,7 +1348,7 @@
           "name": "CardTitle",
           "type": "variable",
           "path": "src/components/ui/Card.tsx",
-          "line": 57,
+          "line": 78,
           "exports": [
             "CardTitle"
           ]
@@ -1121,7 +1358,7 @@
           "name": "CardDescription",
           "type": "variable",
           "path": "src/components/ui/Card.tsx",
-          "line": 70,
+          "line": 91,
           "exports": [
             "CardDescription"
           ]
@@ -1131,7 +1368,7 @@
           "name": "CardBody",
           "type": "variable",
           "path": "src/components/ui/Card.tsx",
-          "line": 83,
+          "line": 104,
           "exports": [
             "CardBody"
           ]
@@ -1141,7 +1378,7 @@
           "name": "CardFooter",
           "type": "variable",
           "path": "src/components/ui/Card.tsx",
-          "line": 90,
+          "line": 111,
           "exports": [
             "CardFooter"
           ]
@@ -1163,7 +1400,7 @@
           "name": "ChipProps",
           "type": "interface",
           "path": "src/components/ui/Chip.tsx",
-          "line": 40,
+          "line": 50,
           "exports": [
             "ChipProps"
           ]
@@ -1173,7 +1410,7 @@
           "name": "chipVariants",
           "type": "variable",
           "path": "src/components/ui/Chip.tsx",
-          "line": 14,
+          "line": 24,
           "exports": []
         },
         {
@@ -1181,7 +1418,7 @@
           "name": "Chip",
           "type": "variable",
           "path": "src/components/ui/Chip.tsx",
-          "line": 47,
+          "line": 57,
           "exports": [
             "Chip"
           ]
@@ -1204,7 +1441,7 @@
           "name": "FavoriteButton",
           "type": "function",
           "path": "src/components/ui/FavoriteButton.tsx",
-          "line": 34,
+          "line": 46,
           "exports": [
             "FavoriteButton"
           ]
@@ -1214,7 +1451,7 @@
           "name": "FavoriteButtonProps",
           "type": "interface",
           "path": "src/components/ui/FavoriteButton.tsx",
-          "line": 10,
+          "line": 11,
           "exports": [
             "FavoriteButtonProps"
           ]
@@ -1224,7 +1461,7 @@
           "name": "FavoriteTargetType",
           "type": "type",
           "path": "src/components/ui/FavoriteButton.tsx",
-          "line": 8,
+          "line": 9,
           "exports": [
             "FavoriteTargetType"
           ]
@@ -1297,6 +1534,132 @@
           "line": 83,
           "exports": [
             "SearchInput"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/components/ui/RouteProgress.tsx",
+      "name": "RouteProgress.tsx",
+      "type": "file",
+      "path": "src/components/ui/RouteProgress.tsx",
+      "exports": [
+        "dispatchRouteProgressStart",
+        "RouteProgress",
+        "RouteProgressProps",
+        "ROUTE_PROGRESS_START_EVENT"
+      ],
+      "children": [
+        {
+          "id": "src/components/ui/RouteProgress.tsx:dispatchRouteProgressStart",
+          "name": "dispatchRouteProgressStart",
+          "type": "function",
+          "path": "src/components/ui/RouteProgress.tsx",
+          "line": 83,
+          "exports": [
+            "dispatchRouteProgressStart"
+          ]
+        },
+        {
+          "id": "src/components/ui/RouteProgress.tsx:RouteProgress",
+          "name": "RouteProgress",
+          "type": "function",
+          "path": "src/components/ui/RouteProgress.tsx",
+          "line": 88,
+          "exports": [
+            "RouteProgress"
+          ]
+        },
+        {
+          "id": "src/components/ui/RouteProgress.tsx:RouteProgressProps",
+          "name": "RouteProgressProps",
+          "type": "interface",
+          "path": "src/components/ui/RouteProgress.tsx",
+          "line": 69,
+          "exports": [
+            "RouteProgressProps"
+          ]
+        },
+        {
+          "id": "src/components/ui/RouteProgress.tsx:ProgressState",
+          "name": "ProgressState",
+          "type": "type",
+          "path": "src/components/ui/RouteProgress.tsx",
+          "line": 67,
+          "exports": []
+        },
+        {
+          "id": "src/components/ui/RouteProgress.tsx:ROUTE_PROGRESS_START_EVENT",
+          "name": "ROUTE_PROGRESS_START_EVENT",
+          "type": "variable",
+          "path": "src/components/ui/RouteProgress.tsx",
+          "line": 44,
+          "exports": [
+            "ROUTE_PROGRESS_START_EVENT"
+          ]
+        },
+        {
+          "id": "src/components/ui/RouteProgress.tsx:PROGRESS_DELAY_MS",
+          "name": "PROGRESS_DELAY_MS",
+          "type": "variable",
+          "path": "src/components/ui/RouteProgress.tsx",
+          "line": 53,
+          "exports": []
+        },
+        {
+          "id": "src/components/ui/RouteProgress.tsx:PROGRESS_MIN_VISIBLE_MS",
+          "name": "PROGRESS_MIN_VISIBLE_MS",
+          "type": "variable",
+          "path": "src/components/ui/RouteProgress.tsx",
+          "line": 59,
+          "exports": []
+        },
+        {
+          "id": "src/components/ui/RouteProgress.tsx:PROGRESS_CAP",
+          "name": "PROGRESS_CAP",
+          "type": "variable",
+          "path": "src/components/ui/RouteProgress.tsx",
+          "line": 62,
+          "exports": []
+        },
+        {
+          "id": "src/components/ui/RouteProgress.tsx:PROGRESS_STEP",
+          "name": "PROGRESS_STEP",
+          "type": "variable",
+          "path": "src/components/ui/RouteProgress.tsx",
+          "line": 65,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/components/ui/Skeleton.tsx",
+      "name": "Skeleton.tsx",
+      "type": "file",
+      "path": "src/components/ui/Skeleton.tsx",
+      "exports": [
+        "Skeleton",
+        "SkeletonProps"
+      ],
+      "children": [
+        {
+          "id": "src/components/ui/Skeleton.tsx:Skeleton",
+          "name": "Skeleton",
+          "type": "function",
+          "path": "src/components/ui/Skeleton.tsx",
+          "line": 32,
+          "exports": [
+            "Skeleton"
+          ]
+        },
+        {
+          "id": "src/components/ui/Skeleton.tsx:SkeletonProps",
+          "name": "SkeletonProps",
+          "type": "interface",
+          "path": "src/components/ui/Skeleton.tsx",
+          "line": 20,
+          "exports": [
+            "SkeletonProps"
           ]
         }
       ]
@@ -1716,7 +2079,7 @@
           "name": "getUserFavorites",
           "type": "function",
           "path": "src/lib/db/favorites.ts",
-          "line": 157,
+          "line": 158,
           "exports": [
             "getUserFavorites"
           ]
@@ -1746,7 +2109,7 @@
           "name": "FavoriteLunchRow",
           "type": "interface",
           "path": "src/lib/db/favorites.ts",
-          "line": 134,
+          "line": 135,
           "exports": [
             "FavoriteLunchRow"
           ]
@@ -1756,7 +2119,7 @@
           "name": "UserFavorites",
           "type": "interface",
           "path": "src/lib/db/favorites.ts",
-          "line": 147,
+          "line": 148,
           "exports": [
             "UserFavorites"
           ]
@@ -2400,6 +2763,210 @@
       ]
     },
     {
+      "id": "src/lib/hooks/useFlipMorph.ts",
+      "name": "useFlipMorph.ts",
+      "type": "file",
+      "path": "src/lib/hooks/useFlipMorph.ts",
+      "exports": [
+        "useFlipMorph"
+      ],
+      "children": [
+        {
+          "id": "src/lib/hooks/useFlipMorph.ts:useFlipMorph",
+          "name": "useFlipMorph",
+          "type": "function",
+          "path": "src/lib/hooks/useFlipMorph.ts",
+          "line": 52,
+          "exports": [
+            "useFlipMorph"
+          ]
+        },
+        {
+          "id": "src/lib/hooks/useFlipMorph.ts:UseFlipMorphOptions",
+          "name": "UseFlipMorphOptions",
+          "type": "interface",
+          "path": "src/lib/hooks/useFlipMorph.ts",
+          "line": 18,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/lib/hooks/useHaptics.ts",
+      "name": "useHaptics.ts",
+      "type": "file",
+      "path": "src/lib/hooks/useHaptics.ts",
+      "exports": [
+        "useHaptics",
+        "HapticsApi",
+        "HapticKind"
+      ],
+      "children": [
+        {
+          "id": "src/lib/hooks/useHaptics.ts:getTelegramHapticFeedback",
+          "name": "getTelegramHapticFeedback",
+          "type": "function",
+          "path": "src/lib/hooks/useHaptics.ts",
+          "line": 63,
+          "exports": []
+        },
+        {
+          "id": "src/lib/hooks/useHaptics.ts:triggerHaptic",
+          "name": "triggerHaptic",
+          "type": "function",
+          "path": "src/lib/hooks/useHaptics.ts",
+          "line": 69,
+          "exports": []
+        },
+        {
+          "id": "src/lib/hooks/useHaptics.ts:useHaptics",
+          "name": "useHaptics",
+          "type": "function",
+          "path": "src/lib/hooks/useHaptics.ts",
+          "line": 117,
+          "exports": [
+            "useHaptics"
+          ]
+        },
+        {
+          "id": "src/lib/hooks/useHaptics.ts:TelegramHapticFeedback",
+          "name": "TelegramHapticFeedback",
+          "type": "interface",
+          "path": "src/lib/hooks/useHaptics.ts",
+          "line": 43,
+          "exports": []
+        },
+        {
+          "id": "src/lib/hooks/useHaptics.ts:TelegramWebApp",
+          "name": "TelegramWebApp",
+          "type": "interface",
+          "path": "src/lib/hooks/useHaptics.ts",
+          "line": 51,
+          "exports": []
+        },
+        {
+          "id": "src/lib/hooks/useHaptics.ts:TelegramNamespace",
+          "name": "TelegramNamespace",
+          "type": "interface",
+          "path": "src/lib/hooks/useHaptics.ts",
+          "line": 55,
+          "exports": []
+        },
+        {
+          "id": "src/lib/hooks/useHaptics.ts:WindowWithTelegram",
+          "name": "WindowWithTelegram",
+          "type": "interface",
+          "path": "src/lib/hooks/useHaptics.ts",
+          "line": 59,
+          "exports": []
+        },
+        {
+          "id": "src/lib/hooks/useHaptics.ts:HapticsApi",
+          "name": "HapticsApi",
+          "type": "interface",
+          "path": "src/lib/hooks/useHaptics.ts",
+          "line": 97,
+          "exports": [
+            "HapticsApi"
+          ]
+        },
+        {
+          "id": "src/lib/hooks/useHaptics.ts:HapticKind",
+          "name": "HapticKind",
+          "type": "type",
+          "path": "src/lib/hooks/useHaptics.ts",
+          "line": 34,
+          "exports": [
+            "HapticKind"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/lib/hooks/useMounted.ts",
+      "name": "useMounted.ts",
+      "type": "file",
+      "path": "src/lib/hooks/useMounted.ts",
+      "exports": [
+        "useMounted"
+      ],
+      "children": [
+        {
+          "id": "src/lib/hooks/useMounted.ts:useMounted",
+          "name": "useMounted",
+          "type": "function",
+          "path": "src/lib/hooks/useMounted.ts",
+          "line": 23,
+          "exports": [
+            "useMounted"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/lib/hooks/usePrefersReducedMotion.ts",
+      "name": "usePrefersReducedMotion.ts",
+      "type": "file",
+      "path": "src/lib/hooks/usePrefersReducedMotion.ts",
+      "exports": [
+        "usePrefersReducedMotion"
+      ],
+      "children": [
+        {
+          "id": "src/lib/hooks/usePrefersReducedMotion.ts:usePrefersReducedMotion",
+          "name": "usePrefersReducedMotion",
+          "type": "function",
+          "path": "src/lib/hooks/usePrefersReducedMotion.ts",
+          "line": 29,
+          "exports": [
+            "usePrefersReducedMotion"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/lib/hooks/usePrefetchImage.ts",
+      "name": "usePrefetchImage.ts",
+      "type": "file",
+      "path": "src/lib/hooks/usePrefetchImage.ts",
+      "exports": [
+        "usePrefetchImage"
+      ],
+      "children": [
+        {
+          "id": "src/lib/hooks/usePrefetchImage.ts:usePrefetchImage",
+          "name": "usePrefetchImage",
+          "type": "function",
+          "path": "src/lib/hooks/usePrefetchImage.ts",
+          "line": 38,
+          "exports": [
+            "usePrefetchImage"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/lib/hooks/useViewTransition.ts",
+      "name": "useViewTransition.ts",
+      "type": "file",
+      "path": "src/lib/hooks/useViewTransition.ts",
+      "exports": [
+        "useViewTransition"
+      ],
+      "children": [
+        {
+          "id": "src/lib/hooks/useViewTransition.ts:useViewTransition",
+          "name": "useViewTransition",
+          "type": "function",
+          "path": "src/lib/hooks/useViewTransition.ts",
+          "line": 39,
+          "exports": [
+            "useViewTransition"
+          ]
+        }
+      ]
+    },
+    {
       "id": "src/lib/llm/client.ts",
       "name": "client.ts",
       "type": "file",
@@ -2848,7 +3415,7 @@
           "name": "DesktopHome",
           "type": "function",
           "path": "src/app/(site)/_components/DesktopHome.tsx",
-          "line": 57,
+          "line": 56,
           "exports": [
             "DesktopHome"
           ]
@@ -2858,7 +3425,7 @@
           "name": "DesktopHomeRestaurant",
           "type": "interface",
           "path": "src/app/(site)/_components/DesktopHome.tsx",
-          "line": 9,
+          "line": 8,
           "exports": [
             "DesktopHomeRestaurant"
           ]
@@ -2868,7 +3435,7 @@
           "name": "DesktopHomeHeroMenuItem",
           "type": "interface",
           "path": "src/app/(site)/_components/DesktopHome.tsx",
-          "line": 20,
+          "line": 19,
           "exports": [
             "DesktopHomeHeroMenuItem"
           ]
@@ -2878,7 +3445,7 @@
           "name": "DesktopHomeHeroLunch",
           "type": "interface",
           "path": "src/app/(site)/_components/DesktopHome.tsx",
-          "line": 28,
+          "line": 27,
           "exports": [
             "DesktopHomeHeroLunch"
           ]
@@ -2888,9 +3455,60 @@
           "name": "DesktopHomeProps",
           "type": "interface",
           "path": "src/app/(site)/_components/DesktopHome.tsx",
-          "line": 37,
+          "line": 36,
           "exports": [
             "DesktopHomeProps"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx",
+      "name": "DesktopPopularRestaurantsGrid.tsx",
+      "type": "file",
+      "path": "src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx",
+      "exports": [
+        "DesktopPopularRestaurantsGrid",
+        "DesktopPopularRestaurantsGridItem",
+        "DesktopPopularRestaurantsGridProps"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx:DesktopPopularRestaurantsGrid",
+          "name": "DesktopPopularRestaurantsGrid",
+          "type": "function",
+          "path": "src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx",
+          "line": 44,
+          "exports": [
+            "DesktopPopularRestaurantsGrid"
+          ]
+        },
+        {
+          "id": "src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx:DesktopPopularRestaurantCard",
+          "name": "DesktopPopularRestaurantCard",
+          "type": "function",
+          "path": "src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx",
+          "line": 56,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx:DesktopPopularRestaurantsGridItem",
+          "name": "DesktopPopularRestaurantsGridItem",
+          "type": "interface",
+          "path": "src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx",
+          "line": 11,
+          "exports": [
+            "DesktopPopularRestaurantsGridItem"
+          ]
+        },
+        {
+          "id": "src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx:DesktopPopularRestaurantsGridProps",
+          "name": "DesktopPopularRestaurantsGridProps",
+          "type": "interface",
+          "path": "src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx",
+          "line": 22,
+          "exports": [
+            "DesktopPopularRestaurantsGridProps"
           ]
         }
       ]
@@ -2910,7 +3528,7 @@
           "name": "RestaurantCard",
           "type": "function",
           "path": "src/app/(site)/_components/HeroFloatingCards.tsx",
-          "line": 101,
+          "line": 93,
           "exports": []
         },
         {
@@ -2918,7 +3536,7 @@
           "name": "MenuCard",
           "type": "function",
           "path": "src/app/(site)/_components/HeroFloatingCards.tsx",
-          "line": 145,
+          "line": 146,
           "exports": []
         },
         {
@@ -2926,7 +3544,7 @@
           "name": "LunchCard",
           "type": "function",
           "path": "src/app/(site)/_components/HeroFloatingCards.tsx",
-          "line": 186,
+          "line": 196,
           "exports": []
         },
         {
@@ -2934,7 +3552,7 @@
           "name": "MapCard",
           "type": "function",
           "path": "src/app/(site)/_components/HeroFloatingCards.tsx",
-          "line": 227,
+          "line": 237,
           "exports": []
         },
         {
@@ -2942,7 +3560,7 @@
           "name": "HeroFloatingCards",
           "type": "function",
           "path": "src/app/(site)/_components/HeroFloatingCards.tsx",
-          "line": 335,
+          "line": 346,
           "exports": [
             "HeroFloatingCards"
           ]
@@ -2978,7 +3596,7 @@
           "name": "SLOTS",
           "type": "variable",
           "path": "src/app/(site)/_components/HeroFloatingCards.tsx",
-          "line": 37,
+          "line": 35,
           "exports": []
         },
         {
@@ -2986,16 +3604,67 @@
           "name": "FALLBACK_GRADIENTS",
           "type": "variable",
           "path": "src/app/(site)/_components/HeroFloatingCards.tsx",
-          "line": 88,
+          "line": 80,
           "exports": []
         },
         {
-          "id": "src/app/(site)/_components/HeroFloatingCards.tsx:CARD_SHELL",
-          "name": "CARD_SHELL",
+          "id": "src/app/(site)/_components/HeroFloatingCards.tsx:CARD_SHELL_INNER",
+          "name": "CARD_SHELL_INNER",
           "type": "variable",
           "path": "src/app/(site)/_components/HeroFloatingCards.tsx",
-          "line": 97,
+          "line": 89,
           "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/_components/NearbyRestaurantsRow.tsx",
+      "name": "NearbyRestaurantsRow.tsx",
+      "type": "file",
+      "path": "src/app/(site)/_components/NearbyRestaurantsRow.tsx",
+      "exports": [
+        "NearbyRestaurantsRow",
+        "NearbyRestaurantsRowItem",
+        "NearbyRestaurantsRowProps"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/_components/NearbyRestaurantsRow.tsx:NearbyRestaurantsRow",
+          "name": "NearbyRestaurantsRow",
+          "type": "function",
+          "path": "src/app/(site)/_components/NearbyRestaurantsRow.tsx",
+          "line": 47,
+          "exports": [
+            "NearbyRestaurantsRow"
+          ]
+        },
+        {
+          "id": "src/app/(site)/_components/NearbyRestaurantsRow.tsx:NearbyRestaurantCard",
+          "name": "NearbyRestaurantCard",
+          "type": "function",
+          "path": "src/app/(site)/_components/NearbyRestaurantsRow.tsx",
+          "line": 59,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/_components/NearbyRestaurantsRow.tsx:NearbyRestaurantsRowItem",
+          "name": "NearbyRestaurantsRowItem",
+          "type": "interface",
+          "path": "src/app/(site)/_components/NearbyRestaurantsRow.tsx",
+          "line": 11,
+          "exports": [
+            "NearbyRestaurantsRowItem"
+          ]
+        },
+        {
+          "id": "src/app/(site)/_components/NearbyRestaurantsRow.tsx:NearbyRestaurantsRowProps",
+          "name": "NearbyRestaurantsRowProps",
+          "type": "interface",
+          "path": "src/app/(site)/_components/NearbyRestaurantsRow.tsx",
+          "line": 22,
+          "exports": [
+            "NearbyRestaurantsRowProps"
+          ]
         }
       ]
     },
@@ -3027,6 +3696,27 @@
           "line": 7,
           "exports": [
             "SearchHomeFormProps"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/business-lunch/loading.tsx",
+      "name": "loading.tsx",
+      "type": "file",
+      "path": "src/app/(site)/business-lunch/loading.tsx",
+      "exports": [
+        "BusinessLunchLoading"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/business-lunch/loading.tsx:BusinessLunchLoading",
+          "name": "BusinessLunchLoading",
+          "type": "function",
+          "path": "src/app/(site)/business-lunch/loading.tsx",
+          "line": 17,
+          "exports": [
+            "BusinessLunchLoading"
           ]
         }
       ]
@@ -3168,6 +3858,27 @@
       ]
     },
     {
+      "id": "src/app/(site)/favorites/loading.tsx",
+      "name": "loading.tsx",
+      "type": "file",
+      "path": "src/app/(site)/favorites/loading.tsx",
+      "exports": [
+        "FavoritesLoading"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/favorites/loading.tsx:FavoritesLoading",
+          "name": "FavoritesLoading",
+          "type": "function",
+          "path": "src/app/(site)/favorites/loading.tsx",
+          "line": 17,
+          "exports": [
+            "FavoritesLoading"
+          ]
+        }
+      ]
+    },
+    {
       "id": "src/app/(site)/favorites/page.tsx",
       "name": "page.tsx",
       "type": "file",
@@ -3182,7 +3893,7 @@
           "name": "FavoritesPage",
           "type": "function",
           "path": "src/app/(site)/favorites/page.tsx",
-          "line": 22,
+          "line": 26,
           "exports": [
             "FavoritesPage"
           ]
@@ -3192,23 +3903,7 @@
           "name": "SectionTitle",
           "type": "function",
           "path": "src/app/(site)/favorites/page.tsx",
-          "line": 182,
-          "exports": []
-        },
-        {
-          "id": "src/app/(site)/favorites/page.tsx:RestaurantCardDesktop",
-          "name": "RestaurantCardDesktop",
-          "type": "function",
-          "path": "src/app/(site)/favorites/page.tsx",
-          "line": 211,
-          "exports": []
-        },
-        {
-          "id": "src/app/(site)/favorites/page.tsx:RestaurantCardMobile",
-          "name": "RestaurantCardMobile",
-          "type": "function",
-          "path": "src/app/(site)/favorites/page.tsx",
-          "line": 258,
+          "line": 194,
           "exports": []
         },
         {
@@ -3216,7 +3911,7 @@
           "name": "GuestState",
           "type": "function",
           "path": "src/app/(site)/favorites/page.tsx",
-          "line": 304,
+          "line": 211,
           "exports": []
         },
         {
@@ -3224,15 +3919,7 @@
           "name": "EmptyState",
           "type": "function",
           "path": "src/app/(site)/favorites/page.tsx",
-          "line": 330,
-          "exports": []
-        },
-        {
-          "id": "src/app/(site)/favorites/page.tsx:FavoriteRestaurantProps",
-          "name": "FavoriteRestaurantProps",
-          "type": "interface",
-          "path": "src/app/(site)/favorites/page.tsx",
-          "line": 199,
+          "line": 237,
           "exports": []
         },
         {
@@ -3240,9 +3927,30 @@
           "name": "dynamic",
           "type": "variable",
           "path": "src/app/(site)/favorites/page.tsx",
-          "line": 9,
+          "line": 13,
           "exports": [
             "dynamic"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/map/loading.tsx",
+      "name": "loading.tsx",
+      "type": "file",
+      "path": "src/app/(site)/map/loading.tsx",
+      "exports": [
+        "MapLoading"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/map/loading.tsx:MapLoading",
+          "name": "MapLoading",
+          "type": "function",
+          "path": "src/app/(site)/map/loading.tsx",
+          "line": 17,
+          "exports": [
+            "MapLoading"
           ]
         }
       ]
@@ -3262,7 +3970,7 @@
           "name": "buildFtsMatchQuery",
           "type": "function",
           "path": "src/app/(site)/map/page.tsx",
-          "line": 28,
+          "line": 30,
           "exports": []
         },
         {
@@ -3270,7 +3978,7 @@
           "name": "findNearby",
           "type": "function",
           "path": "src/app/(site)/map/page.tsx",
-          "line": 38,
+          "line": 40,
           "exports": []
         },
         {
@@ -3278,7 +3986,7 @@
           "name": "MapPage",
           "type": "function",
           "path": "src/app/(site)/map/page.tsx",
-          "line": 84,
+          "line": 92,
           "exports": [
             "MapPage"
           ]
@@ -3324,6 +4032,27 @@
           "path": "src/app/(site)/map/page.tsx",
           "line": 9,
           "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/profile/loading.tsx",
+      "name": "loading.tsx",
+      "type": "file",
+      "path": "src/app/(site)/profile/loading.tsx",
+      "exports": [
+        "ProfileLoading"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/profile/loading.tsx:ProfileLoading",
+          "name": "ProfileLoading",
+          "type": "function",
+          "path": "src/app/(site)/profile/loading.tsx",
+          "line": 20,
+          "exports": [
+            "ProfileLoading"
+          ]
         }
       ]
     },
@@ -3414,7 +4143,7 @@
           "name": "RestaurantIndexPage",
           "type": "function",
           "path": "src/app/(site)/restaurant/page.tsx",
-          "line": 25,
+          "line": 30,
           "exports": [
             "RestaurantIndexPage"
           ]
@@ -3424,7 +4153,7 @@
           "name": "dynamic",
           "type": "variable",
           "path": "src/app/(site)/restaurant/page.tsx",
-          "line": 8,
+          "line": 7,
           "exports": [
             "dynamic"
           ]
@@ -3434,7 +4163,7 @@
           "name": "DEFAULT_LAT",
           "type": "variable",
           "path": "src/app/(site)/restaurant/page.tsx",
-          "line": 10,
+          "line": 9,
           "exports": []
         },
         {
@@ -3442,8 +4171,29 @@
           "name": "DEFAULT_LNG",
           "type": "variable",
           "path": "src/app/(site)/restaurant/page.tsx",
-          "line": 11,
+          "line": 10,
           "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/search/loading.tsx",
+      "name": "loading.tsx",
+      "type": "file",
+      "path": "src/app/(site)/search/loading.tsx",
+      "exports": [
+        "SearchLoading"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/search/loading.tsx:SearchLoading",
+          "name": "SearchLoading",
+          "type": "function",
+          "path": "src/app/(site)/search/loading.tsx",
+          "line": 20,
+          "exports": [
+            "SearchLoading"
+          ]
         }
       ]
     },
@@ -3478,7 +4228,7 @@
           "name": "searchItems",
           "type": "function",
           "path": "src/app/(site)/search/page.tsx",
-          "line": 61,
+          "line": 62,
           "exports": []
         },
         {
@@ -3486,7 +4236,7 @@
           "name": "SearchResultsPage",
           "type": "function",
           "path": "src/app/(site)/search/page.tsx",
-          "line": 125,
+          "line": 128,
           "exports": [
             "SearchResultsPage"
           ]
@@ -3496,7 +4246,7 @@
           "name": "FilterChip",
           "type": "function",
           "path": "src/app/(site)/search/page.tsx",
-          "line": 215,
+          "line": 218,
           "exports": []
         },
         {
@@ -3562,7 +4312,7 @@
           "name": "SORT_LABEL",
           "type": "variable",
           "path": "src/app/(site)/search/page.tsx",
-          "line": 119,
+          "line": 122,
           "exports": []
         }
       ]
@@ -3735,7 +4485,7 @@
           "name": "parseSort",
           "type": "function",
           "path": "src/app/api/search/route.ts",
-          "line": 47,
+          "line": 48,
           "exports": []
         },
         {
@@ -3743,7 +4493,7 @@
           "name": "parseNumber",
           "type": "function",
           "path": "src/app/api/search/route.ts",
-          "line": 52,
+          "line": 53,
           "exports": []
         },
         {
@@ -3751,7 +4501,7 @@
           "name": "buildFtsMatchQuery",
           "type": "function",
           "path": "src/app/api/search/route.ts",
-          "line": 64,
+          "line": 65,
           "exports": []
         },
         {
@@ -3759,7 +4509,7 @@
           "name": "GET",
           "type": "function",
           "path": "src/app/api/search/route.ts",
-          "line": 89,
+          "line": 91,
           "exports": [
             "GET"
           ]
@@ -3779,7 +4529,7 @@
           "name": "SearchResponse",
           "type": "interface",
           "path": "src/app/api/search/route.ts",
-          "line": 38,
+          "line": 39,
           "exports": [
             "SearchResponse"
           ]
@@ -3789,7 +4539,7 @@
           "name": "Row",
           "type": "interface",
           "path": "src/app/api/search/route.ts",
-          "line": 74,
+          "line": 75,
           "exports": []
         },
         {
@@ -3797,7 +4547,7 @@
           "name": "Sort",
           "type": "type",
           "path": "src/app/api/search/route.ts",
-          "line": 45,
+          "line": 46,
           "exports": []
         }
       ]
@@ -4276,6 +5026,71 @@
       ]
     },
     {
+      "id": "src/app/(site)/favorites/_components/FavoriteRestaurantCards.tsx",
+      "name": "FavoriteRestaurantCards.tsx",
+      "type": "file",
+      "path": "src/app/(site)/favorites/_components/FavoriteRestaurantCards.tsx",
+      "exports": [
+        "PrefetchRestaurantLink",
+        "FavoriteRestaurantCardDesktop",
+        "FavoriteRestaurantCardMobile",
+        "PrefetchRestaurantLinkProps",
+        "FavoriteRestaurant"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/favorites/_components/FavoriteRestaurantCards.tsx:PrefetchRestaurantLink",
+          "name": "PrefetchRestaurantLink",
+          "type": "function",
+          "path": "src/app/(site)/favorites/_components/FavoriteRestaurantCards.tsx",
+          "line": 44,
+          "exports": [
+            "PrefetchRestaurantLink"
+          ]
+        },
+        {
+          "id": "src/app/(site)/favorites/_components/FavoriteRestaurantCards.tsx:FavoriteRestaurantCardDesktop",
+          "name": "FavoriteRestaurantCardDesktop",
+          "type": "function",
+          "path": "src/app/(site)/favorites/_components/FavoriteRestaurantCards.tsx",
+          "line": 77,
+          "exports": [
+            "FavoriteRestaurantCardDesktop"
+          ]
+        },
+        {
+          "id": "src/app/(site)/favorites/_components/FavoriteRestaurantCards.tsx:FavoriteRestaurantCardMobile",
+          "name": "FavoriteRestaurantCardMobile",
+          "type": "function",
+          "path": "src/app/(site)/favorites/_components/FavoriteRestaurantCards.tsx",
+          "line": 136,
+          "exports": [
+            "FavoriteRestaurantCardMobile"
+          ]
+        },
+        {
+          "id": "src/app/(site)/favorites/_components/FavoriteRestaurantCards.tsx:PrefetchRestaurantLinkProps",
+          "name": "PrefetchRestaurantLinkProps",
+          "type": "interface",
+          "path": "src/app/(site)/favorites/_components/FavoriteRestaurantCards.tsx",
+          "line": 37,
+          "exports": [
+            "PrefetchRestaurantLinkProps"
+          ]
+        },
+        {
+          "id": "src/app/(site)/favorites/_components/FavoriteRestaurantCards.tsx:FavoriteRestaurant",
+          "name": "FavoriteRestaurant",
+          "type": "interface",
+          "path": "src/app/(site)/favorites/_components/FavoriteRestaurantCards.tsx",
+          "line": 67,
+          "exports": [
+            "FavoriteRestaurant"
+          ]
+        }
+      ]
+    },
+    {
       "id": "src/app/(site)/map/_components/MobileMapView.tsx",
       "name": "MobileMapView.tsx",
       "type": "file",
@@ -4291,17 +5106,25 @@
           "name": "MobileMapView",
           "type": "function",
           "path": "src/app/(site)/map/_components/MobileMapView.tsx",
-          "line": 38,
+          "line": 52,
           "exports": [
             "MobileMapView"
           ]
+        },
+        {
+          "id": "src/app/(site)/map/_components/MobileMapView.tsx:MobileMapResultCard",
+          "name": "MobileMapResultCard",
+          "type": "function",
+          "path": "src/app/(site)/map/_components/MobileMapView.tsx",
+          "line": 128,
+          "exports": []
         },
         {
           "id": "src/app/(site)/map/_components/MobileMapView.tsx:MobileMapItem",
           "name": "MobileMapItem",
           "type": "interface",
           "path": "src/app/(site)/map/_components/MobileMapView.tsx",
-          "line": 10,
+          "line": 13,
           "exports": [
             "MobileMapItem"
           ]
@@ -4311,7 +5134,7 @@
           "name": "MobileMapViewProps",
           "type": "interface",
           "path": "src/app/(site)/map/_components/MobileMapView.tsx",
-          "line": 21,
+          "line": 31,
           "exports": [
             "MobileMapViewProps"
           ]
@@ -4476,6 +5299,70 @@
       ]
     },
     {
+      "id": "src/app/(site)/restaurant/_components/RestaurantIndexCards.tsx",
+      "name": "RestaurantIndexCards.tsx",
+      "type": "file",
+      "path": "src/app/(site)/restaurant/_components/RestaurantIndexCards.tsx",
+      "exports": [
+        "RestaurantIndexCardDesktop",
+        "RestaurantIndexCardMobile",
+        "RestaurantIndexItem"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/restaurant/_components/RestaurantIndexCards.tsx:RestaurantIndexCardDesktop",
+          "name": "RestaurantIndexCardDesktop",
+          "type": "function",
+          "path": "src/app/(site)/restaurant/_components/RestaurantIndexCards.tsx",
+          "line": 35,
+          "exports": [
+            "RestaurantIndexCardDesktop"
+          ]
+        },
+        {
+          "id": "src/app/(site)/restaurant/_components/RestaurantIndexCards.tsx:RestaurantIndexCardMobile",
+          "name": "RestaurantIndexCardMobile",
+          "type": "function",
+          "path": "src/app/(site)/restaurant/_components/RestaurantIndexCards.tsx",
+          "line": 94,
+          "exports": [
+            "RestaurantIndexCardMobile"
+          ]
+        },
+        {
+          "id": "src/app/(site)/restaurant/_components/RestaurantIndexCards.tsx:RestaurantIndexItem",
+          "name": "RestaurantIndexItem",
+          "type": "interface",
+          "path": "src/app/(site)/restaurant/_components/RestaurantIndexCards.tsx",
+          "line": 25,
+          "exports": [
+            "RestaurantIndexItem"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/restaurant/[id]/loading.tsx",
+      "name": "loading.tsx",
+      "type": "file",
+      "path": "src/app/(site)/restaurant/[id]/loading.tsx",
+      "exports": [
+        "RestaurantDetailLoading"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/restaurant/[id]/loading.tsx:RestaurantDetailLoading",
+          "name": "RestaurantDetailLoading",
+          "type": "function",
+          "path": "src/app/(site)/restaurant/[id]/loading.tsx",
+          "line": 33,
+          "exports": [
+            "RestaurantDetailLoading"
+          ]
+        }
+      ]
+    },
+    {
       "id": "src/app/(site)/restaurant/[id]/page.tsx",
       "name": "page.tsx",
       "type": "file",
@@ -4501,7 +5388,7 @@
           "name": "formatMenuPrice",
           "type": "function",
           "path": "src/app/(site)/restaurant/[id]/page.tsx",
-          "line": 237,
+          "line": 257,
           "exports": [
             "formatMenuPrice"
           ]
@@ -4558,7 +5445,15 @@
           "name": "SortChip",
           "type": "function",
           "path": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
-          "line": 29,
+          "line": 33,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/search/_components/DesktopSearchResults.tsx:SearchResultCard",
+          "name": "SearchResultCard",
+          "type": "function",
+          "path": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
+          "line": 64,
           "exports": []
         },
         {
@@ -4566,7 +5461,7 @@
           "name": "DesktopSearchResults",
           "type": "function",
           "path": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
-          "line": 60,
+          "line": 157,
           "exports": [
             "DesktopSearchResults"
           ]
@@ -4576,7 +5471,7 @@
           "name": "DesktopSearchResultsProps",
           "type": "interface",
           "path": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
-          "line": 16,
+          "line": 20,
           "exports": [
             "DesktopSearchResultsProps"
           ]
@@ -4586,7 +5481,15 @@
           "name": "SortChipProps",
           "type": "interface",
           "path": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
-          "line": 23,
+          "line": 27,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/search/_components/DesktopSearchResults.tsx:SearchResultCardProps",
+          "name": "SearchResultCardProps",
+          "type": "interface",
+          "path": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
+          "line": 49,
           "exports": []
         },
         {
@@ -4594,7 +5497,7 @@
           "name": "DesktopSort",
           "type": "type",
           "path": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
-          "line": 14,
+          "line": 18,
           "exports": [
             "DesktopSort"
           ]
@@ -4604,7 +5507,7 @@
           "name": "MOSCOW_CENTER",
           "type": "variable",
           "path": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
-          "line": 12,
+          "line": 16,
           "exports": []
         }
       ]
@@ -4623,17 +5526,25 @@
           "name": "MobileSearchResults",
           "type": "function",
           "path": "src/app/(site)/search/_components/MobileSearchResults.tsx",
-          "line": 24,
+          "line": 36,
           "exports": [
             "MobileSearchResults"
           ]
+        },
+        {
+          "id": "src/app/(site)/search/_components/MobileSearchResults.tsx:MobileSearchResultCard",
+          "name": "MobileSearchResultCard",
+          "type": "function",
+          "path": "src/app/(site)/search/_components/MobileSearchResults.tsx",
+          "line": 147,
+          "exports": []
         },
         {
           "id": "src/app/(site)/search/_components/MobileSearchResults.tsx:MapThumbnail",
           "name": "MapThumbnail",
           "type": "function",
           "path": "src/app/(site)/search/_components/MobileSearchResults.tsx",
-          "line": 160,
+          "line": 238,
           "exports": []
         },
         {
@@ -4641,7 +5552,15 @@
           "name": "MobileSearchResultsProps",
           "type": "interface",
           "path": "src/app/(site)/search/_components/MobileSearchResults.tsx",
-          "line": 14,
+          "line": 19,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/search/_components/MobileSearchResults.tsx:MobileSearchResultCardProps",
+          "name": "MobileSearchResultCardProps",
+          "type": "interface",
+          "path": "src/app/(site)/search/_components/MobileSearchResults.tsx",
+          "line": 135,
           "exports": []
         }
       ]
@@ -5010,7 +5929,7 @@
           "name": "pluralize",
           "type": "function",
           "path": "src/app/(admin)/admin/menu/_components/MenuManagementClient.tsx",
-          "line": 640,
+          "line": 643,
           "exports": []
         },
         {
@@ -5193,7 +6112,7 @@
           "name": "BackButton",
           "type": "function",
           "path": "src/app/(site)/restaurant/[id]/_components/BackButton.tsx",
-          "line": 33,
+          "line": 34,
           "exports": [
             "BackButton"
           ]
@@ -5203,7 +6122,7 @@
           "name": "BackButtonProps",
           "type": "interface",
           "path": "src/app/(site)/restaurant/[id]/_components/BackButton.tsx",
-          "line": 8,
+          "line": 9,
           "exports": [
             "BackButtonProps"
           ]
@@ -5732,7 +6651,7 @@
           "name": "Field",
           "type": "function",
           "path": "src/app/(admin)/admin/restaurants/new/_components/AddRestaurantForm.tsx",
-          "line": 375,
+          "line": 378,
           "exports": []
         },
         {
@@ -5798,7 +6717,7 @@
           "name": "AddRestaurantForm",
           "type": "variable",
           "path": "src/app/(admin)/admin/restaurants/new/_components/AddRestaurantForm.tsx",
-          "line": 373,
+          "line": 376,
           "exports": [
             "AddRestaurantForm"
           ]
