@@ -1,0 +1,5360 @@
+{
+  "root": "/Users/igorgerasimov/claudeWorkspace/lunchHunter",
+  "generatedAt": "2026-04-09T13:38:02.668Z",
+  "nodes": [
+    {
+      "id": "drizzle.config.ts",
+      "name": "drizzle.config.ts",
+      "type": "file",
+      "path": "drizzle.config.ts",
+      "exports": [],
+      "children": []
+    },
+    {
+      "id": "next-env.d.ts",
+      "name": "next-env.d.ts",
+      "type": "file",
+      "path": "next-env.d.ts",
+      "exports": [],
+      "children": []
+    },
+    {
+      "id": "next.config.ts",
+      "name": "next.config.ts",
+      "type": "file",
+      "path": "next.config.ts",
+      "exports": [],
+      "children": [
+        {
+          "id": "next.config.ts:withSerwist",
+          "name": "withSerwist",
+          "type": "variable",
+          "path": "next.config.ts",
+          "line": 4,
+          "exports": []
+        },
+        {
+          "id": "next.config.ts:nextConfig",
+          "name": "nextConfig",
+          "type": "variable",
+          "path": "next.config.ts",
+          "line": 13,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "playwright.config.ts",
+      "name": "playwright.config.ts",
+      "type": "file",
+      "path": "playwright.config.ts",
+      "exports": [],
+      "children": []
+    },
+    {
+      "id": "vitest.config.ts",
+      "name": "vitest.config.ts",
+      "type": "file",
+      "path": "vitest.config.ts",
+      "exports": [],
+      "children": []
+    },
+    {
+      "id": "e2e/admin.spec.ts",
+      "name": "admin.spec.ts",
+      "type": "file",
+      "path": "e2e/admin.spec.ts",
+      "exports": [],
+      "children": []
+    },
+    {
+      "id": "e2e/search.spec.ts",
+      "name": "search.spec.ts",
+      "type": "file",
+      "path": "e2e/search.spec.ts",
+      "exports": [],
+      "children": []
+    },
+    {
+      "id": "e2e/tg-auth.spec.ts",
+      "name": "tg-auth.spec.ts",
+      "type": "file",
+      "path": "e2e/tg-auth.spec.ts",
+      "exports": [],
+      "children": []
+    },
+    {
+      "id": "public/sw.js",
+      "name": "sw.js",
+      "type": "file",
+      "path": "public/sw.js",
+      "exports": [],
+      "children": []
+    },
+    {
+      "id": "public/swe-worker-ab00d3c7d2d59769.js",
+      "name": "swe-worker-ab00d3c7d2d59769.js",
+      "type": "file",
+      "path": "public/swe-worker-ab00d3c7d2d59769.js",
+      "exports": [],
+      "children": []
+    },
+    {
+      "id": "scripts/generate-pwa-icons.ts",
+      "name": "generate-pwa-icons.ts",
+      "type": "file",
+      "path": "scripts/generate-pwa-icons.ts",
+      "exports": [],
+      "children": [
+        {
+          "id": "scripts/generate-pwa-icons.ts:buildIconSvg",
+          "name": "buildIconSvg",
+          "type": "function",
+          "path": "scripts/generate-pwa-icons.ts",
+          "line": 28,
+          "exports": []
+        },
+        {
+          "id": "scripts/generate-pwa-icons.ts:renderIcon",
+          "name": "renderIcon",
+          "type": "function",
+          "path": "scripts/generate-pwa-icons.ts",
+          "line": 71,
+          "exports": []
+        },
+        {
+          "id": "scripts/generate-pwa-icons.ts:main",
+          "name": "main",
+          "type": "function",
+          "path": "scripts/generate-pwa-icons.ts",
+          "line": 87,
+          "exports": []
+        },
+        {
+          "id": "scripts/generate-pwa-icons.ts:BRAND_ORANGE",
+          "name": "BRAND_ORANGE",
+          "type": "variable",
+          "path": "scripts/generate-pwa-icons.ts",
+          "line": 20,
+          "exports": []
+        },
+        {
+          "id": "scripts/generate-pwa-icons.ts:OUTPUT_DIR",
+          "name": "OUTPUT_DIR",
+          "type": "variable",
+          "path": "scripts/generate-pwa-icons.ts",
+          "line": 21,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/layout.tsx",
+      "name": "layout.tsx",
+      "type": "file",
+      "path": "src/app/layout.tsx",
+      "exports": [
+        "RootLayout",
+        "metadata",
+        "viewport"
+      ],
+      "children": [
+        {
+          "id": "src/app/layout.tsx:RootLayout",
+          "name": "RootLayout",
+          "type": "function",
+          "path": "src/app/layout.tsx",
+          "line": 46,
+          "exports": [
+            "RootLayout"
+          ]
+        },
+        {
+          "id": "src/app/layout.tsx:geistSans",
+          "name": "geistSans",
+          "type": "variable",
+          "path": "src/app/layout.tsx",
+          "line": 5,
+          "exports": []
+        },
+        {
+          "id": "src/app/layout.tsx:geistMono",
+          "name": "geistMono",
+          "type": "variable",
+          "path": "src/app/layout.tsx",
+          "line": 11,
+          "exports": []
+        },
+        {
+          "id": "src/app/layout.tsx:metadata",
+          "name": "metadata",
+          "type": "variable",
+          "path": "src/app/layout.tsx",
+          "line": 17,
+          "exports": [
+            "metadata"
+          ]
+        },
+        {
+          "id": "src/app/layout.tsx:viewport",
+          "name": "viewport",
+          "type": "variable",
+          "path": "src/app/layout.tsx",
+          "line": 38,
+          "exports": [
+            "viewport"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/manifest.ts",
+      "name": "manifest.ts",
+      "type": "file",
+      "path": "src/app/manifest.ts",
+      "exports": [
+        "manifest"
+      ],
+      "children": [
+        {
+          "id": "src/app/manifest.ts:manifest",
+          "name": "manifest",
+          "type": "function",
+          "path": "src/app/manifest.ts",
+          "line": 3,
+          "exports": [
+            "manifest"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/sw.ts",
+      "name": "sw.ts",
+      "type": "file",
+      "path": "src/app/sw.ts",
+      "exports": [],
+      "children": [
+        {
+          "id": "src/app/sw.ts:self",
+          "name": "self",
+          "type": "variable",
+          "path": "src/app/sw.ts",
+          "line": 17,
+          "exports": []
+        },
+        {
+          "id": "src/app/sw.ts:FIVE_MINUTES",
+          "name": "FIVE_MINUTES",
+          "type": "variable",
+          "path": "src/app/sw.ts",
+          "line": 19,
+          "exports": []
+        },
+        {
+          "id": "src/app/sw.ts:apiRuntimeCaching",
+          "name": "apiRuntimeCaching",
+          "type": "variable",
+          "path": "src/app/sw.ts",
+          "line": 21,
+          "exports": []
+        },
+        {
+          "id": "src/app/sw.ts:serwist",
+          "name": "serwist",
+          "type": "variable",
+          "path": "src/app/sw.ts",
+          "line": 72,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "tests/unit/haversine.test.ts",
+      "name": "haversine.test.ts",
+      "type": "file",
+      "path": "tests/unit/haversine.test.ts",
+      "exports": [],
+      "children": []
+    },
+    {
+      "id": "tests/unit/ocr.test.ts",
+      "name": "ocr.test.ts",
+      "type": "file",
+      "path": "tests/unit/ocr.test.ts",
+      "exports": [],
+      "children": [
+        {
+          "id": "tests/unit/ocr.test.ts:makeRedSquare",
+          "name": "makeRedSquare",
+          "type": "function",
+          "path": "tests/unit/ocr.test.ts",
+          "line": 13,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "tests/unit/telegram.test.ts",
+      "name": "telegram.test.ts",
+      "type": "file",
+      "path": "tests/unit/telegram.test.ts",
+      "exports": [],
+      "children": [
+        {
+          "id": "tests/unit/telegram.test.ts:signInitData",
+          "name": "signInitData",
+          "type": "function",
+          "path": "tests/unit/telegram.test.ts",
+          "line": 11,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/layout.tsx",
+      "name": "layout.tsx",
+      "type": "file",
+      "path": "src/app/(site)/layout.tsx",
+      "exports": [
+        "SiteLayout",
+        "metadata"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/layout.tsx:SiteLayout",
+          "name": "SiteLayout",
+          "type": "function",
+          "path": "src/app/(site)/layout.tsx",
+          "line": 25,
+          "exports": [
+            "SiteLayout"
+          ]
+        },
+        {
+          "id": "src/app/(site)/layout.tsx:metadata",
+          "name": "metadata",
+          "type": "variable",
+          "path": "src/app/(site)/layout.tsx",
+          "line": 5,
+          "exports": [
+            "metadata"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/page.tsx",
+      "name": "page.tsx",
+      "type": "file",
+      "path": "src/app/(site)/page.tsx",
+      "exports": [
+        "HomePage",
+        "dynamic"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/page.tsx:HomePage",
+          "name": "HomePage",
+          "type": "function",
+          "path": "src/app/(site)/page.tsx",
+          "line": 31,
+          "exports": [
+            "HomePage"
+          ]
+        },
+        {
+          "id": "src/app/(site)/page.tsx:dynamic",
+          "name": "dynamic",
+          "type": "variable",
+          "path": "src/app/(site)/page.tsx",
+          "line": 18,
+          "exports": [
+            "dynamic"
+          ]
+        },
+        {
+          "id": "src/app/(site)/page.tsx:DEFAULT_LAT",
+          "name": "DEFAULT_LAT",
+          "type": "variable",
+          "path": "src/app/(site)/page.tsx",
+          "line": 21,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/page.tsx:DEFAULT_LNG",
+          "name": "DEFAULT_LNG",
+          "type": "variable",
+          "path": "src/app/(site)/page.tsx",
+          "line": 22,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/page.tsx:CATEGORIES",
+          "name": "CATEGORIES",
+          "type": "variable",
+          "path": "src/app/(site)/page.tsx",
+          "line": 24,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/offline/page.tsx",
+      "name": "page.tsx",
+      "type": "file",
+      "path": "src/app/offline/page.tsx",
+      "exports": [
+        "OfflinePage",
+        "metadata"
+      ],
+      "children": [
+        {
+          "id": "src/app/offline/page.tsx:OfflinePage",
+          "name": "OfflinePage",
+          "type": "function",
+          "path": "src/app/offline/page.tsx",
+          "line": 21,
+          "exports": [
+            "OfflinePage"
+          ]
+        },
+        {
+          "id": "src/app/offline/page.tsx:metadata",
+          "name": "metadata",
+          "type": "variable",
+          "path": "src/app/offline/page.tsx",
+          "line": 5,
+          "exports": [
+            "metadata"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/tg/layout.tsx",
+      "name": "layout.tsx",
+      "type": "file",
+      "path": "src/app/tg/layout.tsx",
+      "exports": [
+        "TgLayout",
+        "metadata"
+      ],
+      "children": [
+        {
+          "id": "src/app/tg/layout.tsx:TgLayout",
+          "name": "TgLayout",
+          "type": "function",
+          "path": "src/app/tg/layout.tsx",
+          "line": 15,
+          "exports": [
+            "TgLayout"
+          ]
+        },
+        {
+          "id": "src/app/tg/layout.tsx:metadata",
+          "name": "metadata",
+          "type": "variable",
+          "path": "src/app/tg/layout.tsx",
+          "line": 3,
+          "exports": [
+            "metadata"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/tg/page.tsx",
+      "name": "page.tsx",
+      "type": "file",
+      "path": "src/app/tg/page.tsx",
+      "exports": [
+        "TgPage"
+      ],
+      "children": [
+        {
+          "id": "src/app/tg/page.tsx:TgPage",
+          "name": "TgPage",
+          "type": "function",
+          "path": "src/app/tg/page.tsx",
+          "line": 14,
+          "exports": [
+            "TgPage"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/components/admin/Sidebar.tsx",
+      "name": "Sidebar.tsx",
+      "type": "file",
+      "path": "src/components/admin/Sidebar.tsx",
+      "exports": [
+        "AdminSidebar",
+        "SidebarNavItem",
+        "AdminSidebarProps",
+        "ADMIN_NAV"
+      ],
+      "children": [
+        {
+          "id": "src/components/admin/Sidebar.tsx:isNavActive",
+          "name": "isNavActive",
+          "type": "function",
+          "path": "src/components/admin/Sidebar.tsx",
+          "line": 72,
+          "exports": []
+        },
+        {
+          "id": "src/components/admin/Sidebar.tsx:AdminSidebar",
+          "name": "AdminSidebar",
+          "type": "function",
+          "path": "src/components/admin/Sidebar.tsx",
+          "line": 87,
+          "exports": [
+            "AdminSidebar"
+          ]
+        },
+        {
+          "id": "src/components/admin/Sidebar.tsx:SidebarNavItem",
+          "name": "SidebarNavItem",
+          "type": "interface",
+          "path": "src/components/admin/Sidebar.tsx",
+          "line": 26,
+          "exports": [
+            "SidebarNavItem"
+          ]
+        },
+        {
+          "id": "src/components/admin/Sidebar.tsx:AdminSidebarProps",
+          "name": "AdminSidebarProps",
+          "type": "interface",
+          "path": "src/components/admin/Sidebar.tsx",
+          "line": 81,
+          "exports": [
+            "AdminSidebarProps"
+          ]
+        },
+        {
+          "id": "src/components/admin/Sidebar.tsx:ADMIN_NAV",
+          "name": "ADMIN_NAV",
+          "type": "variable",
+          "path": "src/components/admin/Sidebar.tsx",
+          "line": 33,
+          "exports": [
+            "ADMIN_NAV"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/components/desktop/FeatureCard.tsx",
+      "name": "FeatureCard.tsx",
+      "type": "file",
+      "path": "src/components/desktop/FeatureCard.tsx",
+      "exports": [
+        "FeatureCard",
+        "FeatureCardProps"
+      ],
+      "children": [
+        {
+          "id": "src/components/desktop/FeatureCard.tsx:FeatureCard",
+          "name": "FeatureCard",
+          "type": "function",
+          "path": "src/components/desktop/FeatureCard.tsx",
+          "line": 19,
+          "exports": [
+            "FeatureCard"
+          ]
+        },
+        {
+          "id": "src/components/desktop/FeatureCard.tsx:FeatureCardProps",
+          "name": "FeatureCardProps",
+          "type": "interface",
+          "path": "src/components/desktop/FeatureCard.tsx",
+          "line": 4,
+          "exports": [
+            "FeatureCardProps"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/components/desktop/TopNav.tsx",
+      "name": "TopNav.tsx",
+      "type": "file",
+      "path": "src/components/desktop/TopNav.tsx",
+      "exports": [
+        "TopNav",
+        "TopNavLink",
+        "TopNavProps",
+        "DEFAULT_TOPNAV_LINKS"
+      ],
+      "children": [
+        {
+          "id": "src/components/desktop/TopNav.tsx:isActive",
+          "name": "isActive",
+          "type": "function",
+          "path": "src/components/desktop/TopNav.tsx",
+          "line": 27,
+          "exports": []
+        },
+        {
+          "id": "src/components/desktop/TopNav.tsx:TopNav",
+          "name": "TopNav",
+          "type": "function",
+          "path": "src/components/desktop/TopNav.tsx",
+          "line": 49,
+          "exports": [
+            "TopNav"
+          ]
+        },
+        {
+          "id": "src/components/desktop/TopNav.tsx:TopNavLink",
+          "name": "TopNavLink",
+          "type": "interface",
+          "path": "src/components/desktop/TopNav.tsx",
+          "line": 8,
+          "exports": [
+            "TopNavLink"
+          ]
+        },
+        {
+          "id": "src/components/desktop/TopNav.tsx:TopNavProps",
+          "name": "TopNavProps",
+          "type": "interface",
+          "path": "src/components/desktop/TopNav.tsx",
+          "line": 15,
+          "exports": [
+            "TopNavProps"
+          ]
+        },
+        {
+          "id": "src/components/desktop/TopNav.tsx:DEFAULT_TOPNAV_LINKS",
+          "name": "DEFAULT_TOPNAV_LINKS",
+          "type": "variable",
+          "path": "src/components/desktop/TopNav.tsx",
+          "line": 20,
+          "exports": [
+            "DEFAULT_TOPNAV_LINKS"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/components/map/MapView.tsx",
+      "name": "MapView.tsx",
+      "type": "file",
+      "path": "src/components/map/MapView.tsx",
+      "exports": [],
+      "children": [
+        {
+          "id": "src/components/map/MapView.tsx:MapView",
+          "name": "MapView",
+          "type": "variable",
+          "path": "src/components/map/MapView.tsx",
+          "line": 13,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/components/map/MapViewClient.tsx",
+      "name": "MapViewClient.tsx",
+      "type": "file",
+      "path": "src/components/map/MapViewClient.tsx",
+      "exports": [
+        "MapViewClient",
+        "MapMarker",
+        "MapViewClientProps"
+      ],
+      "children": [
+        {
+          "id": "src/components/map/MapViewClient.tsx:buildCirclePolygon",
+          "name": "buildCirclePolygon",
+          "type": "function",
+          "path": "src/components/map/MapViewClient.tsx",
+          "line": 86,
+          "exports": []
+        },
+        {
+          "id": "src/components/map/MapViewClient.tsx:escapeHtml",
+          "name": "escapeHtml",
+          "type": "function",
+          "path": "src/components/map/MapViewClient.tsx",
+          "line": 123,
+          "exports": []
+        },
+        {
+          "id": "src/components/map/MapViewClient.tsx:buildPopupHtml",
+          "name": "buildPopupHtml",
+          "type": "function",
+          "path": "src/components/map/MapViewClient.tsx",
+          "line": 132,
+          "exports": []
+        },
+        {
+          "id": "src/components/map/MapViewClient.tsx:MapViewClient",
+          "name": "MapViewClient",
+          "type": "function",
+          "path": "src/components/map/MapViewClient.tsx",
+          "line": 161,
+          "exports": [
+            "MapViewClient"
+          ]
+        },
+        {
+          "id": "src/components/map/MapViewClient.tsx:MapMarker",
+          "name": "MapMarker",
+          "type": "interface",
+          "path": "src/components/map/MapViewClient.tsx",
+          "line": 14,
+          "exports": [
+            "MapMarker"
+          ]
+        },
+        {
+          "id": "src/components/map/MapViewClient.tsx:MapViewClientProps",
+          "name": "MapViewClientProps",
+          "type": "interface",
+          "path": "src/components/map/MapViewClient.tsx",
+          "line": 30,
+          "exports": [
+            "MapViewClientProps"
+          ]
+        },
+        {
+          "id": "src/components/map/MapViewClient.tsx:ACCENT",
+          "name": "ACCENT",
+          "type": "variable",
+          "path": "src/components/map/MapViewClient.tsx",
+          "line": 49,
+          "exports": []
+        },
+        {
+          "id": "src/components/map/MapViewClient.tsx:ACCENT_FILL",
+          "name": "ACCENT_FILL",
+          "type": "variable",
+          "path": "src/components/map/MapViewClient.tsx",
+          "line": 50,
+          "exports": []
+        },
+        {
+          "id": "src/components/map/MapViewClient.tsx:DEFAULT_CENTER",
+          "name": "DEFAULT_CENTER",
+          "type": "variable",
+          "path": "src/components/map/MapViewClient.tsx",
+          "line": 52,
+          "exports": []
+        },
+        {
+          "id": "src/components/map/MapViewClient.tsx:DEFAULT_ZOOM",
+          "name": "DEFAULT_ZOOM",
+          "type": "variable",
+          "path": "src/components/map/MapViewClient.tsx",
+          "line": 53,
+          "exports": []
+        },
+        {
+          "id": "src/components/map/MapViewClient.tsx:OSM_STYLE",
+          "name": "OSM_STYLE",
+          "type": "variable",
+          "path": "src/components/map/MapViewClient.tsx",
+          "line": 55,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/components/map/RadiusSelector.tsx",
+      "name": "RadiusSelector.tsx",
+      "type": "file",
+      "path": "src/components/map/RadiusSelector.tsx",
+      "exports": [
+        "RadiusSelector",
+        "RadiusOption",
+        "RadiusSelectorProps",
+        "DEFAULT_RADIUS_OPTIONS"
+      ],
+      "children": [
+        {
+          "id": "src/components/map/RadiusSelector.tsx:RadiusSelector",
+          "name": "RadiusSelector",
+          "type": "function",
+          "path": "src/components/map/RadiusSelector.tsx",
+          "line": 39,
+          "exports": [
+            "RadiusSelector"
+          ]
+        },
+        {
+          "id": "src/components/map/RadiusSelector.tsx:RadiusOption",
+          "name": "RadiusOption",
+          "type": "interface",
+          "path": "src/components/map/RadiusSelector.tsx",
+          "line": 5,
+          "exports": [
+            "RadiusOption"
+          ]
+        },
+        {
+          "id": "src/components/map/RadiusSelector.tsx:RadiusSelectorProps",
+          "name": "RadiusSelectorProps",
+          "type": "interface",
+          "path": "src/components/map/RadiusSelector.tsx",
+          "line": 19,
+          "exports": [
+            "RadiusSelectorProps"
+          ]
+        },
+        {
+          "id": "src/components/map/RadiusSelector.tsx:DEFAULT_RADIUS_OPTIONS",
+          "name": "DEFAULT_RADIUS_OPTIONS",
+          "type": "variable",
+          "path": "src/components/map/RadiusSelector.tsx",
+          "line": 12,
+          "exports": [
+            "DEFAULT_RADIUS_OPTIONS"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/components/mobile/BottomTabBar.tsx",
+      "name": "BottomTabBar.tsx",
+      "type": "file",
+      "path": "src/components/mobile/BottomTabBar.tsx",
+      "exports": [
+        "BottomTabBar",
+        "BottomTabItem",
+        "BottomTabBarProps",
+        "DEFAULT_TABS"
+      ],
+      "children": [
+        {
+          "id": "src/components/mobile/BottomTabBar.tsx:isTabActive",
+          "name": "isTabActive",
+          "type": "function",
+          "path": "src/components/mobile/BottomTabBar.tsx",
+          "line": 55,
+          "exports": []
+        },
+        {
+          "id": "src/components/mobile/BottomTabBar.tsx:BottomTabBar",
+          "name": "BottomTabBar",
+          "type": "function",
+          "path": "src/components/mobile/BottomTabBar.tsx",
+          "line": 69,
+          "exports": [
+            "BottomTabBar"
+          ]
+        },
+        {
+          "id": "src/components/mobile/BottomTabBar.tsx:BottomTabItem",
+          "name": "BottomTabItem",
+          "type": "interface",
+          "path": "src/components/mobile/BottomTabBar.tsx",
+          "line": 26,
+          "exports": [
+            "BottomTabItem"
+          ]
+        },
+        {
+          "id": "src/components/mobile/BottomTabBar.tsx:BottomTabBarProps",
+          "name": "BottomTabBarProps",
+          "type": "interface",
+          "path": "src/components/mobile/BottomTabBar.tsx",
+          "line": 64,
+          "exports": [
+            "BottomTabBarProps"
+          ]
+        },
+        {
+          "id": "src/components/mobile/BottomTabBar.tsx:DEFAULT_TABS",
+          "name": "DEFAULT_TABS",
+          "type": "variable",
+          "path": "src/components/mobile/BottomTabBar.tsx",
+          "line": 37,
+          "exports": [
+            "DEFAULT_TABS"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/components/mobile/PWAInstallBanner.tsx",
+      "name": "PWAInstallBanner.tsx",
+      "type": "file",
+      "path": "src/components/mobile/PWAInstallBanner.tsx",
+      "exports": [
+        "PWAInstallBanner"
+      ],
+      "children": [
+        {
+          "id": "src/components/mobile/PWAInstallBanner.tsx:PWAInstallBanner",
+          "name": "PWAInstallBanner",
+          "type": "function",
+          "path": "src/components/mobile/PWAInstallBanner.tsx",
+          "line": 30,
+          "exports": [
+            "PWAInstallBanner"
+          ]
+        },
+        {
+          "id": "src/components/mobile/PWAInstallBanner.tsx:PWAInstallBannerProps",
+          "name": "PWAInstallBannerProps",
+          "type": "interface",
+          "path": "src/components/mobile/PWAInstallBanner.tsx",
+          "line": 10,
+          "exports": []
+        },
+        {
+          "id": "src/components/mobile/PWAInstallBanner.tsx:DISMISSED_STORAGE_KEY",
+          "name": "DISMISSED_STORAGE_KEY",
+          "type": "variable",
+          "path": "src/components/mobile/PWAInstallBanner.tsx",
+          "line": 8,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/components/mobile/useBeforeInstallPrompt.ts",
+      "name": "useBeforeInstallPrompt.ts",
+      "type": "file",
+      "path": "src/components/mobile/useBeforeInstallPrompt.ts",
+      "exports": [
+        "useBeforeInstallPrompt",
+        "BeforeInstallPromptEvent",
+        "UseBeforeInstallPromptResult"
+      ],
+      "children": [
+        {
+          "id": "src/components/mobile/useBeforeInstallPrompt.ts:useBeforeInstallPrompt",
+          "name": "useBeforeInstallPrompt",
+          "type": "function",
+          "path": "src/components/mobile/useBeforeInstallPrompt.ts",
+          "line": 45,
+          "exports": [
+            "useBeforeInstallPrompt"
+          ]
+        },
+        {
+          "id": "src/components/mobile/useBeforeInstallPrompt.ts:BeforeInstallPromptEvent",
+          "name": "BeforeInstallPromptEvent",
+          "type": "interface",
+          "path": "src/components/mobile/useBeforeInstallPrompt.ts",
+          "line": 11,
+          "exports": [
+            "BeforeInstallPromptEvent"
+          ]
+        },
+        {
+          "id": "src/components/mobile/useBeforeInstallPrompt.ts:UseBeforeInstallPromptResult",
+          "name": "UseBeforeInstallPromptResult",
+          "type": "interface",
+          "path": "src/components/mobile/useBeforeInstallPrompt.ts",
+          "line": 20,
+          "exports": [
+            "UseBeforeInstallPromptResult"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/components/ui/Badge.tsx",
+      "name": "Badge.tsx",
+      "type": "file",
+      "path": "src/components/ui/Badge.tsx",
+      "exports": [
+        "BadgeProps",
+        "Badge"
+      ],
+      "children": [
+        {
+          "id": "src/components/ui/Badge.tsx:BadgeProps",
+          "name": "BadgeProps",
+          "type": "interface",
+          "path": "src/components/ui/Badge.tsx",
+          "line": 39,
+          "exports": [
+            "BadgeProps"
+          ]
+        },
+        {
+          "id": "src/components/ui/Badge.tsx:badgeVariants",
+          "name": "badgeVariants",
+          "type": "variable",
+          "path": "src/components/ui/Badge.tsx",
+          "line": 12,
+          "exports": []
+        },
+        {
+          "id": "src/components/ui/Badge.tsx:Badge",
+          "name": "Badge",
+          "type": "variable",
+          "path": "src/components/ui/Badge.tsx",
+          "line": 45,
+          "exports": [
+            "Badge"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/components/ui/Button.tsx",
+      "name": "Button.tsx",
+      "type": "file",
+      "path": "src/components/ui/Button.tsx",
+      "exports": [
+        "ButtonProps",
+        "Button"
+      ],
+      "children": [
+        {
+          "id": "src/components/ui/Button.tsx:ButtonProps",
+          "name": "ButtonProps",
+          "type": "interface",
+          "path": "src/components/ui/Button.tsx",
+          "line": 52,
+          "exports": [
+            "ButtonProps"
+          ]
+        },
+        {
+          "id": "src/components/ui/Button.tsx:buttonVariants",
+          "name": "buttonVariants",
+          "type": "variable",
+          "path": "src/components/ui/Button.tsx",
+          "line": 15,
+          "exports": []
+        },
+        {
+          "id": "src/components/ui/Button.tsx:Button",
+          "name": "Button",
+          "type": "variable",
+          "path": "src/components/ui/Button.tsx",
+          "line": 61,
+          "exports": [
+            "Button"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/components/ui/Card.tsx",
+      "name": "Card.tsx",
+      "type": "file",
+      "path": "src/components/ui/Card.tsx",
+      "exports": [
+        "CardProps",
+        "Card",
+        "CardHeader",
+        "CardTitle",
+        "CardDescription",
+        "CardBody",
+        "CardFooter"
+      ],
+      "children": [
+        {
+          "id": "src/components/ui/Card.tsx:CardProps",
+          "name": "CardProps",
+          "type": "interface",
+          "path": "src/components/ui/Card.tsx",
+          "line": 14,
+          "exports": [
+            "CardProps"
+          ]
+        },
+        {
+          "id": "src/components/ui/Card.tsx:Card",
+          "name": "Card",
+          "type": "variable",
+          "path": "src/components/ui/Card.tsx",
+          "line": 22,
+          "exports": [
+            "Card"
+          ]
+        },
+        {
+          "id": "src/components/ui/Card.tsx:CardHeader",
+          "name": "CardHeader",
+          "type": "variable",
+          "path": "src/components/ui/Card.tsx",
+          "line": 44,
+          "exports": [
+            "CardHeader"
+          ]
+        },
+        {
+          "id": "src/components/ui/Card.tsx:CardTitle",
+          "name": "CardTitle",
+          "type": "variable",
+          "path": "src/components/ui/Card.tsx",
+          "line": 57,
+          "exports": [
+            "CardTitle"
+          ]
+        },
+        {
+          "id": "src/components/ui/Card.tsx:CardDescription",
+          "name": "CardDescription",
+          "type": "variable",
+          "path": "src/components/ui/Card.tsx",
+          "line": 70,
+          "exports": [
+            "CardDescription"
+          ]
+        },
+        {
+          "id": "src/components/ui/Card.tsx:CardBody",
+          "name": "CardBody",
+          "type": "variable",
+          "path": "src/components/ui/Card.tsx",
+          "line": 83,
+          "exports": [
+            "CardBody"
+          ]
+        },
+        {
+          "id": "src/components/ui/Card.tsx:CardFooter",
+          "name": "CardFooter",
+          "type": "variable",
+          "path": "src/components/ui/Card.tsx",
+          "line": 90,
+          "exports": [
+            "CardFooter"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/components/ui/Chip.tsx",
+      "name": "Chip.tsx",
+      "type": "file",
+      "path": "src/components/ui/Chip.tsx",
+      "exports": [
+        "ChipProps",
+        "Chip"
+      ],
+      "children": [
+        {
+          "id": "src/components/ui/Chip.tsx:ChipProps",
+          "name": "ChipProps",
+          "type": "interface",
+          "path": "src/components/ui/Chip.tsx",
+          "line": 40,
+          "exports": [
+            "ChipProps"
+          ]
+        },
+        {
+          "id": "src/components/ui/Chip.tsx:chipVariants",
+          "name": "chipVariants",
+          "type": "variable",
+          "path": "src/components/ui/Chip.tsx",
+          "line": 14,
+          "exports": []
+        },
+        {
+          "id": "src/components/ui/Chip.tsx:Chip",
+          "name": "Chip",
+          "type": "variable",
+          "path": "src/components/ui/Chip.tsx",
+          "line": 47,
+          "exports": [
+            "Chip"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/components/ui/FavoriteButton.tsx",
+      "name": "FavoriteButton.tsx",
+      "type": "file",
+      "path": "src/components/ui/FavoriteButton.tsx",
+      "exports": [
+        "FavoriteButton",
+        "FavoriteButtonProps",
+        "FavoriteTargetType"
+      ],
+      "children": [
+        {
+          "id": "src/components/ui/FavoriteButton.tsx:FavoriteButton",
+          "name": "FavoriteButton",
+          "type": "function",
+          "path": "src/components/ui/FavoriteButton.tsx",
+          "line": 34,
+          "exports": [
+            "FavoriteButton"
+          ]
+        },
+        {
+          "id": "src/components/ui/FavoriteButton.tsx:FavoriteButtonProps",
+          "name": "FavoriteButtonProps",
+          "type": "interface",
+          "path": "src/components/ui/FavoriteButton.tsx",
+          "line": 10,
+          "exports": [
+            "FavoriteButtonProps"
+          ]
+        },
+        {
+          "id": "src/components/ui/FavoriteButton.tsx:FavoriteTargetType",
+          "name": "FavoriteTargetType",
+          "type": "type",
+          "path": "src/components/ui/FavoriteButton.tsx",
+          "line": 8,
+          "exports": [
+            "FavoriteTargetType"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/components/ui/index.ts",
+      "name": "index.ts",
+      "type": "file",
+      "path": "src/components/ui/index.ts",
+      "exports": [],
+      "children": []
+    },
+    {
+      "id": "src/components/ui/Input.tsx",
+      "name": "Input.tsx",
+      "type": "file",
+      "path": "src/components/ui/Input.tsx",
+      "exports": [
+        "InputProps",
+        "SearchInputProps",
+        "Input",
+        "SearchInput"
+      ],
+      "children": [
+        {
+          "id": "src/components/ui/Input.tsx:InputProps",
+          "name": "InputProps",
+          "type": "interface",
+          "path": "src/components/ui/Input.tsx",
+          "line": 11,
+          "exports": [
+            "InputProps"
+          ]
+        },
+        {
+          "id": "src/components/ui/Input.tsx:SearchInputProps",
+          "name": "SearchInputProps",
+          "type": "type",
+          "path": "src/components/ui/Input.tsx",
+          "line": 81,
+          "exports": [
+            "SearchInputProps"
+          ]
+        },
+        {
+          "id": "src/components/ui/Input.tsx:sizeStyles",
+          "name": "sizeStyles",
+          "type": "variable",
+          "path": "src/components/ui/Input.tsx",
+          "line": 20,
+          "exports": []
+        },
+        {
+          "id": "src/components/ui/Input.tsx:Input",
+          "name": "Input",
+          "type": "variable",
+          "path": "src/components/ui/Input.tsx",
+          "line": 26,
+          "exports": [
+            "Input"
+          ]
+        },
+        {
+          "id": "src/components/ui/Input.tsx:SearchInput",
+          "name": "SearchInput",
+          "type": "variable",
+          "path": "src/components/ui/Input.tsx",
+          "line": 83,
+          "exports": [
+            "SearchInput"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/components/ui/Tabs.tsx",
+      "name": "Tabs.tsx",
+      "type": "file",
+      "path": "src/components/ui/Tabs.tsx",
+      "exports": [
+        "Tabs",
+        "TabsList",
+        "TabsTrigger",
+        "TabsContent"
+      ],
+      "children": [
+        {
+          "id": "src/components/ui/Tabs.tsx:Tabs",
+          "name": "Tabs",
+          "type": "variable",
+          "path": "src/components/ui/Tabs.tsx",
+          "line": 24,
+          "exports": [
+            "Tabs"
+          ]
+        },
+        {
+          "id": "src/components/ui/Tabs.tsx:TabsList",
+          "name": "TabsList",
+          "type": "variable",
+          "path": "src/components/ui/Tabs.tsx",
+          "line": 26,
+          "exports": [
+            "TabsList"
+          ]
+        },
+        {
+          "id": "src/components/ui/Tabs.tsx:TabsTrigger",
+          "name": "TabsTrigger",
+          "type": "variable",
+          "path": "src/components/ui/Tabs.tsx",
+          "line": 42,
+          "exports": [
+            "TabsTrigger"
+          ]
+        },
+        {
+          "id": "src/components/ui/Tabs.tsx:TabsContent",
+          "name": "TabsContent",
+          "type": "variable",
+          "path": "src/components/ui/Tabs.tsx",
+          "line": 63,
+          "exports": [
+            "TabsContent"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/lib/auth/password.ts",
+      "name": "password.ts",
+      "type": "file",
+      "path": "src/lib/auth/password.ts",
+      "exports": [
+        "hashPassword",
+        "verifyPassword"
+      ],
+      "children": [
+        {
+          "id": "src/lib/auth/password.ts:hashPassword",
+          "name": "hashPassword",
+          "type": "function",
+          "path": "src/lib/auth/password.ts",
+          "line": 17,
+          "exports": [
+            "hashPassword"
+          ]
+        },
+        {
+          "id": "src/lib/auth/password.ts:verifyPassword",
+          "name": "verifyPassword",
+          "type": "function",
+          "path": "src/lib/auth/password.ts",
+          "line": 21,
+          "exports": [
+            "verifyPassword"
+          ]
+        },
+        {
+          "id": "src/lib/auth/password.ts:OPTIONS",
+          "name": "OPTIONS",
+          "type": "variable",
+          "path": "src/lib/auth/password.ts",
+          "line": 10,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/lib/auth/session.ts",
+      "name": "session.ts",
+      "type": "file",
+      "path": "src/lib/auth/session.ts",
+      "exports": [
+        "createSession",
+        "setSessionCookie",
+        "clearSessionCookie",
+        "deleteSession",
+        "validateSession",
+        "requireAdmin",
+        "SessionUser",
+        "SessionRow",
+        "ValidateResult",
+        "SESSION_COOKIE_NAME"
+      ],
+      "children": [
+        {
+          "id": "src/lib/auth/session.ts:generateSessionId",
+          "name": "generateSessionId",
+          "type": "function",
+          "path": "src/lib/auth/session.ts",
+          "line": 49,
+          "exports": []
+        },
+        {
+          "id": "src/lib/auth/session.ts:createSession",
+          "name": "createSession",
+          "type": "function",
+          "path": "src/lib/auth/session.ts",
+          "line": 53,
+          "exports": [
+            "createSession"
+          ]
+        },
+        {
+          "id": "src/lib/auth/session.ts:setSessionCookie",
+          "name": "setSessionCookie",
+          "type": "function",
+          "path": "src/lib/auth/session.ts",
+          "line": 60,
+          "exports": [
+            "setSessionCookie"
+          ]
+        },
+        {
+          "id": "src/lib/auth/session.ts:clearSessionCookie",
+          "name": "clearSessionCookie",
+          "type": "function",
+          "path": "src/lib/auth/session.ts",
+          "line": 74,
+          "exports": [
+            "clearSessionCookie"
+          ]
+        },
+        {
+          "id": "src/lib/auth/session.ts:deleteSession",
+          "name": "deleteSession",
+          "type": "function",
+          "path": "src/lib/auth/session.ts",
+          "line": 85,
+          "exports": [
+            "deleteSession"
+          ]
+        },
+        {
+          "id": "src/lib/auth/session.ts:validateSession",
+          "name": "validateSession",
+          "type": "function",
+          "path": "src/lib/auth/session.ts",
+          "line": 89,
+          "exports": [
+            "validateSession"
+          ]
+        },
+        {
+          "id": "src/lib/auth/session.ts:requireAdmin",
+          "name": "requireAdmin",
+          "type": "function",
+          "path": "src/lib/auth/session.ts",
+          "line": 147,
+          "exports": [
+            "requireAdmin"
+          ]
+        },
+        {
+          "id": "src/lib/auth/session.ts:SessionUser",
+          "name": "SessionUser",
+          "type": "interface",
+          "path": "src/lib/auth/session.ts",
+          "line": 28,
+          "exports": [
+            "SessionUser"
+          ]
+        },
+        {
+          "id": "src/lib/auth/session.ts:SessionRow",
+          "name": "SessionRow",
+          "type": "interface",
+          "path": "src/lib/auth/session.ts",
+          "line": 38,
+          "exports": [
+            "SessionRow"
+          ]
+        },
+        {
+          "id": "src/lib/auth/session.ts:ValidateResult",
+          "name": "ValidateResult",
+          "type": "interface",
+          "path": "src/lib/auth/session.ts",
+          "line": 44,
+          "exports": [
+            "ValidateResult"
+          ]
+        },
+        {
+          "id": "src/lib/auth/session.ts:SESSION_COOKIE_NAME",
+          "name": "SESSION_COOKIE_NAME",
+          "type": "variable",
+          "path": "src/lib/auth/session.ts",
+          "line": 24,
+          "exports": [
+            "SESSION_COOKIE_NAME"
+          ]
+        },
+        {
+          "id": "src/lib/auth/session.ts:SESSION_DURATION_MS",
+          "name": "SESSION_DURATION_MS",
+          "type": "variable",
+          "path": "src/lib/auth/session.ts",
+          "line": 25,
+          "exports": []
+        },
+        {
+          "id": "src/lib/auth/session.ts:SESSION_RENEW_THRESHOLD_MS",
+          "name": "SESSION_RENEW_THRESHOLD_MS",
+          "type": "variable",
+          "path": "src/lib/auth/session.ts",
+          "line": 26,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/lib/auth/telegram.ts",
+      "name": "telegram.ts",
+      "type": "file",
+      "path": "src/lib/auth/telegram.ts",
+      "exports": [
+        "verifyInitData",
+        "TelegramUser"
+      ],
+      "children": [
+        {
+          "id": "src/lib/auth/telegram.ts:verifyInitData",
+          "name": "verifyInitData",
+          "type": "function",
+          "path": "src/lib/auth/telegram.ts",
+          "line": 45,
+          "exports": [
+            "verifyInitData"
+          ]
+        },
+        {
+          "id": "src/lib/auth/telegram.ts:TelegramUser",
+          "name": "TelegramUser",
+          "type": "interface",
+          "path": "src/lib/auth/telegram.ts",
+          "line": 23,
+          "exports": [
+            "TelegramUser"
+          ]
+        },
+        {
+          "id": "src/lib/auth/telegram.ts:MAX_AUTH_AGE_SECONDS",
+          "name": "MAX_AUTH_AGE_SECONDS",
+          "type": "variable",
+          "path": "src/lib/auth/telegram.ts",
+          "line": 34,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/lib/db/client.ts",
+      "name": "client.ts",
+      "type": "file",
+      "path": "src/lib/db/client.ts",
+      "exports": [
+        "Db",
+        "db"
+      ],
+      "children": [
+        {
+          "id": "src/lib/db/client.ts:resolveDbPath",
+          "name": "resolveDbPath",
+          "type": "function",
+          "path": "src/lib/db/client.ts",
+          "line": 11,
+          "exports": []
+        },
+        {
+          "id": "src/lib/db/client.ts:Db",
+          "name": "Db",
+          "type": "type",
+          "path": "src/lib/db/client.ts",
+          "line": 28,
+          "exports": [
+            "Db"
+          ]
+        },
+        {
+          "id": "src/lib/db/client.ts:dbPath",
+          "name": "dbPath",
+          "type": "variable",
+          "path": "src/lib/db/client.ts",
+          "line": 16,
+          "exports": []
+        },
+        {
+          "id": "src/lib/db/client.ts:dbDir",
+          "name": "dbDir",
+          "type": "variable",
+          "path": "src/lib/db/client.ts",
+          "line": 17,
+          "exports": []
+        },
+        {
+          "id": "src/lib/db/client.ts:sqlite",
+          "name": "sqlite",
+          "type": "variable",
+          "path": "src/lib/db/client.ts",
+          "line": 22,
+          "exports": []
+        },
+        {
+          "id": "src/lib/db/client.ts:db",
+          "name": "db",
+          "type": "variable",
+          "path": "src/lib/db/client.ts",
+          "line": 26,
+          "exports": [
+            "db"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/lib/db/favorites.ts",
+      "name": "favorites.ts",
+      "type": "file",
+      "path": "src/lib/db/favorites.ts",
+      "exports": [
+        "isValidFavoriteTargetType",
+        "isFavorited",
+        "getFavoritedIds",
+        "toggleFavorite",
+        "getUserFavorites",
+        "FavoriteRestaurantRow",
+        "FavoriteMenuItemRow",
+        "FavoriteLunchRow",
+        "UserFavorites"
+      ],
+      "children": [
+        {
+          "id": "src/lib/db/favorites.ts:isValidFavoriteTargetType",
+          "name": "isValidFavoriteTargetType",
+          "type": "function",
+          "path": "src/lib/db/favorites.ts",
+          "line": 15,
+          "exports": [
+            "isValidFavoriteTargetType"
+          ]
+        },
+        {
+          "id": "src/lib/db/favorites.ts:isFavorited",
+          "name": "isFavorited",
+          "type": "function",
+          "path": "src/lib/db/favorites.ts",
+          "line": 27,
+          "exports": [
+            "isFavorited"
+          ]
+        },
+        {
+          "id": "src/lib/db/favorites.ts:getFavoritedIds",
+          "name": "getFavoritedIds",
+          "type": "function",
+          "path": "src/lib/db/favorites.ts",
+          "line": 50,
+          "exports": [
+            "getFavoritedIds"
+          ]
+        },
+        {
+          "id": "src/lib/db/favorites.ts:toggleFavorite",
+          "name": "toggleFavorite",
+          "type": "function",
+          "path": "src/lib/db/favorites.ts",
+          "line": 73,
+          "exports": [
+            "toggleFavorite"
+          ]
+        },
+        {
+          "id": "src/lib/db/favorites.ts:getUserFavorites",
+          "name": "getUserFavorites",
+          "type": "function",
+          "path": "src/lib/db/favorites.ts",
+          "line": 145,
+          "exports": [
+            "getUserFavorites"
+          ]
+        },
+        {
+          "id": "src/lib/db/favorites.ts:FavoriteRestaurantRow",
+          "name": "FavoriteRestaurantRow",
+          "type": "interface",
+          "path": "src/lib/db/favorites.ts",
+          "line": 99,
+          "exports": [
+            "FavoriteRestaurantRow"
+          ]
+        },
+        {
+          "id": "src/lib/db/favorites.ts:FavoriteMenuItemRow",
+          "name": "FavoriteMenuItemRow",
+          "type": "interface",
+          "path": "src/lib/db/favorites.ts",
+          "line": 110,
+          "exports": [
+            "FavoriteMenuItemRow"
+          ]
+        },
+        {
+          "id": "src/lib/db/favorites.ts:FavoriteLunchRow",
+          "name": "FavoriteLunchRow",
+          "type": "interface",
+          "path": "src/lib/db/favorites.ts",
+          "line": 122,
+          "exports": [
+            "FavoriteLunchRow"
+          ]
+        },
+        {
+          "id": "src/lib/db/favorites.ts:UserFavorites",
+          "name": "UserFavorites",
+          "type": "interface",
+          "path": "src/lib/db/favorites.ts",
+          "line": 135,
+          "exports": [
+            "UserFavorites"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/lib/db/migrate.ts",
+      "name": "migrate.ts",
+      "type": "file",
+      "path": "src/lib/db/migrate.ts",
+      "exports": [],
+      "children": [
+        {
+          "id": "src/lib/db/migrate.ts:main",
+          "name": "main",
+          "type": "function",
+          "path": "src/lib/db/migrate.ts",
+          "line": 5,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/lib/db/queries.ts",
+      "name": "queries.ts",
+      "type": "file",
+      "path": "src/lib/db/queries.ts",
+      "exports": [
+        "getNearbyRestaurants",
+        "getPopularQueries",
+        "getFeaturedBusinessLunches",
+        "getFeaturedMenuItems",
+        "getMinBusinessLunchPrice",
+        "getBusinessLunchTodayCourses",
+        "NearbyRestaurant",
+        "PopularQuery",
+        "FeaturedMenuItem"
+      ],
+      "children": [
+        {
+          "id": "src/lib/db/queries.ts:parseTags",
+          "name": "parseTags",
+          "type": "function",
+          "path": "src/lib/db/queries.ts",
+          "line": 30,
+          "exports": []
+        },
+        {
+          "id": "src/lib/db/queries.ts:getNearbyRestaurants",
+          "name": "getNearbyRestaurants",
+          "type": "function",
+          "path": "src/lib/db/queries.ts",
+          "line": 47,
+          "exports": [
+            "getNearbyRestaurants"
+          ]
+        },
+        {
+          "id": "src/lib/db/queries.ts:getPopularQueries",
+          "name": "getPopularQueries",
+          "type": "function",
+          "path": "src/lib/db/queries.ts",
+          "line": 95,
+          "exports": [
+            "getPopularQueries"
+          ]
+        },
+        {
+          "id": "src/lib/db/queries.ts:getFeaturedBusinessLunches",
+          "name": "getFeaturedBusinessLunches",
+          "type": "function",
+          "path": "src/lib/db/queries.ts",
+          "line": 121,
+          "exports": [
+            "getFeaturedBusinessLunches"
+          ]
+        },
+        {
+          "id": "src/lib/db/queries.ts:getFeaturedMenuItems",
+          "name": "getFeaturedMenuItems",
+          "type": "function",
+          "path": "src/lib/db/queries.ts",
+          "line": 176,
+          "exports": [
+            "getFeaturedMenuItems"
+          ]
+        },
+        {
+          "id": "src/lib/db/queries.ts:getMinBusinessLunchPrice",
+          "name": "getMinBusinessLunchPrice",
+          "type": "function",
+          "path": "src/lib/db/queries.ts",
+          "line": 210,
+          "exports": [
+            "getMinBusinessLunchPrice"
+          ]
+        },
+        {
+          "id": "src/lib/db/queries.ts:getBusinessLunchTodayCourses",
+          "name": "getBusinessLunchTodayCourses",
+          "type": "function",
+          "path": "src/lib/db/queries.ts",
+          "line": 222,
+          "exports": [
+            "getBusinessLunchTodayCourses"
+          ]
+        },
+        {
+          "id": "src/lib/db/queries.ts:NearbyRestaurant",
+          "name": "NearbyRestaurant",
+          "type": "interface",
+          "path": "src/lib/db/queries.ts",
+          "line": 17,
+          "exports": [
+            "NearbyRestaurant"
+          ]
+        },
+        {
+          "id": "src/lib/db/queries.ts:PopularQuery",
+          "name": "PopularQuery",
+          "type": "interface",
+          "path": "src/lib/db/queries.ts",
+          "line": 89,
+          "exports": [
+            "PopularQuery"
+          ]
+        },
+        {
+          "id": "src/lib/db/queries.ts:FeaturedMenuItem",
+          "name": "FeaturedMenuItem",
+          "type": "interface",
+          "path": "src/lib/db/queries.ts",
+          "line": 163,
+          "exports": [
+            "FeaturedMenuItem"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/lib/db/raw-migrations.ts",
+      "name": "raw-migrations.ts",
+      "type": "file",
+      "path": "src/lib/db/raw-migrations.ts",
+      "exports": [
+        "applyRawMigrations"
+      ],
+      "children": [
+        {
+          "id": "src/lib/db/raw-migrations.ts:applyRawMigrations",
+          "name": "applyRawMigrations",
+          "type": "function",
+          "path": "src/lib/db/raw-migrations.ts",
+          "line": 11,
+          "exports": [
+            "applyRawMigrations"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/lib/db/schema.ts",
+      "name": "schema.ts",
+      "type": "file",
+      "path": "src/lib/db/schema.ts",
+      "exports": [
+        "FavoriteTargetType",
+        "users",
+        "sessions",
+        "restaurants",
+        "restaurantPhotos",
+        "menuCategories",
+        "menuItems",
+        "businessLunches",
+        "businessLunchDays",
+        "FAVORITE_TARGET_TYPES",
+        "favorites",
+        "searchHistory",
+        "usersRelations",
+        "sessionsRelations",
+        "restaurantsRelations",
+        "restaurantPhotosRelations",
+        "menuCategoriesRelations",
+        "menuItemsRelations",
+        "businessLunchesRelations",
+        "businessLunchDaysRelations",
+        "favoritesRelations",
+        "searchHistoryRelations"
+      ],
+      "children": [
+        {
+          "id": "src/lib/db/schema.ts:FavoriteTargetType",
+          "name": "FavoriteTargetType",
+          "type": "type",
+          "path": "src/lib/db/schema.ts",
+          "line": 204,
+          "exports": [
+            "FavoriteTargetType"
+          ]
+        },
+        {
+          "id": "src/lib/db/schema.ts:users",
+          "name": "users",
+          "type": "variable",
+          "path": "src/lib/db/schema.ts",
+          "line": 14,
+          "exports": [
+            "users"
+          ]
+        },
+        {
+          "id": "src/lib/db/schema.ts:sessions",
+          "name": "sessions",
+          "type": "variable",
+          "path": "src/lib/db/schema.ts",
+          "line": 41,
+          "exports": [
+            "sessions"
+          ]
+        },
+        {
+          "id": "src/lib/db/schema.ts:restaurants",
+          "name": "restaurants",
+          "type": "variable",
+          "path": "src/lib/db/schema.ts",
+          "line": 52,
+          "exports": [
+            "restaurants"
+          ]
+        },
+        {
+          "id": "src/lib/db/schema.ts:restaurantPhotos",
+          "name": "restaurantPhotos",
+          "type": "variable",
+          "path": "src/lib/db/schema.ts",
+          "line": 87,
+          "exports": [
+            "restaurantPhotos"
+          ]
+        },
+        {
+          "id": "src/lib/db/schema.ts:menuCategories",
+          "name": "menuCategories",
+          "type": "variable",
+          "path": "src/lib/db/schema.ts",
+          "line": 106,
+          "exports": [
+            "menuCategories"
+          ]
+        },
+        {
+          "id": "src/lib/db/schema.ts:menuItems",
+          "name": "menuItems",
+          "type": "variable",
+          "path": "src/lib/db/schema.ts",
+          "line": 122,
+          "exports": [
+            "menuItems"
+          ]
+        },
+        {
+          "id": "src/lib/db/schema.ts:businessLunches",
+          "name": "businessLunches",
+          "type": "variable",
+          "path": "src/lib/db/schema.ts",
+          "line": 152,
+          "exports": [
+            "businessLunches"
+          ]
+        },
+        {
+          "id": "src/lib/db/schema.ts:businessLunchDays",
+          "name": "businessLunchDays",
+          "type": "variable",
+          "path": "src/lib/db/schema.ts",
+          "line": 177,
+          "exports": [
+            "businessLunchDays"
+          ]
+        },
+        {
+          "id": "src/lib/db/schema.ts:FAVORITE_TARGET_TYPES",
+          "name": "FAVORITE_TARGET_TYPES",
+          "type": "variable",
+          "path": "src/lib/db/schema.ts",
+          "line": 199,
+          "exports": [
+            "FAVORITE_TARGET_TYPES"
+          ]
+        },
+        {
+          "id": "src/lib/db/schema.ts:favorites",
+          "name": "favorites",
+          "type": "variable",
+          "path": "src/lib/db/schema.ts",
+          "line": 206,
+          "exports": [
+            "favorites"
+          ]
+        },
+        {
+          "id": "src/lib/db/schema.ts:searchHistory",
+          "name": "searchHistory",
+          "type": "variable",
+          "path": "src/lib/db/schema.ts",
+          "line": 233,
+          "exports": [
+            "searchHistory"
+          ]
+        },
+        {
+          "id": "src/lib/db/schema.ts:usersRelations",
+          "name": "usersRelations",
+          "type": "variable",
+          "path": "src/lib/db/schema.ts",
+          "line": 251,
+          "exports": [
+            "usersRelations"
+          ]
+        },
+        {
+          "id": "src/lib/db/schema.ts:sessionsRelations",
+          "name": "sessionsRelations",
+          "type": "variable",
+          "path": "src/lib/db/schema.ts",
+          "line": 259,
+          "exports": [
+            "sessionsRelations"
+          ]
+        },
+        {
+          "id": "src/lib/db/schema.ts:restaurantsRelations",
+          "name": "restaurantsRelations",
+          "type": "variable",
+          "path": "src/lib/db/schema.ts",
+          "line": 266,
+          "exports": [
+            "restaurantsRelations"
+          ]
+        },
+        {
+          "id": "src/lib/db/schema.ts:restaurantPhotosRelations",
+          "name": "restaurantPhotosRelations",
+          "type": "variable",
+          "path": "src/lib/db/schema.ts",
+          "line": 273,
+          "exports": [
+            "restaurantPhotosRelations"
+          ]
+        },
+        {
+          "id": "src/lib/db/schema.ts:menuCategoriesRelations",
+          "name": "menuCategoriesRelations",
+          "type": "variable",
+          "path": "src/lib/db/schema.ts",
+          "line": 283,
+          "exports": [
+            "menuCategoriesRelations"
+          ]
+        },
+        {
+          "id": "src/lib/db/schema.ts:menuItemsRelations",
+          "name": "menuItemsRelations",
+          "type": "variable",
+          "path": "src/lib/db/schema.ts",
+          "line": 294,
+          "exports": [
+            "menuItemsRelations"
+          ]
+        },
+        {
+          "id": "src/lib/db/schema.ts:businessLunchesRelations",
+          "name": "businessLunchesRelations",
+          "type": "variable",
+          "path": "src/lib/db/schema.ts",
+          "line": 305,
+          "exports": [
+            "businessLunchesRelations"
+          ]
+        },
+        {
+          "id": "src/lib/db/schema.ts:businessLunchDaysRelations",
+          "name": "businessLunchDaysRelations",
+          "type": "variable",
+          "path": "src/lib/db/schema.ts",
+          "line": 316,
+          "exports": [
+            "businessLunchDaysRelations"
+          ]
+        },
+        {
+          "id": "src/lib/db/schema.ts:favoritesRelations",
+          "name": "favoritesRelations",
+          "type": "variable",
+          "path": "src/lib/db/schema.ts",
+          "line": 326,
+          "exports": [
+            "favoritesRelations"
+          ]
+        },
+        {
+          "id": "src/lib/db/schema.ts:searchHistoryRelations",
+          "name": "searchHistoryRelations",
+          "type": "variable",
+          "path": "src/lib/db/schema.ts",
+          "line": 333,
+          "exports": [
+            "searchHistoryRelations"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/lib/db/seed.ts",
+      "name": "seed.ts",
+      "type": "file",
+      "path": "src/lib/db/seed.ts",
+      "exports": [],
+      "children": [
+        {
+          "id": "src/lib/db/seed.ts:flickr",
+          "name": "flickr",
+          "type": "function",
+          "path": "src/lib/db/seed.ts",
+          "line": 64,
+          "exports": []
+        },
+        {
+          "id": "src/lib/db/seed.ts:seedAdmin",
+          "name": "seedAdmin",
+          "type": "function",
+          "path": "src/lib/db/seed.ts",
+          "line": 423,
+          "exports": []
+        },
+        {
+          "id": "src/lib/db/seed.ts:main",
+          "name": "main",
+          "type": "function",
+          "path": "src/lib/db/seed.ts",
+          "line": 450,
+          "exports": []
+        },
+        {
+          "id": "src/lib/db/seed.ts:SeedCategory",
+          "name": "SeedCategory",
+          "type": "interface",
+          "path": "src/lib/db/seed.ts",
+          "line": 24,
+          "exports": []
+        },
+        {
+          "id": "src/lib/db/seed.ts:SeedRestaurant",
+          "name": "SeedRestaurant",
+          "type": "interface",
+          "path": "src/lib/db/seed.ts",
+          "line": 29,
+          "exports": []
+        },
+        {
+          "id": "src/lib/db/seed.ts:SeedBusinessLunch",
+          "name": "SeedBusinessLunch",
+          "type": "interface",
+          "path": "src/lib/db/seed.ts",
+          "line": 44,
+          "exports": []
+        },
+        {
+          "id": "src/lib/db/seed.ts:MON_FRI_MASK",
+          "name": "MON_FRI_MASK",
+          "type": "variable",
+          "path": "src/lib/db/seed.ts",
+          "line": 55,
+          "exports": []
+        },
+        {
+          "id": "src/lib/db/seed.ts:RESTAURANT_IMAGE_TAGS",
+          "name": "RESTAURANT_IMAGE_TAGS",
+          "type": "variable",
+          "path": "src/lib/db/seed.ts",
+          "line": 73,
+          "exports": []
+        },
+        {
+          "id": "src/lib/db/seed.ts:RESTAURANTS",
+          "name": "RESTAURANTS",
+          "type": "variable",
+          "path": "src/lib/db/seed.ts",
+          "line": 82,
+          "exports": []
+        },
+        {
+          "id": "src/lib/db/seed.ts:BUSINESS_LUNCHES",
+          "name": "BUSINESS_LUNCHES",
+          "type": "variable",
+          "path": "src/lib/db/seed.ts",
+          "line": 375,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/lib/geo/haversine.ts",
+      "name": "haversine.ts",
+      "type": "file",
+      "path": "src/lib/geo/haversine.ts",
+      "exports": [
+        "haversineDistance",
+        "bboxFromRadius",
+        "BoundingBox"
+      ],
+      "children": [
+        {
+          "id": "src/lib/geo/haversine.ts:haversineDistance",
+          "name": "haversineDistance",
+          "type": "function",
+          "path": "src/lib/geo/haversine.ts",
+          "line": 15,
+          "exports": [
+            "haversineDistance"
+          ]
+        },
+        {
+          "id": "src/lib/geo/haversine.ts:bboxFromRadius",
+          "name": "bboxFromRadius",
+          "type": "function",
+          "path": "src/lib/geo/haversine.ts",
+          "line": 51,
+          "exports": [
+            "bboxFromRadius"
+          ]
+        },
+        {
+          "id": "src/lib/geo/haversine.ts:BoundingBox",
+          "name": "BoundingBox",
+          "type": "interface",
+          "path": "src/lib/geo/haversine.ts",
+          "line": 37,
+          "exports": [
+            "BoundingBox"
+          ]
+        },
+        {
+          "id": "src/lib/geo/haversine.ts:EARTH_RADIUS_METERS",
+          "name": "EARTH_RADIUS_METERS",
+          "type": "variable",
+          "path": "src/lib/geo/haversine.ts",
+          "line": 7,
+          "exports": []
+        },
+        {
+          "id": "src/lib/geo/haversine.ts:DEG_TO_RAD",
+          "name": "DEG_TO_RAD",
+          "type": "variable",
+          "path": "src/lib/geo/haversine.ts",
+          "line": 8,
+          "exports": []
+        },
+        {
+          "id": "src/lib/geo/haversine.ts:METERS_PER_DEG_LAT",
+          "name": "METERS_PER_DEG_LAT",
+          "type": "variable",
+          "path": "src/lib/geo/haversine.ts",
+          "line": 9,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/lib/llm/client.ts",
+      "name": "client.ts",
+      "type": "file",
+      "path": "src/lib/llm/client.ts",
+      "exports": [
+        "getOpenRouter",
+        "getVisionModel",
+        "LLM_MODEL_ID"
+      ],
+      "children": [
+        {
+          "id": "src/lib/llm/client.ts:getOpenRouter",
+          "name": "getOpenRouter",
+          "type": "function",
+          "path": "src/lib/llm/client.ts",
+          "line": 26,
+          "exports": [
+            "getOpenRouter"
+          ]
+        },
+        {
+          "id": "src/lib/llm/client.ts:getVisionModel",
+          "name": "getVisionModel",
+          "type": "function",
+          "path": "src/lib/llm/client.ts",
+          "line": 38,
+          "exports": [
+            "getVisionModel"
+          ]
+        },
+        {
+          "id": "src/lib/llm/client.ts:LLM_MODEL_ID",
+          "name": "LLM_MODEL_ID",
+          "type": "variable",
+          "path": "src/lib/llm/client.ts",
+          "line": 21,
+          "exports": [
+            "LLM_MODEL_ID"
+          ]
+        },
+        {
+          "id": "src/lib/llm/client.ts:cachedProvider",
+          "name": "cachedProvider",
+          "type": "variable",
+          "path": "src/lib/llm/client.ts",
+          "line": 24,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/lib/llm/lunch-ocr.ts",
+      "name": "lunch-ocr.ts",
+      "type": "file",
+      "path": "src/lib/llm/lunch-ocr.ts",
+      "exports": [
+        "flattenLunchDay",
+        "recognizeWeeklyLunch",
+        "Weekday",
+        "LunchCourses",
+        "LunchDay",
+        "WeeklyLunchResult",
+        "WEEKDAY_NAMES",
+        "WeekdaySchema",
+        "WEEKDAY_TO_NUMBER",
+        "LunchCoursesSchema",
+        "LunchDaySchema",
+        "WeeklyLunchSchema"
+      ],
+      "children": [
+        {
+          "id": "src/lib/llm/lunch-ocr.ts:flattenLunchDay",
+          "name": "flattenLunchDay",
+          "type": "function",
+          "path": "src/lib/llm/lunch-ocr.ts",
+          "line": 108,
+          "exports": [
+            "flattenLunchDay"
+          ]
+        },
+        {
+          "id": "src/lib/llm/lunch-ocr.ts:recognizeWeeklyLunch",
+          "name": "recognizeWeeklyLunch",
+          "type": "function",
+          "path": "src/lib/llm/lunch-ocr.ts",
+          "line": 123,
+          "exports": [
+            "recognizeWeeklyLunch"
+          ]
+        },
+        {
+          "id": "src/lib/llm/lunch-ocr.ts:Weekday",
+          "name": "Weekday",
+          "type": "type",
+          "path": "src/lib/llm/lunch-ocr.ts",
+          "line": 29,
+          "exports": [
+            "Weekday"
+          ]
+        },
+        {
+          "id": "src/lib/llm/lunch-ocr.ts:LunchCourses",
+          "name": "LunchCourses",
+          "type": "type",
+          "path": "src/lib/llm/lunch-ocr.ts",
+          "line": 72,
+          "exports": [
+            "LunchCourses"
+          ]
+        },
+        {
+          "id": "src/lib/llm/lunch-ocr.ts:LunchDay",
+          "name": "LunchDay",
+          "type": "type",
+          "path": "src/lib/llm/lunch-ocr.ts",
+          "line": 79,
+          "exports": [
+            "LunchDay"
+          ]
+        },
+        {
+          "id": "src/lib/llm/lunch-ocr.ts:WeeklyLunchResult",
+          "name": "WeeklyLunchResult",
+          "type": "type",
+          "path": "src/lib/llm/lunch-ocr.ts",
+          "line": 85,
+          "exports": [
+            "WeeklyLunchResult"
+          ]
+        },
+        {
+          "id": "src/lib/llm/lunch-ocr.ts:WEEKDAY_NAMES",
+          "name": "WEEKDAY_NAMES",
+          "type": "variable",
+          "path": "src/lib/llm/lunch-ocr.ts",
+          "line": 18,
+          "exports": [
+            "WEEKDAY_NAMES"
+          ]
+        },
+        {
+          "id": "src/lib/llm/lunch-ocr.ts:WeekdaySchema",
+          "name": "WeekdaySchema",
+          "type": "variable",
+          "path": "src/lib/llm/lunch-ocr.ts",
+          "line": 28,
+          "exports": [
+            "WeekdaySchema"
+          ]
+        },
+        {
+          "id": "src/lib/llm/lunch-ocr.ts:WEEKDAY_TO_NUMBER",
+          "name": "WEEKDAY_TO_NUMBER",
+          "type": "variable",
+          "path": "src/lib/llm/lunch-ocr.ts",
+          "line": 34,
+          "exports": [
+            "WEEKDAY_TO_NUMBER"
+          ]
+        },
+        {
+          "id": "src/lib/llm/lunch-ocr.ts:LunchCoursesSchema",
+          "name": "LunchCoursesSchema",
+          "type": "variable",
+          "path": "src/lib/llm/lunch-ocr.ts",
+          "line": 44,
+          "exports": [
+            "LunchCoursesSchema"
+          ]
+        },
+        {
+          "id": "src/lib/llm/lunch-ocr.ts:LunchDaySchema",
+          "name": "LunchDaySchema",
+          "type": "variable",
+          "path": "src/lib/llm/lunch-ocr.ts",
+          "line": 74,
+          "exports": [
+            "LunchDaySchema"
+          ]
+        },
+        {
+          "id": "src/lib/llm/lunch-ocr.ts:WeeklyLunchSchema",
+          "name": "WeeklyLunchSchema",
+          "type": "variable",
+          "path": "src/lib/llm/lunch-ocr.ts",
+          "line": 81,
+          "exports": [
+            "WeeklyLunchSchema"
+          ]
+        },
+        {
+          "id": "src/lib/llm/lunch-ocr.ts:SYSTEM_PROMPT",
+          "name": "SYSTEM_PROMPT",
+          "type": "variable",
+          "path": "src/lib/llm/lunch-ocr.ts",
+          "line": 87,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/lib/llm/ocr.ts",
+      "name": "ocr.ts",
+      "type": "file",
+      "path": "src/lib/llm/ocr.ts",
+      "exports": [
+        "prepareImageForLlm",
+        "recognizeMenu",
+        "MenuItemDraft",
+        "MenuItemDraftSchema",
+        "MenuItemsSchema"
+      ],
+      "children": [
+        {
+          "id": "src/lib/llm/ocr.ts:prepareImageForLlm",
+          "name": "prepareImageForLlm",
+          "type": "function",
+          "path": "src/lib/llm/ocr.ts",
+          "line": 61,
+          "exports": [
+            "prepareImageForLlm"
+          ]
+        },
+        {
+          "id": "src/lib/llm/ocr.ts:recognizeMenu",
+          "name": "recognizeMenu",
+          "type": "function",
+          "path": "src/lib/llm/ocr.ts",
+          "line": 82,
+          "exports": [
+            "recognizeMenu"
+          ]
+        },
+        {
+          "id": "src/lib/llm/ocr.ts:MenuItemDraft",
+          "name": "MenuItemDraft",
+          "type": "type",
+          "path": "src/lib/llm/ocr.ts",
+          "line": 41,
+          "exports": [
+            "MenuItemDraft"
+          ]
+        },
+        {
+          "id": "src/lib/llm/ocr.ts:MenuItemDraftSchema",
+          "name": "MenuItemDraftSchema",
+          "type": "variable",
+          "path": "src/lib/llm/ocr.ts",
+          "line": 18,
+          "exports": [
+            "MenuItemDraftSchema"
+          ]
+        },
+        {
+          "id": "src/lib/llm/ocr.ts:MenuItemsSchema",
+          "name": "MenuItemsSchema",
+          "type": "variable",
+          "path": "src/lib/llm/ocr.ts",
+          "line": 37,
+          "exports": [
+            "MenuItemsSchema"
+          ]
+        },
+        {
+          "id": "src/lib/llm/ocr.ts:MAX_IMAGE_DIMENSION",
+          "name": "MAX_IMAGE_DIMENSION",
+          "type": "variable",
+          "path": "src/lib/llm/ocr.ts",
+          "line": 43,
+          "exports": []
+        },
+        {
+          "id": "src/lib/llm/ocr.ts:SYSTEM_PROMPT",
+          "name": "SYSTEM_PROMPT",
+          "type": "variable",
+          "path": "src/lib/llm/ocr.ts",
+          "line": 45,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/lib/utils/cn.ts",
+      "name": "cn.ts",
+      "type": "file",
+      "path": "src/lib/utils/cn.ts",
+      "exports": [
+        "cn"
+      ],
+      "children": [
+        {
+          "id": "src/lib/utils/cn.ts:cn",
+          "name": "cn",
+          "type": "function",
+          "path": "src/lib/utils/cn.ts",
+          "line": 8,
+          "exports": [
+            "cn"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/lib/utils/format.ts",
+      "name": "format.ts",
+      "type": "file",
+      "path": "src/lib/utils/format.ts",
+      "exports": [
+        "formatPrice",
+        "formatDistance",
+        "formatRating"
+      ],
+      "children": [
+        {
+          "id": "src/lib/utils/format.ts:formatPrice",
+          "name": "formatPrice",
+          "type": "function",
+          "path": "src/lib/utils/format.ts",
+          "line": 6,
+          "exports": [
+            "formatPrice"
+          ]
+        },
+        {
+          "id": "src/lib/utils/format.ts:formatDistance",
+          "name": "formatDistance",
+          "type": "function",
+          "path": "src/lib/utils/format.ts",
+          "line": 11,
+          "exports": [
+            "formatDistance"
+          ]
+        },
+        {
+          "id": "src/lib/utils/format.ts:formatRating",
+          "name": "formatRating",
+          "type": "function",
+          "path": "src/lib/utils/format.ts",
+          "line": 20,
+          "exports": [
+            "formatRating"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/(admin)/admin/layout.tsx",
+      "name": "layout.tsx",
+      "type": "file",
+      "path": "src/app/(admin)/admin/layout.tsx",
+      "exports": [
+        "AdminLayout",
+        "metadata"
+      ],
+      "children": [
+        {
+          "id": "src/app/(admin)/admin/layout.tsx:AdminLayout",
+          "name": "AdminLayout",
+          "type": "function",
+          "path": "src/app/(admin)/admin/layout.tsx",
+          "line": 19,
+          "exports": [
+            "AdminLayout"
+          ]
+        },
+        {
+          "id": "src/app/(admin)/admin/layout.tsx:metadata",
+          "name": "metadata",
+          "type": "variable",
+          "path": "src/app/(admin)/admin/layout.tsx",
+          "line": 15,
+          "exports": [
+            "metadata"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/(admin)/admin/page.tsx",
+      "name": "page.tsx",
+      "type": "file",
+      "path": "src/app/(admin)/admin/page.tsx",
+      "exports": [
+        "AdminDashboardPage"
+      ],
+      "children": [
+        {
+          "id": "src/app/(admin)/admin/page.tsx:fetchStats",
+          "name": "fetchStats",
+          "type": "function",
+          "path": "src/app/(admin)/admin/page.tsx",
+          "line": 27,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/page.tsx:formatDate",
+          "name": "formatDate",
+          "type": "function",
+          "path": "src/app/(admin)/admin/page.tsx",
+          "line": 105,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/page.tsx:AdminDashboardPage",
+          "name": "AdminDashboardPage",
+          "type": "function",
+          "path": "src/app/(admin)/admin/page.tsx",
+          "line": 109,
+          "exports": [
+            "AdminDashboardPage"
+          ]
+        },
+        {
+          "id": "src/app/(admin)/admin/page.tsx:StatusBadge",
+          "name": "StatusBadge",
+          "type": "function",
+          "path": "src/app/(admin)/admin/page.tsx",
+          "line": 203,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/page.tsx:StatDef",
+          "name": "StatDef",
+          "type": "interface",
+          "path": "src/app/(admin)/admin/page.tsx",
+          "line": 21,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/_components/DesktopHome.tsx",
+      "name": "DesktopHome.tsx",
+      "type": "file",
+      "path": "src/app/(site)/_components/DesktopHome.tsx",
+      "exports": [
+        "DesktopHome",
+        "DesktopHomeRestaurant",
+        "DesktopHomeHeroMenuItem",
+        "DesktopHomeHeroLunch",
+        "DesktopHomeProps"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/_components/DesktopHome.tsx:DesktopHome",
+          "name": "DesktopHome",
+          "type": "function",
+          "path": "src/app/(site)/_components/DesktopHome.tsx",
+          "line": 57,
+          "exports": [
+            "DesktopHome"
+          ]
+        },
+        {
+          "id": "src/app/(site)/_components/DesktopHome.tsx:DesktopHomeRestaurant",
+          "name": "DesktopHomeRestaurant",
+          "type": "interface",
+          "path": "src/app/(site)/_components/DesktopHome.tsx",
+          "line": 9,
+          "exports": [
+            "DesktopHomeRestaurant"
+          ]
+        },
+        {
+          "id": "src/app/(site)/_components/DesktopHome.tsx:DesktopHomeHeroMenuItem",
+          "name": "DesktopHomeHeroMenuItem",
+          "type": "interface",
+          "path": "src/app/(site)/_components/DesktopHome.tsx",
+          "line": 20,
+          "exports": [
+            "DesktopHomeHeroMenuItem"
+          ]
+        },
+        {
+          "id": "src/app/(site)/_components/DesktopHome.tsx:DesktopHomeHeroLunch",
+          "name": "DesktopHomeHeroLunch",
+          "type": "interface",
+          "path": "src/app/(site)/_components/DesktopHome.tsx",
+          "line": 28,
+          "exports": [
+            "DesktopHomeHeroLunch"
+          ]
+        },
+        {
+          "id": "src/app/(site)/_components/DesktopHome.tsx:DesktopHomeProps",
+          "name": "DesktopHomeProps",
+          "type": "interface",
+          "path": "src/app/(site)/_components/DesktopHome.tsx",
+          "line": 37,
+          "exports": [
+            "DesktopHomeProps"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/_components/HeroFloatingCards.tsx",
+      "name": "HeroFloatingCards.tsx",
+      "type": "file",
+      "path": "src/app/(site)/_components/HeroFloatingCards.tsx",
+      "exports": [
+        "HeroFloatingCards",
+        "HeroFloatingCardsProps"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/_components/HeroFloatingCards.tsx:RestaurantCard",
+          "name": "RestaurantCard",
+          "type": "function",
+          "path": "src/app/(site)/_components/HeroFloatingCards.tsx",
+          "line": 101,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/_components/HeroFloatingCards.tsx:MenuCard",
+          "name": "MenuCard",
+          "type": "function",
+          "path": "src/app/(site)/_components/HeroFloatingCards.tsx",
+          "line": 145,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/_components/HeroFloatingCards.tsx:LunchCard",
+          "name": "LunchCard",
+          "type": "function",
+          "path": "src/app/(site)/_components/HeroFloatingCards.tsx",
+          "line": 186,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/_components/HeroFloatingCards.tsx:MapCard",
+          "name": "MapCard",
+          "type": "function",
+          "path": "src/app/(site)/_components/HeroFloatingCards.tsx",
+          "line": 227,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/_components/HeroFloatingCards.tsx:HeroFloatingCards",
+          "name": "HeroFloatingCards",
+          "type": "function",
+          "path": "src/app/(site)/_components/HeroFloatingCards.tsx",
+          "line": 335,
+          "exports": [
+            "HeroFloatingCards"
+          ]
+        },
+        {
+          "id": "src/app/(site)/_components/HeroFloatingCards.tsx:HeroFloatingCardsProps",
+          "name": "HeroFloatingCardsProps",
+          "type": "interface",
+          "path": "src/app/(site)/_components/HeroFloatingCards.tsx",
+          "line": 10,
+          "exports": [
+            "HeroFloatingCardsProps"
+          ]
+        },
+        {
+          "id": "src/app/(site)/_components/HeroFloatingCards.tsx:SlotStyle",
+          "name": "SlotStyle",
+          "type": "interface",
+          "path": "src/app/(site)/_components/HeroFloatingCards.tsx",
+          "line": 18,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/_components/HeroFloatingCards.tsx:CardKind",
+          "name": "CardKind",
+          "type": "type",
+          "path": "src/app/(site)/_components/HeroFloatingCards.tsx",
+          "line": 16,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/_components/HeroFloatingCards.tsx:SLOTS",
+          "name": "SLOTS",
+          "type": "variable",
+          "path": "src/app/(site)/_components/HeroFloatingCards.tsx",
+          "line": 37,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/_components/HeroFloatingCards.tsx:FALLBACK_GRADIENTS",
+          "name": "FALLBACK_GRADIENTS",
+          "type": "variable",
+          "path": "src/app/(site)/_components/HeroFloatingCards.tsx",
+          "line": 88,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/_components/HeroFloatingCards.tsx:CARD_SHELL",
+          "name": "CARD_SHELL",
+          "type": "variable",
+          "path": "src/app/(site)/_components/HeroFloatingCards.tsx",
+          "line": 97,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/_components/SearchHomeForm.tsx",
+      "name": "SearchHomeForm.tsx",
+      "type": "file",
+      "path": "src/app/(site)/_components/SearchHomeForm.tsx",
+      "exports": [
+        "SearchHomeForm",
+        "SearchHomeFormProps"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/_components/SearchHomeForm.tsx:SearchHomeForm",
+          "name": "SearchHomeForm",
+          "type": "function",
+          "path": "src/app/(site)/_components/SearchHomeForm.tsx",
+          "line": 15,
+          "exports": [
+            "SearchHomeForm"
+          ]
+        },
+        {
+          "id": "src/app/(site)/_components/SearchHomeForm.tsx:SearchHomeFormProps",
+          "name": "SearchHomeFormProps",
+          "type": "interface",
+          "path": "src/app/(site)/_components/SearchHomeForm.tsx",
+          "line": 7,
+          "exports": [
+            "SearchHomeFormProps"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/business-lunch/page.tsx",
+      "name": "page.tsx",
+      "type": "file",
+      "path": "src/app/(site)/business-lunch/page.tsx",
+      "exports": [
+        "BusinessLunchListPage",
+        "dynamic"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/business-lunch/page.tsx:jsDayToAppWeekday",
+          "name": "jsDayToAppWeekday",
+          "type": "function",
+          "path": "src/app/(site)/business-lunch/page.tsx",
+          "line": 43,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/page.tsx:parseCourses",
+          "name": "parseCourses",
+          "type": "function",
+          "path": "src/app/(site)/business-lunch/page.tsx",
+          "line": 47,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/page.tsx:isServingNow",
+          "name": "isServingNow",
+          "type": "function",
+          "path": "src/app/(site)/business-lunch/page.tsx",
+          "line": 59,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/page.tsx:loadLunches",
+          "name": "loadLunches",
+          "type": "function",
+          "path": "src/app/(site)/business-lunch/page.tsx",
+          "line": 89,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/page.tsx:FilterPill",
+          "name": "FilterPill",
+          "type": "function",
+          "path": "src/app/(site)/business-lunch/page.tsx",
+          "line": 150,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/page.tsx:BusinessLunchListPage",
+          "name": "BusinessLunchListPage",
+          "type": "function",
+          "path": "src/app/(site)/business-lunch/page.tsx",
+          "line": 174,
+          "exports": [
+            "BusinessLunchListPage"
+          ]
+        },
+        {
+          "id": "src/app/(site)/business-lunch/page.tsx:PageProps",
+          "name": "PageProps",
+          "type": "interface",
+          "path": "src/app/(site)/business-lunch/page.tsx",
+          "line": 14,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/page.tsx:Row",
+          "name": "Row",
+          "type": "interface",
+          "path": "src/app/(site)/business-lunch/page.tsx",
+          "line": 21,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/page.tsx:DayRow",
+          "name": "DayRow",
+          "type": "interface",
+          "path": "src/app/(site)/business-lunch/page.tsx",
+          "line": 38,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/page.tsx:Lunch",
+          "name": "Lunch",
+          "type": "interface",
+          "path": "src/app/(site)/business-lunch/page.tsx",
+          "line": 74,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/page.tsx:dynamic",
+          "name": "dynamic",
+          "type": "variable",
+          "path": "src/app/(site)/business-lunch/page.tsx",
+          "line": 8,
+          "exports": [
+            "dynamic"
+          ]
+        },
+        {
+          "id": "src/app/(site)/business-lunch/page.tsx:DEFAULT_LAT",
+          "name": "DEFAULT_LAT",
+          "type": "variable",
+          "path": "src/app/(site)/business-lunch/page.tsx",
+          "line": 10,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/page.tsx:DEFAULT_LNG",
+          "name": "DEFAULT_LNG",
+          "type": "variable",
+          "path": "src/app/(site)/business-lunch/page.tsx",
+          "line": 11,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/page.tsx:DEFAULT_RADIUS",
+          "name": "DEFAULT_RADIUS",
+          "type": "variable",
+          "path": "src/app/(site)/business-lunch/page.tsx",
+          "line": 12,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/page.tsx:PRICE_FILTERS",
+          "name": "PRICE_FILTERS",
+          "type": "variable",
+          "path": "src/app/(site)/business-lunch/page.tsx",
+          "line": 144,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/favorites/page.tsx",
+      "name": "page.tsx",
+      "type": "file",
+      "path": "src/app/(site)/favorites/page.tsx",
+      "exports": [
+        "FavoritesPage",
+        "dynamic"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/favorites/page.tsx:FavoritesPage",
+          "name": "FavoritesPage",
+          "type": "function",
+          "path": "src/app/(site)/favorites/page.tsx",
+          "line": 22,
+          "exports": [
+            "FavoritesPage"
+          ]
+        },
+        {
+          "id": "src/app/(site)/favorites/page.tsx:SectionTitle",
+          "name": "SectionTitle",
+          "type": "function",
+          "path": "src/app/(site)/favorites/page.tsx",
+          "line": 182,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/favorites/page.tsx:RestaurantCardDesktop",
+          "name": "RestaurantCardDesktop",
+          "type": "function",
+          "path": "src/app/(site)/favorites/page.tsx",
+          "line": 211,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/favorites/page.tsx:RestaurantCardMobile",
+          "name": "RestaurantCardMobile",
+          "type": "function",
+          "path": "src/app/(site)/favorites/page.tsx",
+          "line": 258,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/favorites/page.tsx:GuestState",
+          "name": "GuestState",
+          "type": "function",
+          "path": "src/app/(site)/favorites/page.tsx",
+          "line": 304,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/favorites/page.tsx:EmptyState",
+          "name": "EmptyState",
+          "type": "function",
+          "path": "src/app/(site)/favorites/page.tsx",
+          "line": 330,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/favorites/page.tsx:FavoriteRestaurantProps",
+          "name": "FavoriteRestaurantProps",
+          "type": "interface",
+          "path": "src/app/(site)/favorites/page.tsx",
+          "line": 199,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/favorites/page.tsx:dynamic",
+          "name": "dynamic",
+          "type": "variable",
+          "path": "src/app/(site)/favorites/page.tsx",
+          "line": 9,
+          "exports": [
+            "dynamic"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/map/page.tsx",
+      "name": "page.tsx",
+      "type": "file",
+      "path": "src/app/(site)/map/page.tsx",
+      "exports": [
+        "MapPage",
+        "dynamic"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/map/page.tsx:buildFtsMatchQuery",
+          "name": "buildFtsMatchQuery",
+          "type": "function",
+          "path": "src/app/(site)/map/page.tsx",
+          "line": 28,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/map/page.tsx:findNearby",
+          "name": "findNearby",
+          "type": "function",
+          "path": "src/app/(site)/map/page.tsx",
+          "line": 38,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/map/page.tsx:MapPage",
+          "name": "MapPage",
+          "type": "function",
+          "path": "src/app/(site)/map/page.tsx",
+          "line": 84,
+          "exports": [
+            "MapPage"
+          ]
+        },
+        {
+          "id": "src/app/(site)/map/page.tsx:PageProps",
+          "name": "PageProps",
+          "type": "interface",
+          "path": "src/app/(site)/map/page.tsx",
+          "line": 11,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/map/page.tsx:NearRow",
+          "name": "NearRow",
+          "type": "interface",
+          "path": "src/app/(site)/map/page.tsx",
+          "line": 18,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/map/page.tsx:dynamic",
+          "name": "dynamic",
+          "type": "variable",
+          "path": "src/app/(site)/map/page.tsx",
+          "line": 6,
+          "exports": [
+            "dynamic"
+          ]
+        },
+        {
+          "id": "src/app/(site)/map/page.tsx:DEFAULT_LAT",
+          "name": "DEFAULT_LAT",
+          "type": "variable",
+          "path": "src/app/(site)/map/page.tsx",
+          "line": 8,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/map/page.tsx:DEFAULT_LNG",
+          "name": "DEFAULT_LNG",
+          "type": "variable",
+          "path": "src/app/(site)/map/page.tsx",
+          "line": 9,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/profile/page.tsx",
+      "name": "page.tsx",
+      "type": "file",
+      "path": "src/app/(site)/profile/page.tsx",
+      "exports": [
+        "ProfilePage",
+        "dynamic"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/profile/page.tsx:getInitials",
+          "name": "getInitials",
+          "type": "function",
+          "path": "src/app/(site)/profile/page.tsx",
+          "line": 31,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/profile/page.tsx:ProfilePage",
+          "name": "ProfilePage",
+          "type": "function",
+          "path": "src/app/(site)/profile/page.tsx",
+          "line": 43,
+          "exports": [
+            "ProfilePage"
+          ]
+        },
+        {
+          "id": "src/app/(site)/profile/page.tsx:SettingRow",
+          "name": "SettingRow",
+          "type": "function",
+          "path": "src/app/(site)/profile/page.tsx",
+          "line": 144,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/profile/page.tsx:SettingRowProps",
+          "name": "SettingRowProps",
+          "type": "interface",
+          "path": "src/app/(site)/profile/page.tsx",
+          "line": 137,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/profile/page.tsx:dynamic",
+          "name": "dynamic",
+          "type": "variable",
+          "path": "src/app/(site)/profile/page.tsx",
+          "line": 14,
+          "exports": [
+            "dynamic"
+          ]
+        },
+        {
+          "id": "src/app/(site)/profile/page.tsx:GUEST_USER",
+          "name": "GUEST_USER",
+          "type": "variable",
+          "path": "src/app/(site)/profile/page.tsx",
+          "line": 23,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/restaurant/page.tsx",
+      "name": "page.tsx",
+      "type": "file",
+      "path": "src/app/(site)/restaurant/page.tsx",
+      "exports": [
+        "RestaurantIndexPage",
+        "dynamic"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/restaurant/page.tsx:RestaurantIndexPage",
+          "name": "RestaurantIndexPage",
+          "type": "function",
+          "path": "src/app/(site)/restaurant/page.tsx",
+          "line": 25,
+          "exports": [
+            "RestaurantIndexPage"
+          ]
+        },
+        {
+          "id": "src/app/(site)/restaurant/page.tsx:dynamic",
+          "name": "dynamic",
+          "type": "variable",
+          "path": "src/app/(site)/restaurant/page.tsx",
+          "line": 8,
+          "exports": [
+            "dynamic"
+          ]
+        },
+        {
+          "id": "src/app/(site)/restaurant/page.tsx:DEFAULT_LAT",
+          "name": "DEFAULT_LAT",
+          "type": "variable",
+          "path": "src/app/(site)/restaurant/page.tsx",
+          "line": 10,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/restaurant/page.tsx:DEFAULT_LNG",
+          "name": "DEFAULT_LNG",
+          "type": "variable",
+          "path": "src/app/(site)/restaurant/page.tsx",
+          "line": 11,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/search/page.tsx",
+      "name": "page.tsx",
+      "type": "file",
+      "path": "src/app/(site)/search/page.tsx",
+      "exports": [
+        "SearchResultsPage",
+        "dynamic"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/search/page.tsx:parseSort",
+          "name": "parseSort",
+          "type": "function",
+          "path": "src/app/(site)/search/page.tsx",
+          "line": 26,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/search/page.tsx:buildFtsMatchQuery",
+          "name": "buildFtsMatchQuery",
+          "type": "function",
+          "path": "src/app/(site)/search/page.tsx",
+          "line": 31,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/search/page.tsx:searchItems",
+          "name": "searchItems",
+          "type": "function",
+          "path": "src/app/(site)/search/page.tsx",
+          "line": 59,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/search/page.tsx:SearchResultsPage",
+          "name": "SearchResultsPage",
+          "type": "function",
+          "path": "src/app/(site)/search/page.tsx",
+          "line": 123,
+          "exports": [
+            "SearchResultsPage"
+          ]
+        },
+        {
+          "id": "src/app/(site)/search/page.tsx:FilterChip",
+          "name": "FilterChip",
+          "type": "function",
+          "path": "src/app/(site)/search/page.tsx",
+          "line": 239,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/search/page.tsx:PageProps",
+          "name": "PageProps",
+          "type": "interface",
+          "path": "src/app/(site)/search/page.tsx",
+          "line": 19,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/search/page.tsx:Row",
+          "name": "Row",
+          "type": "interface",
+          "path": "src/app/(site)/search/page.tsx",
+          "line": 41,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/search/page.tsx:Sort",
+          "name": "Sort",
+          "type": "type",
+          "path": "src/app/(site)/search/page.tsx",
+          "line": 17,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/search/page.tsx:dynamic",
+          "name": "dynamic",
+          "type": "variable",
+          "path": "src/app/(site)/search/page.tsx",
+          "line": 10,
+          "exports": [
+            "dynamic"
+          ]
+        },
+        {
+          "id": "src/app/(site)/search/page.tsx:DEFAULT_LAT",
+          "name": "DEFAULT_LAT",
+          "type": "variable",
+          "path": "src/app/(site)/search/page.tsx",
+          "line": 13,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/search/page.tsx:DEFAULT_LNG",
+          "name": "DEFAULT_LNG",
+          "type": "variable",
+          "path": "src/app/(site)/search/page.tsx",
+          "line": 14,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/search/page.tsx:DEFAULT_RADIUS",
+          "name": "DEFAULT_RADIUS",
+          "type": "variable",
+          "path": "src/app/(site)/search/page.tsx",
+          "line": 15,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/search/page.tsx:SORT_LABEL",
+          "name": "SORT_LABEL",
+          "type": "variable",
+          "path": "src/app/(site)/search/page.tsx",
+          "line": 117,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/api/business-lunch/route.ts",
+      "name": "route.ts",
+      "type": "file",
+      "path": "src/app/api/business-lunch/route.ts",
+      "exports": [
+        "GET",
+        "BusinessLunchDto",
+        "BusinessLunchResponse"
+      ],
+      "children": [
+        {
+          "id": "src/app/api/business-lunch/route.ts:parseNumber",
+          "name": "parseNumber",
+          "type": "function",
+          "path": "src/app/api/business-lunch/route.ts",
+          "line": 46,
+          "exports": []
+        },
+        {
+          "id": "src/app/api/business-lunch/route.ts:jsDayToAppWeekday",
+          "name": "jsDayToAppWeekday",
+          "type": "function",
+          "path": "src/app/api/business-lunch/route.ts",
+          "line": 53,
+          "exports": []
+        },
+        {
+          "id": "src/app/api/business-lunch/route.ts:parseTimeToMinutes",
+          "name": "parseTimeToMinutes",
+          "type": "function",
+          "path": "src/app/api/business-lunch/route.ts",
+          "line": 58,
+          "exports": []
+        },
+        {
+          "id": "src/app/api/business-lunch/route.ts:parseCourses",
+          "name": "parseCourses",
+          "type": "function",
+          "path": "src/app/api/business-lunch/route.ts",
+          "line": 88,
+          "exports": []
+        },
+        {
+          "id": "src/app/api/business-lunch/route.ts:GET",
+          "name": "GET",
+          "type": "function",
+          "path": "src/app/api/business-lunch/route.ts",
+          "line": 100,
+          "exports": [
+            "GET"
+          ]
+        },
+        {
+          "id": "src/app/api/business-lunch/route.ts:BusinessLunchDto",
+          "name": "BusinessLunchDto",
+          "type": "interface",
+          "path": "src/app/api/business-lunch/route.ts",
+          "line": 18,
+          "exports": [
+            "BusinessLunchDto"
+          ]
+        },
+        {
+          "id": "src/app/api/business-lunch/route.ts:BusinessLunchResponse",
+          "name": "BusinessLunchResponse",
+          "type": "interface",
+          "path": "src/app/api/business-lunch/route.ts",
+          "line": 40,
+          "exports": [
+            "BusinessLunchResponse"
+          ]
+        },
+        {
+          "id": "src/app/api/business-lunch/route.ts:LunchRow",
+          "name": "LunchRow",
+          "type": "interface",
+          "path": "src/app/api/business-lunch/route.ts",
+          "line": 65,
+          "exports": []
+        },
+        {
+          "id": "src/app/api/business-lunch/route.ts:DayRow",
+          "name": "DayRow",
+          "type": "interface",
+          "path": "src/app/api/business-lunch/route.ts",
+          "line": 82,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/api/dev-sw/route.ts",
+      "name": "route.ts",
+      "type": "file",
+      "path": "src/app/api/dev-sw/route.ts",
+      "exports": [
+        "GET"
+      ],
+      "children": [
+        {
+          "id": "src/app/api/dev-sw/route.ts:GET",
+          "name": "GET",
+          "type": "function",
+          "path": "src/app/api/dev-sw/route.ts",
+          "line": 11,
+          "exports": [
+            "GET"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/api/favorites/route.ts",
+      "name": "route.ts",
+      "type": "file",
+      "path": "src/app/api/favorites/route.ts",
+      "exports": [
+        "POST",
+        "GET"
+      ],
+      "children": [
+        {
+          "id": "src/app/api/favorites/route.ts:POST",
+          "name": "POST",
+          "type": "function",
+          "path": "src/app/api/favorites/route.ts",
+          "line": 26,
+          "exports": [
+            "POST"
+          ]
+        },
+        {
+          "id": "src/app/api/favorites/route.ts:GET",
+          "name": "GET",
+          "type": "function",
+          "path": "src/app/api/favorites/route.ts",
+          "line": 52,
+          "exports": [
+            "GET"
+          ]
+        },
+        {
+          "id": "src/app/api/favorites/route.ts:bodySchema",
+          "name": "bodySchema",
+          "type": "variable",
+          "path": "src/app/api/favorites/route.ts",
+          "line": 21,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/api/search/route.ts",
+      "name": "route.ts",
+      "type": "file",
+      "path": "src/app/api/search/route.ts",
+      "exports": [
+        "GET",
+        "SearchResultItem",
+        "SearchResponse"
+      ],
+      "children": [
+        {
+          "id": "src/app/api/search/route.ts:parseSort",
+          "name": "parseSort",
+          "type": "function",
+          "path": "src/app/api/search/route.ts",
+          "line": 47,
+          "exports": []
+        },
+        {
+          "id": "src/app/api/search/route.ts:parseNumber",
+          "name": "parseNumber",
+          "type": "function",
+          "path": "src/app/api/search/route.ts",
+          "line": 52,
+          "exports": []
+        },
+        {
+          "id": "src/app/api/search/route.ts:buildFtsMatchQuery",
+          "name": "buildFtsMatchQuery",
+          "type": "function",
+          "path": "src/app/api/search/route.ts",
+          "line": 64,
+          "exports": []
+        },
+        {
+          "id": "src/app/api/search/route.ts:GET",
+          "name": "GET",
+          "type": "function",
+          "path": "src/app/api/search/route.ts",
+          "line": 89,
+          "exports": [
+            "GET"
+          ]
+        },
+        {
+          "id": "src/app/api/search/route.ts:SearchResultItem",
+          "name": "SearchResultItem",
+          "type": "interface",
+          "path": "src/app/api/search/route.ts",
+          "line": 22,
+          "exports": [
+            "SearchResultItem"
+          ]
+        },
+        {
+          "id": "src/app/api/search/route.ts:SearchResponse",
+          "name": "SearchResponse",
+          "type": "interface",
+          "path": "src/app/api/search/route.ts",
+          "line": 38,
+          "exports": [
+            "SearchResponse"
+          ]
+        },
+        {
+          "id": "src/app/api/search/route.ts:Row",
+          "name": "Row",
+          "type": "interface",
+          "path": "src/app/api/search/route.ts",
+          "line": 74,
+          "exports": []
+        },
+        {
+          "id": "src/app/api/search/route.ts:Sort",
+          "name": "Sort",
+          "type": "type",
+          "path": "src/app/api/search/route.ts",
+          "line": 45,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/tg/_components/TelegramAutoLogin.tsx",
+      "name": "TelegramAutoLogin.tsx",
+      "type": "file",
+      "path": "src/app/tg/_components/TelegramAutoLogin.tsx",
+      "exports": [
+        "TelegramAutoLogin"
+      ],
+      "children": [
+        {
+          "id": "src/app/tg/_components/TelegramAutoLogin.tsx:TelegramAutoLogin",
+          "name": "TelegramAutoLogin",
+          "type": "function",
+          "path": "src/app/tg/_components/TelegramAutoLogin.tsx",
+          "line": 27,
+          "exports": [
+            "TelegramAutoLogin"
+          ]
+        },
+        {
+          "id": "src/app/tg/_components/TelegramAutoLogin.tsx:State",
+          "name": "State",
+          "type": "type",
+          "path": "src/app/tg/_components/TelegramAutoLogin.tsx",
+          "line": 23,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(admin-auth)/admin/login/page.tsx",
+      "name": "page.tsx",
+      "type": "file",
+      "path": "src/app/(admin-auth)/admin/login/page.tsx",
+      "exports": [
+        "AdminLoginPage",
+        "metadata"
+      ],
+      "children": [
+        {
+          "id": "src/app/(admin-auth)/admin/login/page.tsx:AdminLoginPage",
+          "name": "AdminLoginPage",
+          "type": "function",
+          "path": "src/app/(admin-auth)/admin/login/page.tsx",
+          "line": 16,
+          "exports": [
+            "AdminLoginPage"
+          ]
+        },
+        {
+          "id": "src/app/(admin-auth)/admin/login/page.tsx:metadata",
+          "name": "metadata",
+          "type": "variable",
+          "path": "src/app/(admin-auth)/admin/login/page.tsx",
+          "line": 12,
+          "exports": [
+            "metadata"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/(admin)/admin/_components/AdminShell.tsx",
+      "name": "AdminShell.tsx",
+      "type": "file",
+      "path": "src/app/(admin)/admin/_components/AdminShell.tsx",
+      "exports": [
+        "AdminShell",
+        "AdminShellProps"
+      ],
+      "children": [
+        {
+          "id": "src/app/(admin)/admin/_components/AdminShell.tsx:AdminShell",
+          "name": "AdminShell",
+          "type": "function",
+          "path": "src/app/(admin)/admin/_components/AdminShell.tsx",
+          "line": 18,
+          "exports": [
+            "AdminShell"
+          ]
+        },
+        {
+          "id": "src/app/(admin)/admin/_components/AdminShell.tsx:AdminShellProps",
+          "name": "AdminShellProps",
+          "type": "interface",
+          "path": "src/app/(admin)/admin/_components/AdminShell.tsx",
+          "line": 13,
+          "exports": [
+            "AdminShellProps"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/(admin)/admin/business-lunch/page.tsx",
+      "name": "page.tsx",
+      "type": "file",
+      "path": "src/app/(admin)/admin/business-lunch/page.tsx",
+      "exports": [
+        "AdminBusinessLunchPage"
+      ],
+      "children": [
+        {
+          "id": "src/app/(admin)/admin/business-lunch/page.tsx:formatDaysMask",
+          "name": "formatDaysMask",
+          "type": "function",
+          "path": "src/app/(admin)/admin/business-lunch/page.tsx",
+          "line": 25,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/business-lunch/page.tsx:isServingNow",
+          "name": "isServingNow",
+          "type": "function",
+          "path": "src/app/(admin)/admin/business-lunch/page.tsx",
+          "line": 36,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/business-lunch/page.tsx:AdminBusinessLunchPage",
+          "name": "AdminBusinessLunchPage",
+          "type": "function",
+          "path": "src/app/(admin)/admin/business-lunch/page.tsx",
+          "line": 52,
+          "exports": [
+            "AdminBusinessLunchPage"
+          ]
+        },
+        {
+          "id": "src/app/(admin)/admin/business-lunch/page.tsx:StatCard",
+          "name": "StatCard",
+          "type": "function",
+          "path": "src/app/(admin)/admin/business-lunch/page.tsx",
+          "line": 206,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/business-lunch/page.tsx:LunchTabs",
+          "name": "LunchTabs",
+          "type": "function",
+          "path": "src/app/(admin)/admin/business-lunch/page.tsx",
+          "line": 245,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/business-lunch/page.tsx:StatVariant",
+          "name": "StatVariant",
+          "type": "type",
+          "path": "src/app/(admin)/admin/business-lunch/page.tsx",
+          "line": 204,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/business-lunch/page.tsx:WEEKDAY_NAMES",
+          "name": "WEEKDAY_NAMES",
+          "type": "variable",
+          "path": "src/app/(admin)/admin/business-lunch/page.tsx",
+          "line": 23,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/business-lunch/page.tsx:LUNCH_TABS",
+          "name": "LUNCH_TABS",
+          "type": "variable",
+          "path": "src/app/(admin)/admin/business-lunch/page.tsx",
+          "line": 238,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(admin)/admin/menu/page.tsx",
+      "name": "page.tsx",
+      "type": "file",
+      "path": "src/app/(admin)/admin/menu/page.tsx",
+      "exports": [
+        "AdminMenuPage"
+      ],
+      "children": [
+        {
+          "id": "src/app/(admin)/admin/menu/page.tsx:AdminMenuPage",
+          "name": "AdminMenuPage",
+          "type": "function",
+          "path": "src/app/(admin)/admin/menu/page.tsx",
+          "line": 21,
+          "exports": [
+            "AdminMenuPage"
+          ]
+        },
+        {
+          "id": "src/app/(admin)/admin/menu/page.tsx:PageProps",
+          "name": "PageProps",
+          "type": "interface",
+          "path": "src/app/(admin)/admin/menu/page.tsx",
+          "line": 17,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(admin)/admin/restaurants/page.tsx",
+      "name": "page.tsx",
+      "type": "file",
+      "path": "src/app/(admin)/admin/restaurants/page.tsx",
+      "exports": [
+        "AdminRestaurantsPage"
+      ],
+      "children": [
+        {
+          "id": "src/app/(admin)/admin/restaurants/page.tsx:AdminRestaurantsPage",
+          "name": "AdminRestaurantsPage",
+          "type": "function",
+          "path": "src/app/(admin)/admin/restaurants/page.tsx",
+          "line": 23,
+          "exports": [
+            "AdminRestaurantsPage"
+          ]
+        },
+        {
+          "id": "src/app/(admin)/admin/restaurants/page.tsx:StatusPill",
+          "name": "StatusPill",
+          "type": "function",
+          "path": "src/app/(admin)/admin/restaurants/page.tsx",
+          "line": 149,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/restaurants/page.tsx:Pagination",
+          "name": "Pagination",
+          "type": "function",
+          "path": "src/app/(admin)/admin/restaurants/page.tsx",
+          "line": 165,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/restaurants/page.tsx:PageProps",
+          "name": "PageProps",
+          "type": "interface",
+          "path": "src/app/(admin)/admin/restaurants/page.tsx",
+          "line": 19,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/restaurants/page.tsx:PAGE_SIZE",
+          "name": "PAGE_SIZE",
+          "type": "variable",
+          "path": "src/app/(admin)/admin/restaurants/page.tsx",
+          "line": 17,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(admin)/admin/settings/page.tsx",
+      "name": "page.tsx",
+      "type": "file",
+      "path": "src/app/(admin)/admin/settings/page.tsx",
+      "exports": [
+        "AdminSettingsPage"
+      ],
+      "children": [
+        {
+          "id": "src/app/(admin)/admin/settings/page.tsx:AdminSettingsPage",
+          "name": "AdminSettingsPage",
+          "type": "function",
+          "path": "src/app/(admin)/admin/settings/page.tsx",
+          "line": 13,
+          "exports": [
+            "AdminSettingsPage"
+          ]
+        },
+        {
+          "id": "src/app/(admin)/admin/settings/page.tsx:SettingsSection",
+          "name": "SettingsSection",
+          "type": "function",
+          "path": "src/app/(admin)/admin/settings/page.tsx",
+          "line": 105,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/settings/page.tsx:FormRow",
+          "name": "FormRow",
+          "type": "function",
+          "path": "src/app/(admin)/admin/settings/page.tsx",
+          "line": 127,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(admin)/admin/users/page.tsx",
+      "name": "page.tsx",
+      "type": "file",
+      "path": "src/app/(admin)/admin/users/page.tsx",
+      "exports": [
+        "AdminUsersPage"
+      ],
+      "children": [
+        {
+          "id": "src/app/(admin)/admin/users/page.tsx:AdminUsersPage",
+          "name": "AdminUsersPage",
+          "type": "function",
+          "path": "src/app/(admin)/admin/users/page.tsx",
+          "line": 12,
+          "exports": [
+            "AdminUsersPage"
+          ]
+        },
+        {
+          "id": "src/app/(admin)/admin/users/page.tsx:RoleBadge",
+          "name": "RoleBadge",
+          "type": "function",
+          "path": "src/app/(admin)/admin/users/page.tsx",
+          "line": 97,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/business-lunch/_components/DesktopBusinessLunch.tsx",
+      "name": "DesktopBusinessLunch.tsx",
+      "type": "file",
+      "path": "src/app/(site)/business-lunch/_components/DesktopBusinessLunch.tsx",
+      "exports": [
+        "DesktopBusinessLunch",
+        "DesktopBusinessLunchItem",
+        "DesktopBusinessLunchProps"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/business-lunch/_components/DesktopBusinessLunch.tsx:buildHref",
+          "name": "buildHref",
+          "type": "function",
+          "path": "src/app/(site)/business-lunch/_components/DesktopBusinessLunch.tsx",
+          "line": 40,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/_components/DesktopBusinessLunch.tsx:DesktopBusinessLunch",
+          "name": "DesktopBusinessLunch",
+          "type": "function",
+          "path": "src/app/(site)/business-lunch/_components/DesktopBusinessLunch.tsx",
+          "line": 64,
+          "exports": [
+            "DesktopBusinessLunch"
+          ]
+        },
+        {
+          "id": "src/app/(site)/business-lunch/_components/DesktopBusinessLunch.tsx:DesktopBusinessLunchItem",
+          "name": "DesktopBusinessLunchItem",
+          "type": "interface",
+          "path": "src/app/(site)/business-lunch/_components/DesktopBusinessLunch.tsx",
+          "line": 6,
+          "exports": [
+            "DesktopBusinessLunchItem"
+          ]
+        },
+        {
+          "id": "src/app/(site)/business-lunch/_components/DesktopBusinessLunch.tsx:DesktopBusinessLunchProps",
+          "name": "DesktopBusinessLunchProps",
+          "type": "interface",
+          "path": "src/app/(site)/business-lunch/_components/DesktopBusinessLunch.tsx",
+          "line": 21,
+          "exports": [
+            "DesktopBusinessLunchProps"
+          ]
+        },
+        {
+          "id": "src/app/(site)/business-lunch/_components/DesktopBusinessLunch.tsx:PriceFilter",
+          "name": "PriceFilter",
+          "type": "interface",
+          "path": "src/app/(site)/business-lunch/_components/DesktopBusinessLunch.tsx",
+          "line": 28,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/_components/DesktopBusinessLunch.tsx:PRICE_FILTERS",
+          "name": "PRICE_FILTERS",
+          "type": "variable",
+          "path": "src/app/(site)/business-lunch/_components/DesktopBusinessLunch.tsx",
+          "line": 34,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/business-lunch/[id]/page.tsx",
+      "name": "page.tsx",
+      "type": "file",
+      "path": "src/app/(site)/business-lunch/[id]/page.tsx",
+      "exports": [
+        "BusinessLunchDetailPage",
+        "dynamic"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/business-lunch/[id]/page.tsx:daysMaskToLabel",
+          "name": "daysMaskToLabel",
+          "type": "function",
+          "path": "src/app/(site)/business-lunch/[id]/page.tsx",
+          "line": 29,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/[id]/page.tsx:isServingNow",
+          "name": "isServingNow",
+          "type": "function",
+          "path": "src/app/(site)/business-lunch/[id]/page.tsx",
+          "line": 42,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/[id]/page.tsx:parseCourses",
+          "name": "parseCourses",
+          "type": "function",
+          "path": "src/app/(site)/business-lunch/[id]/page.tsx",
+          "line": 57,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/[id]/page.tsx:BusinessLunchDetailPage",
+          "name": "BusinessLunchDetailPage",
+          "type": "function",
+          "path": "src/app/(site)/business-lunch/[id]/page.tsx",
+          "line": 69,
+          "exports": [
+            "BusinessLunchDetailPage"
+          ]
+        },
+        {
+          "id": "src/app/(site)/business-lunch/[id]/page.tsx:PageProps",
+          "name": "PageProps",
+          "type": "interface",
+          "path": "src/app/(site)/business-lunch/[id]/page.tsx",
+          "line": 23,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/[id]/page.tsx:dynamic",
+          "name": "dynamic",
+          "type": "variable",
+          "path": "src/app/(site)/business-lunch/[id]/page.tsx",
+          "line": 18,
+          "exports": [
+            "dynamic"
+          ]
+        },
+        {
+          "id": "src/app/(site)/business-lunch/[id]/page.tsx:DEFAULT_LAT",
+          "name": "DEFAULT_LAT",
+          "type": "variable",
+          "path": "src/app/(site)/business-lunch/[id]/page.tsx",
+          "line": 20,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/[id]/page.tsx:DEFAULT_LNG",
+          "name": "DEFAULT_LNG",
+          "type": "variable",
+          "path": "src/app/(site)/business-lunch/[id]/page.tsx",
+          "line": 21,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/[id]/page.tsx:WEEKDAY_LABELS",
+          "name": "WEEKDAY_LABELS",
+          "type": "variable",
+          "path": "src/app/(site)/business-lunch/[id]/page.tsx",
+          "line": 27,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/map/_components/MobileMapView.tsx",
+      "name": "MobileMapView.tsx",
+      "type": "file",
+      "path": "src/app/(site)/map/_components/MobileMapView.tsx",
+      "exports": [
+        "MobileMapView",
+        "MobileMapItem",
+        "MobileMapViewProps"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/map/_components/MobileMapView.tsx:MobileMapView",
+          "name": "MobileMapView",
+          "type": "function",
+          "path": "src/app/(site)/map/_components/MobileMapView.tsx",
+          "line": 38,
+          "exports": [
+            "MobileMapView"
+          ]
+        },
+        {
+          "id": "src/app/(site)/map/_components/MobileMapView.tsx:MobileMapItem",
+          "name": "MobileMapItem",
+          "type": "interface",
+          "path": "src/app/(site)/map/_components/MobileMapView.tsx",
+          "line": 10,
+          "exports": [
+            "MobileMapItem"
+          ]
+        },
+        {
+          "id": "src/app/(site)/map/_components/MobileMapView.tsx:MobileMapViewProps",
+          "name": "MobileMapViewProps",
+          "type": "interface",
+          "path": "src/app/(site)/map/_components/MobileMapView.tsx",
+          "line": 21,
+          "exports": [
+            "MobileMapViewProps"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/profile/_components/ProfileNotificationsToggle.tsx",
+      "name": "ProfileNotificationsToggle.tsx",
+      "type": "file",
+      "path": "src/app/(site)/profile/_components/ProfileNotificationsToggle.tsx",
+      "exports": [
+        "ProfileNotificationsToggle"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/profile/_components/ProfileNotificationsToggle.tsx:ProfileNotificationsToggle",
+          "name": "ProfileNotificationsToggle",
+          "type": "function",
+          "path": "src/app/(site)/profile/_components/ProfileNotificationsToggle.tsx",
+          "line": 10,
+          "exports": [
+            "ProfileNotificationsToggle"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/restaurant/[id]/page.tsx",
+      "name": "page.tsx",
+      "type": "file",
+      "path": "src/app/(site)/restaurant/[id]/page.tsx",
+      "exports": [
+        "RestaurantDetailPage",
+        "formatMenuPrice",
+        "dynamic"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/restaurant/[id]/page.tsx:RestaurantDetailPage",
+          "name": "RestaurantDetailPage",
+          "type": "function",
+          "path": "src/app/(site)/restaurant/[id]/page.tsx",
+          "line": 30,
+          "exports": [
+            "RestaurantDetailPage"
+          ]
+        },
+        {
+          "id": "src/app/(site)/restaurant/[id]/page.tsx:formatMenuPrice",
+          "name": "formatMenuPrice",
+          "type": "function",
+          "path": "src/app/(site)/restaurant/[id]/page.tsx",
+          "line": 240,
+          "exports": [
+            "formatMenuPrice"
+          ]
+        },
+        {
+          "id": "src/app/(site)/restaurant/[id]/page.tsx:PageProps",
+          "name": "PageProps",
+          "type": "interface",
+          "path": "src/app/(site)/restaurant/[id]/page.tsx",
+          "line": 25,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/restaurant/[id]/page.tsx:dynamic",
+          "name": "dynamic",
+          "type": "variable",
+          "path": "src/app/(site)/restaurant/[id]/page.tsx",
+          "line": 20,
+          "exports": [
+            "dynamic"
+          ]
+        },
+        {
+          "id": "src/app/(site)/restaurant/[id]/page.tsx:DEFAULT_LAT",
+          "name": "DEFAULT_LAT",
+          "type": "variable",
+          "path": "src/app/(site)/restaurant/[id]/page.tsx",
+          "line": 22,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/restaurant/[id]/page.tsx:DEFAULT_LNG",
+          "name": "DEFAULT_LNG",
+          "type": "variable",
+          "path": "src/app/(site)/restaurant/[id]/page.tsx",
+          "line": 23,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
+      "name": "DesktopSearchResults.tsx",
+      "type": "file",
+      "path": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
+      "exports": [
+        "DesktopSearchResults",
+        "DesktopSearchResultsProps",
+        "DesktopSort"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/search/_components/DesktopSearchResults.tsx:SortChip",
+          "name": "SortChip",
+          "type": "function",
+          "path": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
+          "line": 29,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/search/_components/DesktopSearchResults.tsx:DesktopSearchResults",
+          "name": "DesktopSearchResults",
+          "type": "function",
+          "path": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
+          "line": 60,
+          "exports": [
+            "DesktopSearchResults"
+          ]
+        },
+        {
+          "id": "src/app/(site)/search/_components/DesktopSearchResults.tsx:DesktopSearchResultsProps",
+          "name": "DesktopSearchResultsProps",
+          "type": "interface",
+          "path": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
+          "line": 16,
+          "exports": [
+            "DesktopSearchResultsProps"
+          ]
+        },
+        {
+          "id": "src/app/(site)/search/_components/DesktopSearchResults.tsx:SortChipProps",
+          "name": "SortChipProps",
+          "type": "interface",
+          "path": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
+          "line": 23,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/search/_components/DesktopSearchResults.tsx:DesktopSort",
+          "name": "DesktopSort",
+          "type": "type",
+          "path": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
+          "line": 14,
+          "exports": [
+            "DesktopSort"
+          ]
+        },
+        {
+          "id": "src/app/(site)/search/_components/DesktopSearchResults.tsx:MOSCOW_CENTER",
+          "name": "MOSCOW_CENTER",
+          "type": "variable",
+          "path": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
+          "line": 12,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/api/admin/business-lunch/route.ts",
+      "name": "route.ts",
+      "type": "file",
+      "path": "src/app/api/admin/business-lunch/route.ts",
+      "exports": [
+        "POST"
+      ],
+      "children": [
+        {
+          "id": "src/app/api/admin/business-lunch/route.ts:POST",
+          "name": "POST",
+          "type": "function",
+          "path": "src/app/api/admin/business-lunch/route.ts",
+          "line": 31,
+          "exports": [
+            "POST"
+          ]
+        },
+        {
+          "id": "src/app/api/admin/business-lunch/route.ts:timePattern",
+          "name": "timePattern",
+          "type": "variable",
+          "path": "src/app/api/admin/business-lunch/route.ts",
+          "line": 13,
+          "exports": []
+        },
+        {
+          "id": "src/app/api/admin/business-lunch/route.ts:dayCourse",
+          "name": "dayCourse",
+          "type": "variable",
+          "path": "src/app/api/admin/business-lunch/route.ts",
+          "line": 15,
+          "exports": []
+        },
+        {
+          "id": "src/app/api/admin/business-lunch/route.ts:schema",
+          "name": "schema",
+          "type": "variable",
+          "path": "src/app/api/admin/business-lunch/route.ts",
+          "line": 20,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/api/admin/menu/route.ts",
+      "name": "route.ts",
+      "type": "file",
+      "path": "src/app/api/admin/menu/route.ts",
+      "exports": [
+        "POST"
+      ],
+      "children": [
+        {
+          "id": "src/app/api/admin/menu/route.ts:POST",
+          "name": "POST",
+          "type": "function",
+          "path": "src/app/api/admin/menu/route.ts",
+          "line": 34,
+          "exports": [
+            "POST"
+          ]
+        },
+        {
+          "id": "src/app/api/admin/menu/route.ts:itemSchema",
+          "name": "itemSchema",
+          "type": "variable",
+          "path": "src/app/api/admin/menu/route.ts",
+          "line": 16,
+          "exports": []
+        },
+        {
+          "id": "src/app/api/admin/menu/route.ts:categorySchema",
+          "name": "categorySchema",
+          "type": "variable",
+          "path": "src/app/api/admin/menu/route.ts",
+          "line": 27,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/api/admin/restaurants/route.ts",
+      "name": "route.ts",
+      "type": "file",
+      "path": "src/app/api/admin/restaurants/route.ts",
+      "exports": [
+        "POST"
+      ],
+      "children": [
+        {
+          "id": "src/app/api/admin/restaurants/route.ts:POST",
+          "name": "POST",
+          "type": "function",
+          "path": "src/app/api/admin/restaurants/route.ts",
+          "line": 30,
+          "exports": [
+            "POST"
+          ]
+        },
+        {
+          "id": "src/app/api/admin/restaurants/route.ts:createSchema",
+          "name": "createSchema",
+          "type": "variable",
+          "path": "src/app/api/admin/restaurants/route.ts",
+          "line": 13,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/api/admin/upload/route.ts",
+      "name": "route.ts",
+      "type": "file",
+      "path": "src/app/api/admin/upload/route.ts",
+      "exports": [
+        "POST"
+      ],
+      "children": [
+        {
+          "id": "src/app/api/admin/upload/route.ts:POST",
+          "name": "POST",
+          "type": "function",
+          "path": "src/app/api/admin/upload/route.ts",
+          "line": 21,
+          "exports": [
+            "POST"
+          ]
+        },
+        {
+          "id": "src/app/api/admin/upload/route.ts:MAX_WIDTH",
+          "name": "MAX_WIDTH",
+          "type": "variable",
+          "path": "src/app/api/admin/upload/route.ts",
+          "line": 18,
+          "exports": []
+        },
+        {
+          "id": "src/app/api/admin/upload/route.ts:UPLOADS_DIR",
+          "name": "UPLOADS_DIR",
+          "type": "variable",
+          "path": "src/app/api/admin/upload/route.ts",
+          "line": 19,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/api/auth/telegram/route.ts",
+      "name": "route.ts",
+      "type": "file",
+      "path": "src/app/api/auth/telegram/route.ts",
+      "exports": [
+        "POST"
+      ],
+      "children": [
+        {
+          "id": "src/app/api/auth/telegram/route.ts:POST",
+          "name": "POST",
+          "type": "function",
+          "path": "src/app/api/auth/telegram/route.ts",
+          "line": 30,
+          "exports": [
+            "POST"
+          ]
+        },
+        {
+          "id": "src/app/api/auth/telegram/route.ts:bodySchema",
+          "name": "bodySchema",
+          "type": "variable",
+          "path": "src/app/api/auth/telegram/route.ts",
+          "line": 26,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/api/restaurants/[id]/route.ts",
+      "name": "route.ts",
+      "type": "file",
+      "path": "src/app/api/restaurants/[id]/route.ts",
+      "exports": [
+        "GET",
+        "RestaurantMenuItemDto",
+        "RestaurantMenuCategoryDto",
+        "RestaurantDto"
+      ],
+      "children": [
+        {
+          "id": "src/app/api/restaurants/[id]/route.ts:GET",
+          "name": "GET",
+          "type": "function",
+          "path": "src/app/api/restaurants/[id]/route.ts",
+          "line": 57,
+          "exports": [
+            "GET"
+          ]
+        },
+        {
+          "id": "src/app/api/restaurants/[id]/route.ts:RestaurantMenuItemDto",
+          "name": "RestaurantMenuItemDto",
+          "type": "interface",
+          "path": "src/app/api/restaurants/[id]/route.ts",
+          "line": 18,
+          "exports": [
+            "RestaurantMenuItemDto"
+          ]
+        },
+        {
+          "id": "src/app/api/restaurants/[id]/route.ts:RestaurantMenuCategoryDto",
+          "name": "RestaurantMenuCategoryDto",
+          "type": "interface",
+          "path": "src/app/api/restaurants/[id]/route.ts",
+          "line": 27,
+          "exports": [
+            "RestaurantMenuCategoryDto"
+          ]
+        },
+        {
+          "id": "src/app/api/restaurants/[id]/route.ts:RestaurantDto",
+          "name": "RestaurantDto",
+          "type": "interface",
+          "path": "src/app/api/restaurants/[id]/route.ts",
+          "line": 34,
+          "exports": [
+            "RestaurantDto"
+          ]
+        },
+        {
+          "id": "src/app/api/restaurants/[id]/route.ts:RouteContext",
+          "name": "RouteContext",
+          "type": "interface",
+          "path": "src/app/api/restaurants/[id]/route.ts",
+          "line": 53,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(admin-auth)/admin/login/_components/LoginForm.tsx",
+      "name": "LoginForm.tsx",
+      "type": "file",
+      "path": "src/app/(admin-auth)/admin/login/_components/LoginForm.tsx",
+      "exports": [
+        "LoginForm"
+      ],
+      "children": [
+        {
+          "id": "src/app/(admin-auth)/admin/login/_components/LoginForm.tsx:LoginForm",
+          "name": "LoginForm",
+          "type": "function",
+          "path": "src/app/(admin-auth)/admin/login/_components/LoginForm.tsx",
+          "line": 24,
+          "exports": [
+            "LoginForm"
+          ]
+        },
+        {
+          "id": "src/app/(admin-auth)/admin/login/_components/LoginForm.tsx:LoginValues",
+          "name": "LoginValues",
+          "type": "type",
+          "path": "src/app/(admin-auth)/admin/login/_components/LoginForm.tsx",
+          "line": 22,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin-auth)/admin/login/_components/LoginForm.tsx:loginSchema",
+          "name": "loginSchema",
+          "type": "variable",
+          "path": "src/app/(admin-auth)/admin/login/_components/LoginForm.tsx",
+          "line": 17,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(admin)/admin/business-lunch/new/page.tsx",
+      "name": "page.tsx",
+      "type": "file",
+      "path": "src/app/(admin)/admin/business-lunch/new/page.tsx",
+      "exports": [
+        "AdminAddBusinessLunchPage"
+      ],
+      "children": [
+        {
+          "id": "src/app/(admin)/admin/business-lunch/new/page.tsx:AdminAddBusinessLunchPage",
+          "name": "AdminAddBusinessLunchPage",
+          "type": "function",
+          "path": "src/app/(admin)/admin/business-lunch/new/page.tsx",
+          "line": 17,
+          "exports": [
+            "AdminAddBusinessLunchPage"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/(admin)/admin/menu/_components/MenuManagementClient.tsx",
+      "name": "MenuManagementClient.tsx",
+      "type": "file",
+      "path": "src/app/(admin)/admin/menu/_components/MenuManagementClient.tsx",
+      "exports": [
+        "MenuManagementClient",
+        "MenuManagementClientProps"
+      ],
+      "children": [
+        {
+          "id": "src/app/(admin)/admin/menu/_components/MenuManagementClient.tsx:MenuManagementClient",
+          "name": "MenuManagementClient",
+          "type": "function",
+          "path": "src/app/(admin)/admin/menu/_components/MenuManagementClient.tsx",
+          "line": 63,
+          "exports": [
+            "MenuManagementClient"
+          ]
+        },
+        {
+          "id": "src/app/(admin)/admin/menu/_components/MenuManagementClient.tsx:pluralize",
+          "name": "pluralize",
+          "type": "function",
+          "path": "src/app/(admin)/admin/menu/_components/MenuManagementClient.tsx",
+          "line": 640,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/menu/_components/MenuManagementClient.tsx:OcrDraft",
+          "name": "OcrDraft",
+          "type": "interface",
+          "path": "src/app/(admin)/admin/menu/_components/MenuManagementClient.tsx",
+          "line": 30,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/menu/_components/MenuManagementClient.tsx:RestaurantRef",
+          "name": "RestaurantRef",
+          "type": "interface",
+          "path": "src/app/(admin)/admin/menu/_components/MenuManagementClient.tsx",
+          "line": 38,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/menu/_components/MenuManagementClient.tsx:Category",
+          "name": "Category",
+          "type": "interface",
+          "path": "src/app/(admin)/admin/menu/_components/MenuManagementClient.tsx",
+          "line": 42,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/menu/_components/MenuManagementClient.tsx:MenuItem",
+          "name": "MenuItem",
+          "type": "interface",
+          "path": "src/app/(admin)/admin/menu/_components/MenuManagementClient.tsx",
+          "line": 46,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/menu/_components/MenuManagementClient.tsx:MenuManagementClientProps",
+          "name": "MenuManagementClientProps",
+          "type": "interface",
+          "path": "src/app/(admin)/admin/menu/_components/MenuManagementClient.tsx",
+          "line": 56,
+          "exports": [
+            "MenuManagementClientProps"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/(admin)/admin/restaurants/[id]/page.tsx",
+      "name": "page.tsx",
+      "type": "file",
+      "path": "src/app/(admin)/admin/restaurants/[id]/page.tsx",
+      "exports": [
+        "AdminEditRestaurantPage"
+      ],
+      "children": [
+        {
+          "id": "src/app/(admin)/admin/restaurants/[id]/page.tsx:AdminEditRestaurantPage",
+          "name": "AdminEditRestaurantPage",
+          "type": "function",
+          "path": "src/app/(admin)/admin/restaurants/[id]/page.tsx",
+          "line": 23,
+          "exports": [
+            "AdminEditRestaurantPage"
+          ]
+        },
+        {
+          "id": "src/app/(admin)/admin/restaurants/[id]/page.tsx:PageProps",
+          "name": "PageProps",
+          "type": "interface",
+          "path": "src/app/(admin)/admin/restaurants/[id]/page.tsx",
+          "line": 19,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(admin)/admin/restaurants/new/page.tsx",
+      "name": "page.tsx",
+      "type": "file",
+      "path": "src/app/(admin)/admin/restaurants/new/page.tsx",
+      "exports": [
+        "AdminAddRestaurantPage"
+      ],
+      "children": [
+        {
+          "id": "src/app/(admin)/admin/restaurants/new/page.tsx:AdminAddRestaurantPage",
+          "name": "AdminAddRestaurantPage",
+          "type": "function",
+          "path": "src/app/(admin)/admin/restaurants/new/page.tsx",
+          "line": 10,
+          "exports": [
+            "AdminAddRestaurantPage"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/restaurant/[id]/_components/BackButton.tsx",
+      "name": "BackButton.tsx",
+      "type": "file",
+      "path": "src/app/(site)/restaurant/[id]/_components/BackButton.tsx",
+      "exports": [
+        "BackButton",
+        "BackButtonProps"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/restaurant/[id]/_components/BackButton.tsx:BackButton",
+          "name": "BackButton",
+          "type": "function",
+          "path": "src/app/(site)/restaurant/[id]/_components/BackButton.tsx",
+          "line": 33,
+          "exports": [
+            "BackButton"
+          ]
+        },
+        {
+          "id": "src/app/(site)/restaurant/[id]/_components/BackButton.tsx:BackButtonProps",
+          "name": "BackButtonProps",
+          "type": "interface",
+          "path": "src/app/(site)/restaurant/[id]/_components/BackButton.tsx",
+          "line": 8,
+          "exports": [
+            "BackButtonProps"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/restaurant/[id]/_components/DesktopRestaurantDetail.tsx",
+      "name": "DesktopRestaurantDetail.tsx",
+      "type": "file",
+      "path": "src/app/(site)/restaurant/[id]/_components/DesktopRestaurantDetail.tsx",
+      "exports": [
+        "DesktopRestaurantDetail",
+        "DesktopRestaurantDetailProps"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/restaurant/[id]/_components/DesktopRestaurantDetail.tsx:DesktopRestaurantDetail",
+          "name": "DesktopRestaurantDetail",
+          "type": "function",
+          "path": "src/app/(site)/restaurant/[id]/_components/DesktopRestaurantDetail.tsx",
+          "line": 67,
+          "exports": [
+            "DesktopRestaurantDetail"
+          ]
+        },
+        {
+          "id": "src/app/(site)/restaurant/[id]/_components/DesktopRestaurantDetail.tsx:DesktopRestaurantDetailProps",
+          "name": "DesktopRestaurantDetailProps",
+          "type": "interface",
+          "path": "src/app/(site)/restaurant/[id]/_components/DesktopRestaurantDetail.tsx",
+          "line": 9,
+          "exports": [
+            "DesktopRestaurantDetailProps"
+          ]
+        },
+        {
+          "id": "src/app/(site)/restaurant/[id]/_components/DesktopRestaurantDetail.tsx:Review",
+          "name": "Review",
+          "type": "interface",
+          "path": "src/app/(site)/restaurant/[id]/_components/DesktopRestaurantDetail.tsx",
+          "line": 29,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/restaurant/[id]/_components/DesktopRestaurantDetail.tsx:DEMO_REVIEWS",
+          "name": "DEMO_REVIEWS",
+          "type": "variable",
+          "path": "src/app/(site)/restaurant/[id]/_components/DesktopRestaurantDetail.tsx",
+          "line": 35,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/restaurant/[id]/_components/RestaurantMenu.tsx",
+      "name": "RestaurantMenu.tsx",
+      "type": "file",
+      "path": "src/app/(site)/restaurant/[id]/_components/RestaurantMenu.tsx",
+      "exports": [
+        "RestaurantMenu",
+        "MenuItem",
+        "MenuCategory",
+        "RestaurantMenuProps"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/restaurant/[id]/_components/RestaurantMenu.tsx:matchesQuery",
+          "name": "matchesQuery",
+          "type": "function",
+          "path": "src/app/(site)/restaurant/[id]/_components/RestaurantMenu.tsx",
+          "line": 32,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/restaurant/[id]/_components/RestaurantMenu.tsx:RestaurantMenu",
+          "name": "RestaurantMenu",
+          "type": "function",
+          "path": "src/app/(site)/restaurant/[id]/_components/RestaurantMenu.tsx",
+          "line": 41,
+          "exports": [
+            "RestaurantMenu"
+          ]
+        },
+        {
+          "id": "src/app/(site)/restaurant/[id]/_components/RestaurantMenu.tsx:MenuItem",
+          "name": "MenuItem",
+          "type": "interface",
+          "path": "src/app/(site)/restaurant/[id]/_components/RestaurantMenu.tsx",
+          "line": 9,
+          "exports": [
+            "MenuItem"
+          ]
+        },
+        {
+          "id": "src/app/(site)/restaurant/[id]/_components/RestaurantMenu.tsx:MenuCategory",
+          "name": "MenuCategory",
+          "type": "interface",
+          "path": "src/app/(site)/restaurant/[id]/_components/RestaurantMenu.tsx",
+          "line": 16,
+          "exports": [
+            "MenuCategory"
+          ]
+        },
+        {
+          "id": "src/app/(site)/restaurant/[id]/_components/RestaurantMenu.tsx:RestaurantMenuProps",
+          "name": "RestaurantMenuProps",
+          "type": "interface",
+          "path": "src/app/(site)/restaurant/[id]/_components/RestaurantMenu.tsx",
+          "line": 22,
+          "exports": [
+            "RestaurantMenuProps"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/api/admin/auth/login/route.ts",
+      "name": "route.ts",
+      "type": "file",
+      "path": "src/app/api/admin/auth/login/route.ts",
+      "exports": [
+        "POST"
+      ],
+      "children": [
+        {
+          "id": "src/app/api/admin/auth/login/route.ts:POST",
+          "name": "POST",
+          "type": "function",
+          "path": "src/app/api/admin/auth/login/route.ts",
+          "line": 23,
+          "exports": [
+            "POST"
+          ]
+        },
+        {
+          "id": "src/app/api/admin/auth/login/route.ts:loginSchema",
+          "name": "loginSchema",
+          "type": "variable",
+          "path": "src/app/api/admin/auth/login/route.ts",
+          "line": 18,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/api/admin/auth/logout/route.ts",
+      "name": "route.ts",
+      "type": "file",
+      "path": "src/app/api/admin/auth/logout/route.ts",
+      "exports": [
+        "POST"
+      ],
+      "children": [
+        {
+          "id": "src/app/api/admin/auth/logout/route.ts:POST",
+          "name": "POST",
+          "type": "function",
+          "path": "src/app/api/admin/auth/logout/route.ts",
+          "line": 13,
+          "exports": [
+            "POST"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/api/admin/business-lunch/ocr/route.ts",
+      "name": "route.ts",
+      "type": "file",
+      "path": "src/app/api/admin/business-lunch/ocr/route.ts",
+      "exports": [
+        "POST",
+        "runtime",
+        "maxDuration"
+      ],
+      "children": [
+        {
+          "id": "src/app/api/admin/business-lunch/ocr/route.ts:POST",
+          "name": "POST",
+          "type": "function",
+          "path": "src/app/api/admin/business-lunch/ocr/route.ts",
+          "line": 31,
+          "exports": [
+            "POST"
+          ]
+        },
+        {
+          "id": "src/app/api/admin/business-lunch/ocr/route.ts:runtime",
+          "name": "runtime",
+          "type": "variable",
+          "path": "src/app/api/admin/business-lunch/ocr/route.ts",
+          "line": 26,
+          "exports": [
+            "runtime"
+          ]
+        },
+        {
+          "id": "src/app/api/admin/business-lunch/ocr/route.ts:maxDuration",
+          "name": "maxDuration",
+          "type": "variable",
+          "path": "src/app/api/admin/business-lunch/ocr/route.ts",
+          "line": 27,
+          "exports": [
+            "maxDuration"
+          ]
+        },
+        {
+          "id": "src/app/api/admin/business-lunch/ocr/route.ts:MAX_FILE_SIZE",
+          "name": "MAX_FILE_SIZE",
+          "type": "variable",
+          "path": "src/app/api/admin/business-lunch/ocr/route.ts",
+          "line": 29,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/api/admin/menu/ocr/route.ts",
+      "name": "route.ts",
+      "type": "file",
+      "path": "src/app/api/admin/menu/ocr/route.ts",
+      "exports": [
+        "POST",
+        "runtime",
+        "maxDuration"
+      ],
+      "children": [
+        {
+          "id": "src/app/api/admin/menu/ocr/route.ts:POST",
+          "name": "POST",
+          "type": "function",
+          "path": "src/app/api/admin/menu/ocr/route.ts",
+          "line": 18,
+          "exports": [
+            "POST"
+          ]
+        },
+        {
+          "id": "src/app/api/admin/menu/ocr/route.ts:runtime",
+          "name": "runtime",
+          "type": "variable",
+          "path": "src/app/api/admin/menu/ocr/route.ts",
+          "line": 13,
+          "exports": [
+            "runtime"
+          ]
+        },
+        {
+          "id": "src/app/api/admin/menu/ocr/route.ts:maxDuration",
+          "name": "maxDuration",
+          "type": "variable",
+          "path": "src/app/api/admin/menu/ocr/route.ts",
+          "line": 14,
+          "exports": [
+            "maxDuration"
+          ]
+        },
+        {
+          "id": "src/app/api/admin/menu/ocr/route.ts:MAX_FILE_SIZE",
+          "name": "MAX_FILE_SIZE",
+          "type": "variable",
+          "path": "src/app/api/admin/menu/ocr/route.ts",
+          "line": 16,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/api/admin/restaurants/[id]/route.ts",
+      "name": "route.ts",
+      "type": "file",
+      "path": "src/app/api/admin/restaurants/[id]/route.ts",
+      "exports": [
+        "PATCH",
+        "DELETE"
+      ],
+      "children": [
+        {
+          "id": "src/app/api/admin/restaurants/[id]/route.ts:parseId",
+          "name": "parseId",
+          "type": "function",
+          "path": "src/app/api/admin/restaurants/[id]/route.ts",
+          "line": 41,
+          "exports": []
+        },
+        {
+          "id": "src/app/api/admin/restaurants/[id]/route.ts:PATCH",
+          "name": "PATCH",
+          "type": "function",
+          "path": "src/app/api/admin/restaurants/[id]/route.ts",
+          "line": 47,
+          "exports": [
+            "PATCH"
+          ]
+        },
+        {
+          "id": "src/app/api/admin/restaurants/[id]/route.ts:DELETE",
+          "name": "DELETE",
+          "type": "function",
+          "path": "src/app/api/admin/restaurants/[id]/route.ts",
+          "line": 117,
+          "exports": [
+            "DELETE"
+          ]
+        },
+        {
+          "id": "src/app/api/admin/restaurants/[id]/route.ts:RouteContext",
+          "name": "RouteContext",
+          "type": "interface",
+          "path": "src/app/api/admin/restaurants/[id]/route.ts",
+          "line": 37,
+          "exports": []
+        },
+        {
+          "id": "src/app/api/admin/restaurants/[id]/route.ts:updateSchema",
+          "name": "updateSchema",
+          "type": "variable",
+          "path": "src/app/api/admin/restaurants/[id]/route.ts",
+          "line": 16,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(admin)/admin/business-lunch/new/_components/AddBusinessLunchWizard.tsx",
+      "name": "AddBusinessLunchWizard.tsx",
+      "type": "file",
+      "path": "src/app/(admin)/admin/business-lunch/new/_components/AddBusinessLunchWizard.tsx",
+      "exports": [
+        "AddBusinessLunchWizard",
+        "AddBusinessLunchWizardProps"
+      ],
+      "children": [
+        {
+          "id": "src/app/(admin)/admin/business-lunch/new/_components/AddBusinessLunchWizard.tsx:emptyGroup",
+          "name": "emptyGroup",
+          "type": "function",
+          "path": "src/app/(admin)/admin/business-lunch/new/_components/AddBusinessLunchWizard.tsx",
+          "line": 69,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/business-lunch/new/_components/AddBusinessLunchWizard.tsx:computeMask",
+          "name": "computeMask",
+          "type": "function",
+          "path": "src/app/(admin)/admin/business-lunch/new/_components/AddBusinessLunchWizard.tsx",
+          "line": 73,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/business-lunch/new/_components/AddBusinessLunchWizard.tsx:flattenGroup",
+          "name": "flattenGroup",
+          "type": "function",
+          "path": "src/app/(admin)/admin/business-lunch/new/_components/AddBusinessLunchWizard.tsx",
+          "line": 79,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/business-lunch/new/_components/AddBusinessLunchWizard.tsx:AddBusinessLunchWizard",
+          "name": "AddBusinessLunchWizard",
+          "type": "function",
+          "path": "src/app/(admin)/admin/business-lunch/new/_components/AddBusinessLunchWizard.tsx",
+          "line": 89,
+          "exports": [
+            "AddBusinessLunchWizard"
+          ]
+        },
+        {
+          "id": "src/app/(admin)/admin/business-lunch/new/_components/AddBusinessLunchWizard.tsx:Stepper",
+          "name": "Stepper",
+          "type": "function",
+          "path": "src/app/(admin)/admin/business-lunch/new/_components/AddBusinessLunchWizard.tsx",
+          "line": 695,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/business-lunch/new/_components/AddBusinessLunchWizard.tsx:Field",
+          "name": "Field",
+          "type": "function",
+          "path": "src/app/(admin)/admin/business-lunch/new/_components/AddBusinessLunchWizard.tsx",
+          "line": 733,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/business-lunch/new/_components/AddBusinessLunchWizard.tsx:RestaurantRef",
+          "name": "RestaurantRef",
+          "type": "interface",
+          "path": "src/app/(admin)/admin/business-lunch/new/_components/AddBusinessLunchWizard.tsx",
+          "line": 38,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/business-lunch/new/_components/AddBusinessLunchWizard.tsx:AddBusinessLunchWizardProps",
+          "name": "AddBusinessLunchWizardProps",
+          "type": "interface",
+          "path": "src/app/(admin)/admin/business-lunch/new/_components/AddBusinessLunchWizard.tsx",
+          "line": 43,
+          "exports": [
+            "AddBusinessLunchWizardProps"
+          ]
+        },
+        {
+          "id": "src/app/(admin)/admin/business-lunch/new/_components/AddBusinessLunchWizard.tsx:CourseGroupKey",
+          "name": "CourseGroupKey",
+          "type": "type",
+          "path": "src/app/(admin)/admin/business-lunch/new/_components/AddBusinessLunchWizard.tsx",
+          "line": 54,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/business-lunch/new/_components/AddBusinessLunchWizard.tsx:GroupedCourses",
+          "name": "GroupedCourses",
+          "type": "type",
+          "path": "src/app/(admin)/admin/business-lunch/new/_components/AddBusinessLunchWizard.tsx",
+          "line": 56,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/business-lunch/new/_components/AddBusinessLunchWizard.tsx:DayGrouped",
+          "name": "DayGrouped",
+          "type": "type",
+          "path": "src/app/(admin)/admin/business-lunch/new/_components/AddBusinessLunchWizard.tsx",
+          "line": 57,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/business-lunch/new/_components/AddBusinessLunchWizard.tsx:COURSE_GROUPS",
+          "name": "COURSE_GROUPS",
+          "type": "variable",
+          "path": "src/app/(admin)/admin/business-lunch/new/_components/AddBusinessLunchWizard.tsx",
+          "line": 47,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/business-lunch/new/_components/AddBusinessLunchWizard.tsx:WEEKDAYS",
+          "name": "WEEKDAYS",
+          "type": "variable",
+          "path": "src/app/(admin)/admin/business-lunch/new/_components/AddBusinessLunchWizard.tsx",
+          "line": 59,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(admin)/admin/restaurants/new/_components/AddRestaurantForm.tsx",
+      "name": "AddRestaurantForm.tsx",
+      "type": "file",
+      "path": "src/app/(admin)/admin/restaurants/new/_components/AddRestaurantForm.tsx",
+      "exports": [
+        "RestaurantForm",
+        "RestaurantFormInitial",
+        "AddRestaurantForm"
+      ],
+      "children": [
+        {
+          "id": "src/app/(admin)/admin/restaurants/new/_components/AddRestaurantForm.tsx:extractHoursText",
+          "name": "extractHoursText",
+          "type": "function",
+          "path": "src/app/(admin)/admin/restaurants/new/_components/AddRestaurantForm.tsx",
+          "line": 93,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/restaurants/new/_components/AddRestaurantForm.tsx:RestaurantForm",
+          "name": "RestaurantForm",
+          "type": "function",
+          "path": "src/app/(admin)/admin/restaurants/new/_components/AddRestaurantForm.tsx",
+          "line": 103,
+          "exports": [
+            "RestaurantForm"
+          ]
+        },
+        {
+          "id": "src/app/(admin)/admin/restaurants/new/_components/AddRestaurantForm.tsx:Field",
+          "name": "Field",
+          "type": "function",
+          "path": "src/app/(admin)/admin/restaurants/new/_components/AddRestaurantForm.tsx",
+          "line": 375,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/restaurants/new/_components/AddRestaurantForm.tsx:RestaurantFormInitial",
+          "name": "RestaurantFormInitial",
+          "type": "interface",
+          "path": "src/app/(admin)/admin/restaurants/new/_components/AddRestaurantForm.tsx",
+          "line": 71,
+          "exports": [
+            "RestaurantFormInitial"
+          ]
+        },
+        {
+          "id": "src/app/(admin)/admin/restaurants/new/_components/AddRestaurantForm.tsx:RestaurantFormProps",
+          "name": "RestaurantFormProps",
+          "type": "interface",
+          "path": "src/app/(admin)/admin/restaurants/new/_components/AddRestaurantForm.tsx",
+          "line": 88,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/restaurants/new/_components/AddRestaurantForm.tsx:FormValues",
+          "name": "FormValues",
+          "type": "type",
+          "path": "src/app/(admin)/admin/restaurants/new/_components/AddRestaurantForm.tsx",
+          "line": 56,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/restaurants/new/_components/AddRestaurantForm.tsx:FormOutput",
+          "name": "FormOutput",
+          "type": "type",
+          "path": "src/app/(admin)/admin/restaurants/new/_components/AddRestaurantForm.tsx",
+          "line": 57,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/restaurants/new/_components/AddRestaurantForm.tsx:numericString",
+          "name": "numericString",
+          "type": "variable",
+          "path": "src/app/(admin)/admin/restaurants/new/_components/AddRestaurantForm.tsx",
+          "line": 29,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/restaurants/new/_components/AddRestaurantForm.tsx:schema",
+          "name": "schema",
+          "type": "variable",
+          "path": "src/app/(admin)/admin/restaurants/new/_components/AddRestaurantForm.tsx",
+          "line": 33,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/restaurants/new/_components/AddRestaurantForm.tsx:CATEGORIES",
+          "name": "CATEGORIES",
+          "type": "variable",
+          "path": "src/app/(admin)/admin/restaurants/new/_components/AddRestaurantForm.tsx",
+          "line": 59,
+          "exports": []
+        },
+        {
+          "id": "src/app/(admin)/admin/restaurants/new/_components/AddRestaurantForm.tsx:AddRestaurantForm",
+          "name": "AddRestaurantForm",
+          "type": "variable",
+          "path": "src/app/(admin)/admin/restaurants/new/_components/AddRestaurantForm.tsx",
+          "line": 373,
+          "exports": [
+            "AddRestaurantForm"
+          ]
+        }
+      ]
+    }
+  ]
+}

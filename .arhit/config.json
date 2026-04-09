@@ -1,0 +1,20 @@
+{
+  "name": "lunchHunter",
+  "sourcePaths": [
+    "."
+  ],
+  "ignore": [
+    "node_modules",
+    "dist",
+    ".arhit",
+    ".git",
+    ".omc",
+    ".venv",
+    "venv",
+    "__pycache__",
+    ".tox",
+    ".mypy_cache",
+    ".pytest_cache"
+  ],
+  "language": "unknown"
+}

@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+/* ============================================================
+   LunchHunter Design Tokens (из pencil)
+   ============================================================ */
+@theme {
+  /* Brand accent */
+  --color-accent: #ff5c00;
+  --color-accent-dark: #cc4a00;
+  --color-accent-light: #fff0e6;
+
+  /* Surfaces */
+  --color-surface-primary: #ffffff;
+  --color-surface-secondary: #f5f1ec;
+  --color-surface-inverse: #0a0a0a;
+  /* Очень мягкий тёплый off-white — базовый фон страницы (body).
+     Почти нейтральный, чтобы белые карточки surface-primary заметно
+     контрастировали с ним, но без "стерильной белизны". */
+  --color-page-bg: #fbf8f4;
+
+  /* Foreground */
+  --color-fg-primary: #1a1a1a;
+  --color-fg-secondary: #666666;
+  --color-fg-muted: #888888;
+  --color-fg-inverse: #ffffff;
+
+  /* Semantic */
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+
+  /* Borders */
+  --color-border: #e5e7eb;
+  --color-border-light: #f3f4f6;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* Fonts (подключены через next/font в layout.tsx) */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+}
+
+/* Global base styles */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    font-family: var(--font-sans);
+  }
+
+  body {
+    background-color: var(--color-page-bg);
+    color: var(--color-fg-primary);
+    font-family: var(--font-sans);
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+}
+
+/* Utility: hide scrollbar on horizontally scrollable rows */
+@layer utilities {
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ============================================================
+   Hero floating tilted cards — анимация для главной
+   ============================================================ */
+@keyframes hero-float-a {
+  0%, 100% {
+    transform: translateY(0) rotate(var(--tilt, -8deg));
+  }
+  50% {
+    transform: translateY(-14px) rotate(calc(var(--tilt, -8deg) - 1.5deg));
+  }
+}
+@keyframes hero-float-b {
+  0%, 100% {
+    transform: translateY(0) rotate(var(--tilt, 6deg));
+  }
+  50% {
+    transform: translateY(-10px) rotate(calc(var(--tilt, 6deg) + 2deg));
+  }
+}
+@keyframes hero-float-c {
+  0%, 100% {
+    transform: translate(0, 0) rotate(var(--tilt, -12deg));
+  }
+  50% {
+    transform: translate(6px, -18px) rotate(calc(var(--tilt, -12deg) + 1deg));
+  }
+}
+@keyframes hero-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.94) rotate(var(--tilt, 0deg));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(var(--tilt, 0deg));
+  }
+}
+
+.hero-card {
+  animation:
+    hero-fade-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both,
+    hero-float-a 7s ease-in-out infinite 0.9s;
+}
+.hero-card-b {
+  animation:
+    hero-fade-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both,
+    hero-float-b 8s ease-in-out infinite 1s;
+}
+.hero-card-c {
+  animation:
+    hero-fade-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both,
+    hero-float-c 9s ease-in-out infinite 1.1s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-card,
+  .hero-card-b,
+  .hero-card-c {
+    animation: none;
+    transform: rotate(var(--tilt, 0deg));
+  }
+}
