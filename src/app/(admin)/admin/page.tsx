@@ -1,4 +1,5 @@
 import { desc, sql } from "drizzle-orm";
+import Link from "next/link";
 import {
   Store,
   UtensilsCrossed,
@@ -136,12 +137,12 @@ export default async function AdminDashboardPage(): Promise<React.JSX.Element> {
             <h2 className="text-base font-semibold text-fg-primary">
               Последние добавленные
             </h2>
-            <a
+            <Link
               href="/admin/restaurants"
               className="text-sm text-accent hover:underline"
             >
               Все →
-            </a>
+            </Link>
           </div>
           {recent.length === 0 ? (
             <p className="text-sm text-fg-muted">Пока нет ресторанов</p>

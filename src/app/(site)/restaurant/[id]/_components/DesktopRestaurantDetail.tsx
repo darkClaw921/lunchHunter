@@ -96,7 +96,7 @@ export function DesktopRestaurantDetail({
     <div className={cn("flex flex-col", className)}>
       {/* Back button row */}
       <div className="flex items-center justify-between px-8 py-3 border-b border-border-light bg-surface-primary">
-        <BackButton variant="pill" />
+        <BackButton variant="pill" restaurantId={restaurantId} />
         <FavoriteButton
           targetType="restaurant"
           targetId={restaurantId}

@@ -60,7 +60,7 @@ lunchHunter/
 │       ├── auth/             # Session/password helpers (argon2 + httpOnly cookie)
 │       ├── db/               # База данных (Drizzle + SQLite) + queries.ts
 │       ├── geo/              # Геопространственные утилиты
-│       ├── hooks/            # Client React hooks (useHaptics, useMounted, usePrefersReducedMotion, useViewTransition, useFlipMorph, usePrefetchImage)
+│       ├── hooks/            # Client React hooks (useHaptics, useMounted, usePrefersReducedMotion, useViewTransition, useFlipMorph, usePrefetchImage, useActiveVT)
 │       ├── llm/              # OpenRouter + Vercel AI SDK — OCR меню (vision)
 │       ├── utils/            # Общие утилиты (cn, format)
 │       ├── morph.ts          # Manual shared-element FLIP morph через Web Animations API (Telegram Mini App fallback)
@@ -75,6 +75,10 @@ lunchHunter/
 ├── tsconfig.json             # TypeScript strict config
 ├── vitest.config.ts          # Конфигурация Vitest
 ├── playwright.config.ts      # Конфигурация Playwright
+├── Dockerfile                # Multi-stage build для production-образа
+├── docker-compose.yml        # Prod-compose (порт из .env, volumes: data/uploads)
+├── .dockerignore             # Исключения для docker build context
+├── .npmrc                    # pnpm public-hoist-pattern для bindings/file-uri-to-path
 ├── README.md                 # Инструкции установки/запуска/тестов
 └── package.json              # pnpm + скрипты
 ```
@@ -107,7 +111,7 @@ TypeScript strict-конфиг:
 - Module: `esnext` / Resolution: `bundler`
 
 ### [next.config.ts](./next.config.ts)
-Конфиг Next.js: `reactStrictMode`, typed routes, `serverExternalPackages` для better-sqlite3 (нативный binding — нельзя бандлить). Обёрнут в `withSerwistInit` из `@serwist/next` — генерирует `public/sw.js` из `src/app/sw.ts`, включены опции `cacheOnNavigation: true`, `reloadOnOnline: true`, `disable` в dev-режиме, а также `additionalPrecacheEntries: [{ url: "/offline" }]` для precache fallback-страницы.
+Конфиг Next.js: `reactStrictMode`, typed routes, `output: "standalone"` (минимальный self-contained артефакт в `.next/standalone` для Docker), `serverExternalPackages: ["better-sqlite3"]` (нативный binding — нельзя бандлить), `outputFileTracingIncludes` для гарантированного включения `.node`-бинарей `better-sqlite3`, `sharp`, `@node-rs/argon2` во все роуты standalone-сборки. Обёрнут в `withSerwistInit` из `@serwist/next` — генерирует `public/sw.js` из `src/app/sw.ts`, включены опции `cacheOnNavigation: true`, `reloadOnOnline: false`, `disable` в dev-режиме, а также `additionalPrecacheEntries: [{ url: "/offline", revision }]` для precache fallback-страницы. `revision` берётся по приоритету: `process.env.BUILD_REVISION` (передаётся через Docker build arg) → `git rev-parse HEAD` → `randomUUID()`. Так precache инвалидируется при каждом коммите/билде и не ссылается на старые чанки после rebuild'а.
 
 ### [next-env.d.ts](./next-env.d.ts)
 Автогенерируемые TypeScript-декларации Next.js.
@@ -122,10 +126,36 @@ PostCSS pipeline с `@tailwindcss/postcss` (Tailwind v4).
 ESLint: `next/core-web-vitals` + `next/typescript`.
 
 ### [.env.example](./.env.example)
-Пример переменных окружения: `DATABASE_URL=file:./data/lunchhunter.db`.
+Пример переменных окружения: `PORT=3000` (порт standalone-сервера и docker-compose port mapping), `DATABASE_URL=file:./data/lunchhunter.db`, admin seed credentials, `OPENROUTER_API_KEY`/`OPENROUTER_MODEL`, `TELEGRAM_BOT_TOKEN`.
 
 ### [.gitignore](./.gitignore)
 Игнорирует `node_modules`, `.next`, `data/`, `*.db`, `public/uploads`, env-файлы.
+
+### [Dockerfile](./Dockerfile)
+Multi-stage production-образ на базе `node:20-slim` (debian, не alpine — для надёжности glibc-линковки нативных модулей). Стадии:
+- `base` — установка `pnpm` через `corepack enable`, `PNPM_HOME=/pnpm`.
+- `deps` — установка `build-essential` + `python3` + `ca-certificates`, затем `pnpm install --frozen-lockfile` с BuildKit cache mount на `/pnpm/store` (ускоряет повторные билды).
+- `builder` — копирует `node_modules` из `deps`, весь исходный код, принимает `ARG BUILD_REVISION` и запускает `pnpm build` с `NEXT_TELEMETRY_DISABLED=1`, `NODE_ENV=production`.
+- `runner` — минимальный runtime: создаёт системного пользователя `nextjs:nodejs` (uid/gid 1001), копирует `public/`, `.next/standalone/`, `.next/static/` из `builder` с владельцем `nextjs:nodejs`, создаёт `/app/data` и `/app/public/uploads` (volume mount points). Устанавливает `HOSTNAME=0.0.0.0` (иначе standalone слушает только 127.0.0.1), `PORT=3000` (переопределяется через `docker compose`). Финальный `CMD ["node", "server.js"]` запускает standalone-сервер.
+
+### [docker-compose.yml](./docker-compose.yml)
+Production compose-файл с одним сервисом `app`:
+- `build.context: .` + `args.BUILD_REVISION` — пробрасывает git HEAD для precache SW.
+- `image: lunchhunter:latest`, `container_name: lunchhunter`, `restart: unless-stopped`.
+- `env_file: .env` — все runtime-переменные (`DATABASE_URL`, `OPENROUTER_API_KEY`, `TELEGRAM_BOT_TOKEN` и т.д.) читаются из корневого `.env`, не дублируются в compose.
+- `environment` — `NODE_ENV=production`, `PORT=${PORT:-3000}`, `HOSTNAME=0.0.0.0`.
+- `ports: "${PORT:-3000}:${PORT:-3000}"` — host и container порты берутся из `.env`, дефолт 3000.
+- `volumes` — `./data:/app/data` (persistent SQLite) и `./public/uploads:/app/public/uploads` (пользовательские загрузки).
+- `healthcheck` — `wget --spider http://localhost:${PORT}/` с интервалом 30с, `start_period: 20s`.
+
+### [.dockerignore](./.dockerignore)
+Исключения для docker build context: `node_modules`, `.next`, `data/`, `public/uploads/`, `*.db`, env-файлы (кроме `.env.example`), service worker артефакты, `.git`, `.arhit`, `.beads`, `.claude`, документация, TypeScript incremental кеши, сами Docker-файлы.
+
+### [.npmrc](./.npmrc)
+pnpm-конфигурация для хостинга нативных зависимостей. `public-hoist-pattern[]=bindings`, `file-uri-to-path`, `node-gyp-build` — поднимают транзитивные зависимости `better-sqlite3` в корневой `node_modules`. Без этого Next.js standalone output не захватывает `bindings` (пакет, через который better-sqlite3 ищет `.node`-файл): он загружается динамически по вычисленному пути, и статический трассировщик не видит его в графе зависимостей. С этим паттерном pnpm создаёт симлинк `node_modules/bindings → .pnpm/bindings@...`, и трассировщик корректно резолвит пакет.
+
+### [package.json](./package.json) — секция pnpm
+`pnpm.onlyBuiltDependencies`: `["@node-rs/argon2", "@serwist/sw", "better-sqlite3", "esbuild", "sharp"]`. pnpm v10+ по умолчанию блокирует lifecycle-скрипты (`postinstall`, `preinstall`) всех зависимостей для безопасности. Без этой секции в Docker-билде нативные модули не компилируются под linux/arm64 и падает `next build` на стадии `Collecting page data` (`Could not locate the bindings file`). Локально на macOS prebuilt бинари уже есть, поэтому эффекта нет — секция нужна для воспроизводимых CI/Docker-билдов.
 
 ## Приложение (App Router)
 
@@ -392,6 +422,18 @@ SSR-safe: на сервере (`typeof window === "undefined"`) возвраща
 
 Консьюмеры: [NearbyRestaurantsRow](./src/app/(site)/_components/NearbyRestaurantsRow.tsx), [DesktopPopularRestaurantsGrid](./src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx), [DesktopSearchResults](./src/app/(site)/search/_components/DesktopSearchResults.tsx), [MobileSearchResults](./src/app/(site)/search/_components/MobileSearchResults.tsx), [MobileMapView](./src/app/(site)/map/_components/MobileMapView.tsx), [FavoriteRestaurantCards](./src/app/(site)/favorites/_components/FavoriteRestaurantCards.tsx), [RestaurantIndexCards](./src/app/(site)/restaurant/_components/RestaurantIndexCards.tsx).
 
+### [src/lib/hooks/useActiveVT.ts](<./src/lib/hooks/useActiveVT.ts>)
+Хук (`"use client"`) для управления «активной» карточкой в списке — той, на которую кликнули, и которой нужно выставить `view-transition-name`. Реализует паттерн из ANIMATIONS_GUIDE §9.5.3: `view-transition-name` не должен дублироваться в момент snapshot'а, иначе Chrome/Safari бросают `InvalidStateError`. Решение — держать имя **только на активной** карточке, остальные без имени.
+
+Внутри: `useState<TId | null>`, `activate(id)` через `flushSync(() => setActiveId(id))` (чтобы React закоммитил до VT snapshot'а браузера), `isActive(id)` для сравнения. При монтировании `useEffect` читает sessionStorage[storageKey] и сразу очищает — это нужно для back-навигации, когда detail-страница перед `router.back()` кладёт id в storage через `rememberActiveForBack`.
+
+Экспорты:
+- `useActiveVT<TId>(storageKey): { activeId, activate, isActive }` — хук для списка.
+- `rememberActiveForBack(storageKey, id)` — вызывается в detail-страницах перед back.
+- `ACTIVE_RESTAURANT_VT_STORAGE_KEY` = `"lh:vt-active-restaurant"` — стандартный ключ для VT активной карточки ресторана.
+
+Консьюмеры: все списочные компоненты, где карточки ведут на `/restaurant/[id]` — `NearbyRestaurantsRow`, `DesktopPopularRestaurantsGrid`, `MobileSearchResults`, `DesktopSearchResults`, `MobileMapView`, плюс `BackButton` (для `rememberActiveForBack`).
+
 ## Переходы и анимации
 
 Система нативных анимаций навигации и тактильной обратной связи построена
@@ -449,18 +491,26 @@ SSR-safe: на сервере (`typeof window === "undefined"`) возвраща
 ### Слой 3 — Shared-element morph (Phase 3)
 
 Нативная пара элементов «улетает» из списка в hero страницы ресторана через
-View Transitions API по per-id именованию:
+View Transitions API по паттерну из ANIMATIONS_GUIDE §9.5.3:
 
-**Стратегия per-id VT naming.** Каждая карточка ресторана на любом списке
-использует inline `style={{ viewTransitionName: 'restaurant-image-${r.id}' }}`
-на обложке и `restaurant-title-${r.id}` на заголовке. Страница детали
-ресторана `/restaurant/[id]` использует ровно такое же имя на hero и h1
-(через `restaurant.id` из DB). Имена уникальны per-restaurant-id, поэтому
-множество карточек сосуществуют в снимке VT API без конфликтов. Браузеры с
-VT API (Chrome/Edge 111+, Safari 18+) автоматически находят парный элемент
-с тем же именем на странице-приёмнике через
-`@view-transition { navigation: auto }` в [globals.css](./src/app/globals.css)
-и делают shared-element morph.
+**Стратегия «имя только на активной карточке».** До клика ни у одной карточки
+нет `view-transition-name`. В момент клика `useActiveVT.activate(id)` через
+`flushSync` **синхронно** проставляет имя `restaurant-image-${id}` на выбранную
+карточку и `restaurant-title-${id}` на её заголовок — ДО того, как браузер
+снимет snapshot «до» навигации. Страница детали `/restaurant/[id]` всегда
+рендерит hero с тем же именем. В snapshot'ах «до» и «после» имя существует
+ровно в одном месте каждый — дубликатов нет, `InvalidStateError` невозможен.
+
+Для back-навигации (`detail → list`) `BackButton` получает `restaurantId` из
+page и перед `router.back()` вызывает `rememberActiveForBack(key, id)` —
+id кладётся в `sessionStorage`. `useActiveVT` на списке в `useEffect` читает
+storage при монтировании, сразу очищает и применяет id в state. Снимок VT API
+«после» на возврате содержит карточку с нужным именем → morph работает в
+обратную сторону.
+
+Браузеры с VT API (Chrome/Edge 111+, Safari 18+) автоматически находят парный
+элемент через `@view-transition { navigation: auto }` в
+[globals.css](./src/app/globals.css) и делают shared-element morph.
 
 **Fallback для Telegram Mini App / WebView без VT API.** Каждый клиентский
 консьюмер импортирует `navigate` + `supportsViewTransitions` из
@@ -630,6 +680,9 @@ Barrel-экспорт UI-kit: `Button`, `Input`, `SearchInput`, `Chip`, `Card` +
 
 ### [src/components/mobile/PWAInstallBanner.tsx](./src/components/mobile/PWAInstallBanner.tsx) (Phase 8)
 Клиентский компонент (`"use client"`) — mobile-only install-баннер, отображается поверх `BottomTabBar` на home. Использует `useBeforeInstallPrompt()` для получения `canInstall` и `promptInstall`. Рендерит null, пока страница не гидратирована, пока `canInstall === false`, пока приложение уже standalone, или пока пользователь ранее не закрыл баннер (персистентный флаг в `localStorage` под ключом `lh:pwa-install-dismissed`). Дизайн: fixed bottom-[72px], `bg-[#FF5C00]`, иконка `Download`, кнопка «Установить», кнопка-крестик `X` для dismiss. Экспорт: `PWAInstallBanner({ className? })`.
+
+### [src/components/ServiceWorkerCleanup.tsx](./src/components/ServiceWorkerCleanup.tsx)
+Невидимый client-компонент (`"use client"`, возвращает `null`). В dev-режиме unregister'ит все активные Service Worker'ы (`navigator.serviceWorker.getRegistrations()` → `r.unregister()`) и чистит все `caches` (`caches.keys()` → `caches.delete()`). Подключён условно в `src/app/layout.tsx`: `{IS_DEV ? <ServiceWorkerCleanup /> : null}`, где `IS_DEV = process.env.NODE_ENV === "development"`. В prod-билде компонент tree-shake'ается из клиентского bundle. Нужен чтобы старый prod-SW (если `public/sw.js` существует от прошлого `next build`) не перехватывал fetch'и в dev и не отдавал stale-чанки с несуществующими хешами.
 
 ### [src/components/admin/Sidebar.tsx](./src/components/admin/Sidebar.tsx)
 Клиентский компонент (`"use client"`). Боковая навигация админки: ширина 240px, фон `#0A0A0A` (`bg-surface-inverse`), sticky top-0, full-height. Лого `LH` (accent bg) + "LunchHunter" заголовок. Навигация: Дашборд (`/admin`), Рестораны (`/admin/restaurants`), Меню (`/admin/menu`), Бизнес-ланчи (`/admin/business-lunch`), Пользователи (`/admin/users`), Настройки (`/admin/settings`). Активный пункт — `bg-[rgba(255,92,0,0.12)]` + `text-accent`. Опц. `onLogout` — кнопка "Выйти" внизу с иконкой `LogOut`.

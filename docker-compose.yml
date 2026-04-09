@@ -1,0 +1,49 @@
+# Production-compose для lunchHunter.
+# Запуск:
+#   docker compose up -d --build
+# Остановка:
+#   docker compose down
+#
+# Порт, учётки, токены и ключи берутся из .env в корне проекта.
+# См. .env.example для списка переменных.
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Передаём git HEAD как revision для precache в service worker.
+        # Если git недоступен — внутри next.config.ts fallback на UUID.
+        BUILD_REVISION: ${BUILD_REVISION:-}
+    image: lunchhunter:latest
+    container_name: lunchhunter
+    restart: unless-stopped
+    # Все переменные окружения читаются из .env в корне проекта —
+    # Next.js runtime получит DATABASE_URL, OPENROUTER_API_KEY,
+    # TELEGRAM_BOT_TOKEN и т.д. без дублирования в compose-файле.
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      # Standalone server Next.js слушает этот порт внутри контейнера.
+      # Снаружи порт тот же — маппинг ниже.
+      PORT: ${PORT:-3000}
+      HOSTNAME: 0.0.0.0
+    ports:
+      # Формат "host:container" — оба берём из .env, дефолт 3000.
+      - "${PORT:-3000}:${PORT:-3000}"
+    volumes:
+      # Persistent SQLite база: путь должен совпадать с DATABASE_URL
+      # (file:./data/lunchhunter.db → /app/data/lunchhunter.db внутри).
+      - ./data:/app/data
+      # Пользовательские загрузки (изображения меню, фото ресторанов).
+      - ./public/uploads:/app/public/uploads
+    healthcheck:
+      # Next.js не имеет built-in health endpoint — дёргаем главную.
+      # wget входит в node:20-slim base image.
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:${PORT:-3000}/ || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s

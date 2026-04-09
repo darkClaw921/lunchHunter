@@ -1,6 +1,6 @@
 {
   "root": "/Users/igorgerasimov/claudeWorkspace/lunchHunter",
-  "generatedAt": "2026-04-09T19:48:30.998Z",
+  "generatedAt": "2026-04-09T22:23:54.966Z",
   "nodes": [
     {
       "id": "drizzle.config.ts",
@@ -26,11 +26,19 @@
       "exports": [],
       "children": [
         {
+          "id": "next.config.ts:revision",
+          "name": "revision",
+          "type": "variable",
+          "path": "next.config.ts",
+          "line": 11,
+          "exports": []
+        },
+        {
           "id": "next.config.ts:withSerwist",
           "name": "withSerwist",
           "type": "variable",
           "path": "next.config.ts",
-          "line": 4,
+          "line": 16,
           "exports": []
         },
         {
@@ -38,7 +46,7 @@
           "name": "nextConfig",
           "type": "variable",
           "path": "next.config.ts",
-          "line": 13,
+          "line": 25,
           "exports": []
         }
       ]
@@ -164,17 +172,25 @@
           "name": "RootLayout",
           "type": "function",
           "path": "src/app/layout.tsx",
-          "line": 46,
+          "line": 49,
           "exports": [
             "RootLayout"
           ]
+        },
+        {
+          "id": "src/app/layout.tsx:IS_DEV",
+          "name": "IS_DEV",
+          "type": "variable",
+          "path": "src/app/layout.tsx",
+          "line": 6,
+          "exports": []
         },
         {
           "id": "src/app/layout.tsx:geistSans",
           "name": "geistSans",
           "type": "variable",
           "path": "src/app/layout.tsx",
-          "line": 5,
+          "line": 8,
           "exports": []
         },
         {
@@ -182,7 +198,7 @@
           "name": "geistMono",
           "type": "variable",
           "path": "src/app/layout.tsx",
-          "line": 11,
+          "line": 14,
           "exports": []
         },
         {
@@ -190,7 +206,7 @@
           "name": "metadata",
           "type": "variable",
           "path": "src/app/layout.tsx",
-          "line": 17,
+          "line": 20,
           "exports": [
             "metadata"
           ]
@@ -200,7 +216,7 @@
           "name": "viewport",
           "type": "variable",
           "path": "src/app/layout.tsx",
-          "line": 38,
+          "line": 41,
           "exports": [
             "viewport"
           ]
@@ -270,6 +286,27 @@
       ]
     },
     {
+      "id": "src/components/ServiceWorkerCleanup.tsx",
+      "name": "ServiceWorkerCleanup.tsx",
+      "type": "file",
+      "path": "src/components/ServiceWorkerCleanup.tsx",
+      "exports": [
+        "ServiceWorkerCleanup"
+      ],
+      "children": [
+        {
+          "id": "src/components/ServiceWorkerCleanup.tsx:ServiceWorkerCleanup",
+          "name": "ServiceWorkerCleanup",
+          "type": "function",
+          "path": "src/components/ServiceWorkerCleanup.tsx",
+          "line": 23,
+          "exports": [
+            "ServiceWorkerCleanup"
+          ]
+        }
+      ]
+    },
+    {
       "id": "src/lib/cities.ts",
       "name": "cities.ts",
       "type": "file",
@@ -300,11 +337,19 @@
       ],
       "children": [
         {
-          "id": "src/lib/morph.ts:getDefaultEasing",
-          "name": "getDefaultEasing",
+          "id": "src/lib/morph.ts:readCssDurationMs",
+          "name": "readCssDurationMs",
           "type": "function",
           "path": "src/lib/morph.ts",
-          "line": 69,
+          "line": 84,
+          "exports": []
+        },
+        {
+          "id": "src/lib/morph.ts:readCssEasing",
+          "name": "readCssEasing",
+          "type": "function",
+          "path": "src/lib/morph.ts",
+          "line": 106,
           "exports": []
         },
         {
@@ -312,7 +357,7 @@
           "name": "resolveMorphSource",
           "type": "function",
           "path": "src/lib/morph.ts",
-          "line": 95,
+          "line": 133,
           "exports": []
         },
         {
@@ -320,7 +365,7 @@
           "name": "waitForElement",
           "type": "function",
           "path": "src/lib/morph.ts",
-          "line": 106,
+          "line": 144,
           "exports": []
         },
         {
@@ -328,7 +373,7 @@
           "name": "createOverlayClone",
           "type": "function",
           "path": "src/lib/morph.ts",
-          "line": 157,
+          "line": 195,
           "exports": []
         },
         {
@@ -336,7 +381,7 @@
           "name": "manualFlipMorph",
           "type": "function",
           "path": "src/lib/morph.ts",
-          "line": 207,
+          "line": 249,
           "exports": [
             "manualFlipMorph"
           ]
@@ -346,15 +391,7 @@
           "name": "ManualFlipMorphOptions",
           "type": "interface",
           "path": "src/lib/morph.ts",
-          "line": 46,
-          "exports": []
-        },
-        {
-          "id": "src/lib/morph.ts:DEFAULT_DURATION_MS",
-          "name": "DEFAULT_DURATION_MS",
-          "type": "variable",
-          "path": "src/lib/morph.ts",
-          "line": 62,
+          "line": 63,
           "exports": []
         },
         {
@@ -362,7 +399,7 @@
           "name": "DEFAULT_TARGET_TIMEOUT_MS",
           "type": "variable",
           "path": "src/lib/morph.ts",
-          "line": 78,
+          "line": 116,
           "exports": []
         },
         {
@@ -370,7 +407,7 @@
           "name": "CLONE_FADE_OUT_OFFSET",
           "type": "variable",
           "path": "src/lib/morph.ts",
-          "line": 84,
+          "line": 122,
           "exports": []
         }
       ]
@@ -1555,7 +1592,7 @@
           "name": "dispatchRouteProgressStart",
           "type": "function",
           "path": "src/components/ui/RouteProgress.tsx",
-          "line": 83,
+          "line": 89,
           "exports": [
             "dispatchRouteProgressStart"
           ]
@@ -1565,7 +1602,7 @@
           "name": "RouteProgress",
           "type": "function",
           "path": "src/components/ui/RouteProgress.tsx",
-          "line": 88,
+          "line": 94,
           "exports": [
             "RouteProgress"
           ]
@@ -1575,7 +1612,7 @@
           "name": "RouteProgressProps",
           "type": "interface",
           "path": "src/components/ui/RouteProgress.tsx",
-          "line": 69,
+          "line": 75,
           "exports": [
             "RouteProgressProps"
           ]
@@ -1585,7 +1622,7 @@
           "name": "ProgressState",
           "type": "type",
           "path": "src/components/ui/RouteProgress.tsx",
-          "line": 67,
+          "line": 73,
           "exports": []
         },
         {
@@ -1628,6 +1665,14 @@
           "type": "variable",
           "path": "src/components/ui/RouteProgress.tsx",
           "line": 65,
+          "exports": []
+        },
+        {
+          "id": "src/components/ui/RouteProgress.tsx:PROGRESS_FINISH_HIDE_MS",
+          "name": "PROGRESS_FINISH_HIDE_MS",
+          "type": "variable",
+          "path": "src/components/ui/RouteProgress.tsx",
+          "line": 71,
           "exports": []
         }
       ]
@@ -2763,6 +2808,60 @@
       ]
     },
     {
+      "id": "src/lib/hooks/useActiveVT.ts",
+      "name": "useActiveVT.ts",
+      "type": "file",
+      "path": "src/lib/hooks/useActiveVT.ts",
+      "exports": [
+        "useActiveVT",
+        "rememberActiveForBack",
+        "UseActiveVTResult",
+        "ACTIVE_RESTAURANT_VT_STORAGE_KEY"
+      ],
+      "children": [
+        {
+          "id": "src/lib/hooks/useActiveVT.ts:useActiveVT",
+          "name": "useActiveVT",
+          "type": "function",
+          "path": "src/lib/hooks/useActiveVT.ts",
+          "line": 66,
+          "exports": [
+            "useActiveVT"
+          ]
+        },
+        {
+          "id": "src/lib/hooks/useActiveVT.ts:rememberActiveForBack",
+          "name": "rememberActiveForBack",
+          "type": "function",
+          "path": "src/lib/hooks/useActiveVT.ts",
+          "line": 108,
+          "exports": [
+            "rememberActiveForBack"
+          ]
+        },
+        {
+          "id": "src/lib/hooks/useActiveVT.ts:UseActiveVTResult",
+          "name": "UseActiveVTResult",
+          "type": "interface",
+          "path": "src/lib/hooks/useActiveVT.ts",
+          "line": 57,
+          "exports": [
+            "UseActiveVTResult"
+          ]
+        },
+        {
+          "id": "src/lib/hooks/useActiveVT.ts:ACTIVE_RESTAURANT_VT_STORAGE_KEY",
+          "name": "ACTIVE_RESTAURANT_VT_STORAGE_KEY",
+          "type": "variable",
+          "path": "src/lib/hooks/useActiveVT.ts",
+          "line": 121,
+          "exports": [
+            "ACTIVE_RESTAURANT_VT_STORAGE_KEY"
+          ]
+        }
+      ]
+    },
+    {
       "id": "src/lib/hooks/useFlipMorph.ts",
       "name": "useFlipMorph.ts",
       "type": "file",
@@ -3358,7 +3457,7 @@
           "name": "fetchStats",
           "type": "function",
           "path": "src/app/(admin)/admin/page.tsx",
-          "line": 27,
+          "line": 28,
           "exports": []
         },
         {
@@ -3366,7 +3465,7 @@
           "name": "formatDate",
           "type": "function",
           "path": "src/app/(admin)/admin/page.tsx",
-          "line": 105,
+          "line": 106,
           "exports": []
         },
         {
@@ -3374,7 +3473,7 @@
           "name": "AdminDashboardPage",
           "type": "function",
           "path": "src/app/(admin)/admin/page.tsx",
-          "line": 109,
+          "line": 110,
           "exports": [
             "AdminDashboardPage"
           ]
@@ -3384,7 +3483,7 @@
           "name": "StatusBadge",
           "type": "function",
           "path": "src/app/(admin)/admin/page.tsx",
-          "line": 203,
+          "line": 204,
           "exports": []
         },
         {
@@ -3392,7 +3491,7 @@
           "name": "StatDef",
           "type": "interface",
           "path": "src/app/(admin)/admin/page.tsx",
-          "line": 21,
+          "line": 22,
           "exports": []
         }
       ]
@@ -3478,7 +3577,7 @@
           "name": "DesktopPopularRestaurantsGrid",
           "type": "function",
           "path": "src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx",
-          "line": 44,
+          "line": 47,
           "exports": [
             "DesktopPopularRestaurantsGrid"
           ]
@@ -3488,7 +3587,7 @@
           "name": "DesktopPopularRestaurantCard",
           "type": "function",
           "path": "src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx",
-          "line": 56,
+          "line": 67,
           "exports": []
         },
         {
@@ -3496,7 +3595,7 @@
           "name": "DesktopPopularRestaurantsGridItem",
           "type": "interface",
           "path": "src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx",
-          "line": 11,
+          "line": 15,
           "exports": [
             "DesktopPopularRestaurantsGridItem"
           ]
@@ -3506,7 +3605,7 @@
           "name": "DesktopPopularRestaurantsGridProps",
           "type": "interface",
           "path": "src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx",
-          "line": 22,
+          "line": 26,
           "exports": [
             "DesktopPopularRestaurantsGridProps"
           ]
@@ -3633,7 +3732,7 @@
           "name": "NearbyRestaurantsRow",
           "type": "function",
           "path": "src/app/(site)/_components/NearbyRestaurantsRow.tsx",
-          "line": 47,
+          "line": 56,
           "exports": [
             "NearbyRestaurantsRow"
           ]
@@ -3643,7 +3742,7 @@
           "name": "NearbyRestaurantCard",
           "type": "function",
           "path": "src/app/(site)/_components/NearbyRestaurantsRow.tsx",
-          "line": 59,
+          "line": 76,
           "exports": []
         },
         {
@@ -3651,7 +3750,7 @@
           "name": "NearbyRestaurantsRowItem",
           "type": "interface",
           "path": "src/app/(site)/_components/NearbyRestaurantsRow.tsx",
-          "line": 11,
+          "line": 15,
           "exports": [
             "NearbyRestaurantsRowItem"
           ]
@@ -3661,7 +3760,7 @@
           "name": "NearbyRestaurantsRowProps",
           "type": "interface",
           "path": "src/app/(site)/_components/NearbyRestaurantsRow.tsx",
-          "line": 22,
+          "line": 26,
           "exports": [
             "NearbyRestaurantsRowProps"
           ]
@@ -5106,7 +5205,7 @@
           "name": "MobileMapView",
           "type": "function",
           "path": "src/app/(site)/map/_components/MobileMapView.tsx",
-          "line": 52,
+          "line": 56,
           "exports": [
             "MobileMapView"
           ]
@@ -5116,7 +5215,7 @@
           "name": "MobileMapResultCard",
           "type": "function",
           "path": "src/app/(site)/map/_components/MobileMapView.tsx",
-          "line": 128,
+          "line": 141,
           "exports": []
         },
         {
@@ -5124,7 +5223,7 @@
           "name": "MobileMapItem",
           "type": "interface",
           "path": "src/app/(site)/map/_components/MobileMapView.tsx",
-          "line": 13,
+          "line": 17,
           "exports": [
             "MobileMapItem"
           ]
@@ -5134,7 +5233,7 @@
           "name": "MobileMapViewProps",
           "type": "interface",
           "path": "src/app/(site)/map/_components/MobileMapView.tsx",
-          "line": 31,
+          "line": 35,
           "exports": [
             "MobileMapViewProps"
           ]
@@ -5445,7 +5544,7 @@
           "name": "SortChip",
           "type": "function",
           "path": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
-          "line": 33,
+          "line": 37,
           "exports": []
         },
         {
@@ -5453,7 +5552,7 @@
           "name": "SearchResultCard",
           "type": "function",
           "path": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
-          "line": 64,
+          "line": 69,
           "exports": []
         },
         {
@@ -5461,7 +5560,7 @@
           "name": "DesktopSearchResults",
           "type": "function",
           "path": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
-          "line": 157,
+          "line": 169,
           "exports": [
             "DesktopSearchResults"
           ]
@@ -5471,7 +5570,7 @@
           "name": "DesktopSearchResultsProps",
           "type": "interface",
           "path": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
-          "line": 20,
+          "line": 24,
           "exports": [
             "DesktopSearchResultsProps"
           ]
@@ -5481,7 +5580,7 @@
           "name": "SortChipProps",
           "type": "interface",
           "path": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
-          "line": 27,
+          "line": 31,
           "exports": []
         },
         {
@@ -5489,7 +5588,7 @@
           "name": "SearchResultCardProps",
           "type": "interface",
           "path": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
-          "line": 49,
+          "line": 53,
           "exports": []
         },
         {
@@ -5497,7 +5596,7 @@
           "name": "DesktopSort",
           "type": "type",
           "path": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
-          "line": 18,
+          "line": 22,
           "exports": [
             "DesktopSort"
           ]
@@ -5507,7 +5606,7 @@
           "name": "MOSCOW_CENTER",
           "type": "variable",
           "path": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
-          "line": 16,
+          "line": 20,
           "exports": []
         }
       ]
@@ -5526,7 +5625,7 @@
           "name": "MobileSearchResults",
           "type": "function",
           "path": "src/app/(site)/search/_components/MobileSearchResults.tsx",
-          "line": 36,
+          "line": 41,
           "exports": [
             "MobileSearchResults"
           ]
@@ -5536,7 +5635,7 @@
           "name": "MobileSearchResultCard",
           "type": "function",
           "path": "src/app/(site)/search/_components/MobileSearchResults.tsx",
-          "line": 147,
+          "line": 157,
           "exports": []
         },
         {
@@ -5544,7 +5643,7 @@
           "name": "MapThumbnail",
           "type": "function",
           "path": "src/app/(site)/search/_components/MobileSearchResults.tsx",
-          "line": 238,
+          "line": 256,
           "exports": []
         },
         {
@@ -5552,7 +5651,7 @@
           "name": "MobileSearchResultsProps",
           "type": "interface",
           "path": "src/app/(site)/search/_components/MobileSearchResults.tsx",
-          "line": 19,
+          "line": 23,
           "exports": []
         },
         {
@@ -5560,7 +5659,7 @@
           "name": "MobileSearchResultCardProps",
           "type": "interface",
           "path": "src/app/(site)/search/_components/MobileSearchResults.tsx",
-          "line": 135,
+          "line": 145,
           "exports": []
         }
       ]
@@ -6112,7 +6211,7 @@
           "name": "BackButton",
           "type": "function",
           "path": "src/app/(site)/restaurant/[id]/_components/BackButton.tsx",
-          "line": 34,
+          "line": 46,
           "exports": [
             "BackButton"
           ]
@@ -6122,7 +6221,7 @@
           "name": "BackButtonProps",
           "type": "interface",
           "path": "src/app/(site)/restaurant/[id]/_components/BackButton.tsx",
-          "line": 9,
+          "line": 13,
           "exports": [
             "BackButtonProps"
           ]

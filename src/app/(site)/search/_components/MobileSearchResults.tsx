@@ -10,6 +10,10 @@ import { MapView } from "@/components/map/MapView";
 import { navigate, supportsViewTransitions } from "@/lib/transitions";
 import { usePrefetchImage } from "@/lib/hooks/usePrefetchImage";
 import {
+  useActiveVT,
+  ACTIVE_RESTAURANT_VT_STORAGE_KEY,
+} from "@/lib/hooks/useActiveVT";
+import {
   formatPrice,
   formatDistance,
   formatRating,
@@ -27,9 +31,10 @@ interface MobileSearchResultsProps {
  * окно с интерактивной картой — закрывается кликом по фону.
  *
  * Каждая карточка — {@link MobileSearchResultCard} с чистым {@link Link}
- * из `next/link` поверх левой (непрозрачной) зоны. shared-element morph
- * через inline `viewTransitionName: 'restaurant-image-${r.restaurantId}'`
- * на карточке и `restaurant-title-${r.restaurantId}` на заголовке.
+ * из `next/link` поверх левой (непрозрачной) зоны. По ANIMATIONS_GUIDE
+ * §9.5.3 `viewTransitionName` ставится **только на активной карточке**
+ * через `useActiveVT` + `flushSync`.
+ *
  * В Telegram WebView (без VT API) fallback через `navigate()`, который
  * запускает manualFlipMorph — на мобиле Telegram это критичный путь.
  */
@@ -38,6 +43,9 @@ export function MobileSearchResults({
   results,
 }: MobileSearchResultsProps): React.JSX.Element {
   const [selected, setSelected] = useState<SearchResultItem | null>(null);
+  const { activate, isActive } = useActiveVT<number>(
+    ACTIVE_RESTAURANT_VT_STORAGE_KEY,
+  );
 
   const close = useCallback(() => setSelected(null), []);
 
@@ -64,6 +72,8 @@ export function MobileSearchResults({
             key={r.itemId}
             result={r}
             query={query}
+            isActive={isActive(r.restaurantId)}
+            onActivate={() => activate(r.restaurantId)}
             onOpenMap={() => setSelected(r)}
           />
         ))}
@@ -135,18 +145,20 @@ export function MobileSearchResults({
 interface MobileSearchResultCardProps {
   result: SearchResultItem;
   query: string;
+  isActive: boolean;
+  onActivate: () => void;
   onOpenMap: () => void;
 }
 
 /**
  * Отдельный компонент карточки — имеет свой `linkRef` для FLIP fallback.
- * Верстка та же: карта-миниатюра справа (кликабельная область) + Link
- * на абсолютный блок слева. `viewTransitionName` ставится на внешний
- * контейнер, чтобы морфилась вся карточка, а не только overlay-link.
+ * `viewTransitionName` выставляется условно: только если `isActive === true`.
  */
 function MobileSearchResultCard({
   result: r,
   query,
+  isActive,
+  onActivate,
   onOpenMap,
 }: MobileSearchResultCardProps): React.JSX.Element {
   const router = useRouter();
@@ -156,6 +168,7 @@ function MobileSearchResultCard({
   const href = `/restaurant/${r.restaurantSlug}?q=${encodeURIComponent(query)}`;
 
   const handleClick = (event: ReactMouseEvent<HTMLAnchorElement>): void => {
+    onActivate();
     if (supportsViewTransitions()) return;
     event.preventDefault();
     // Source — внешняя карточка целиком (а не overlay-link), чтобы FLIP
@@ -170,6 +183,13 @@ function MobileSearchResultCard({
     prefetchImage(r.restaurantCoverUrl);
   };
 
+  const cardVtStyle = isActive
+    ? { viewTransitionName: `restaurant-image-${r.restaurantId}` }
+    : undefined;
+  const titleVtStyle = isActive
+    ? { viewTransitionName: `restaurant-title-${r.restaurantId}` }
+    : undefined;
+
   return (
     // Внешний врапер держит shadow-hover: hover-тень через ::after не
     // обрезается overflow-hidden внутреннего div (что критично для blur
@@ -179,7 +199,7 @@ function MobileSearchResultCard({
       <div
         ref={cardRef}
         data-search-card
-        style={{ viewTransitionName: `restaurant-image-${r.restaurantId}` }}
+        style={cardVtStyle}
         className="relative overflow-hidden rounded-xl border border-border bg-surface-primary min-h-[140px]"
       >
         {/* Карта-миниатюра (фон карточки справа) — кликабельна
@@ -202,9 +222,7 @@ function MobileSearchResultCard({
               {r.restaurantName}
             </div>
             <div
-              style={{
-                viewTransitionName: `restaurant-title-${r.restaurantId}`,
-              }}
+              style={titleVtStyle}
               className="text-[15px] font-semibold text-fg-primary mt-0.5 line-clamp-1 min-h-[1.25rem]"
             >
               {r.itemName}

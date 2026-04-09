@@ -1,11 +1,23 @@
 {
-  "generatedAt": "2026-04-09T19:48:53.072Z",
+  "generatedAt": "2026-04-09T22:24:12.978Z",
   "dependencies": [
     {
       "from": "drizzle.config.ts",
       "to": "node_modules/.pnpm/drizzle-kit@0.30.6/node_modules/drizzle-kit/index.d.ts",
       "type": "import",
       "toElement": "Config"
+    },
+    {
+      "from": "next.config.ts",
+      "to": "node:child_process",
+      "type": "import",
+      "toElement": "spawnSync"
+    },
+    {
+      "from": "next.config.ts",
+      "to": "node:crypto",
+      "type": "import",
+      "toElement": "randomUUID"
     },
     {
       "from": "next.config.ts",
@@ -18,6 +30,18 @@
       "to": "node_modules/.pnpm/@serwist+next@9.5.7_next@15.1.6_@opentelemetry+api@1.9.0_@playwright+test@1.59.1_react-dom@19_xqo6yfkw5wip7xwcjg3u7sjjca/node_modules/@serwist/next/dist/index.d.ts",
       "type": "import",
       "toElement": "default"
+    },
+    {
+      "from": "next.config.ts",
+      "to": "next.config.ts",
+      "type": "call",
+      "toElement": "spawnSync"
+    },
+    {
+      "from": "next.config.ts",
+      "to": "next.config.ts",
+      "type": "call",
+      "toElement": "randomUUID"
     },
     {
       "from": "next.config.ts",
@@ -4087,6 +4111,12 @@
     },
     {
       "from": "src/app/layout.tsx",
+      "to": "@/components/ServiceWorkerCleanup",
+      "type": "import",
+      "toElement": "ServiceWorkerCleanup"
+    },
+    {
+      "from": "src/app/layout.tsx",
       "to": "src/app/layout.tsx",
       "type": "call",
       "toElement": "Geist"
@@ -4182,10 +4212,156 @@
       "toElement": "serwist.addEventListeners"
     },
     {
+      "from": "src/components/ServiceWorkerCleanup.tsx",
+      "to": "node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts",
+      "type": "import",
+      "toElement": "useEffect"
+    },
+    {
+      "from": "src/components/ServiceWorkerCleanup.tsx",
+      "to": "src/components/ServiceWorkerCleanup.tsx",
+      "type": "call",
+      "fromElement": "ServiceWorkerCleanup",
+      "toElement": "useEffect"
+    },
+    {
+      "from": "src/components/ServiceWorkerCleanup.tsx",
+      "to": "src/components/ServiceWorkerCleanup.tsx",
+      "type": "call",
+      "fromElement": "ServiceWorkerCleanup",
+      "toElement": "navigator.serviceWorker.getRegistrations"
+    },
+    {
+      "from": "src/components/ServiceWorkerCleanup.tsx",
+      "to": "src/components/ServiceWorkerCleanup.tsx",
+      "type": "call",
+      "fromElement": "ServiceWorkerCleanup",
+      "toElement": "Promise.all"
+    },
+    {
+      "from": "src/components/ServiceWorkerCleanup.tsx",
+      "to": "src/components/ServiceWorkerCleanup.tsx",
+      "type": "call",
+      "fromElement": "ServiceWorkerCleanup",
+      "toElement": "regs.map"
+    },
+    {
+      "from": "src/components/ServiceWorkerCleanup.tsx",
+      "to": "src/components/ServiceWorkerCleanup.tsx",
+      "type": "call",
+      "fromElement": "ServiceWorkerCleanup",
+      "toElement": "r.unregister"
+    },
+    {
+      "from": "src/components/ServiceWorkerCleanup.tsx",
+      "to": "src/components/ServiceWorkerCleanup.tsx",
+      "type": "call",
+      "fromElement": "ServiceWorkerCleanup",
+      "toElement": "caches.keys"
+    },
+    {
+      "from": "src/components/ServiceWorkerCleanup.tsx",
+      "to": "src/components/ServiceWorkerCleanup.tsx",
+      "type": "call",
+      "fromElement": "ServiceWorkerCleanup",
+      "toElement": "Promise.all"
+    },
+    {
+      "from": "src/components/ServiceWorkerCleanup.tsx",
+      "to": "src/components/ServiceWorkerCleanup.tsx",
+      "type": "call",
+      "fromElement": "ServiceWorkerCleanup",
+      "toElement": "keys.map"
+    },
+    {
+      "from": "src/components/ServiceWorkerCleanup.tsx",
+      "to": "src/components/ServiceWorkerCleanup.tsx",
+      "type": "call",
+      "fromElement": "ServiceWorkerCleanup",
+      "toElement": "caches.delete"
+    },
+    {
       "from": "src/lib/morph.ts",
       "to": "src/lib/morph.ts",
       "type": "call",
-      "fromElement": "getDefaultEasing",
+      "fromElement": "readCssDurationMs",
+      "toElement": "getComputedStyle"
+    },
+    {
+      "from": "src/lib/morph.ts",
+      "to": "src/lib/morph.ts",
+      "type": "call",
+      "fromElement": "readCssDurationMs",
+      "toElement": "raw.endsWith"
+    },
+    {
+      "from": "src/lib/morph.ts",
+      "to": "src/lib/morph.ts",
+      "type": "call",
+      "fromElement": "readCssDurationMs",
+      "toElement": "Number.parseFloat"
+    },
+    {
+      "from": "src/lib/morph.ts",
+      "to": "src/lib/morph.ts",
+      "type": "call",
+      "fromElement": "readCssDurationMs",
+      "toElement": "raw.slice"
+    },
+    {
+      "from": "src/lib/morph.ts",
+      "to": "src/lib/morph.ts",
+      "type": "call",
+      "fromElement": "readCssDurationMs",
+      "toElement": "Number.isFinite"
+    },
+    {
+      "from": "src/lib/morph.ts",
+      "to": "src/lib/morph.ts",
+      "type": "call",
+      "fromElement": "readCssDurationMs",
+      "toElement": "raw.endsWith"
+    },
+    {
+      "from": "src/lib/morph.ts",
+      "to": "src/lib/morph.ts",
+      "type": "call",
+      "fromElement": "readCssDurationMs",
+      "toElement": "Number.parseFloat"
+    },
+    {
+      "from": "src/lib/morph.ts",
+      "to": "src/lib/morph.ts",
+      "type": "call",
+      "fromElement": "readCssDurationMs",
+      "toElement": "raw.slice"
+    },
+    {
+      "from": "src/lib/morph.ts",
+      "to": "src/lib/morph.ts",
+      "type": "call",
+      "fromElement": "readCssDurationMs",
+      "toElement": "Number.isFinite"
+    },
+    {
+      "from": "src/lib/morph.ts",
+      "to": "src/lib/morph.ts",
+      "type": "call",
+      "fromElement": "readCssDurationMs",
+      "toElement": "Number.parseFloat"
+    },
+    {
+      "from": "src/lib/morph.ts",
+      "to": "src/lib/morph.ts",
+      "type": "call",
+      "fromElement": "readCssDurationMs",
+      "toElement": "Number.isFinite"
+    },
+    {
+      "from": "src/lib/morph.ts",
+      "to": "src/lib/morph.ts",
+      "type": "call",
+      "fromElement": "readCssEasing",
       "toElement": "getComputedStyle"
     },
     {
@@ -4284,7 +4460,14 @@
       "to": "src/lib/morph.ts",
       "type": "call",
       "fromElement": "manualFlipMorph",
-      "toElement": "getDefaultEasing"
+      "toElement": "readCssDurationMs"
+    },
+    {
+      "from": "src/lib/morph.ts",
+      "to": "src/lib/morph.ts",
+      "type": "call",
+      "fromElement": "manualFlipMorph",
+      "toElement": "readCssEasing"
     },
     {
       "from": "src/lib/morph.ts",
@@ -4348,6 +4531,20 @@
       "type": "call",
       "fromElement": "manualFlipMorph",
       "toElement": "clone.animate"
+    },
+    {
+      "from": "src/lib/morph.ts",
+      "to": "src/lib/morph.ts",
+      "type": "call",
+      "fromElement": "manualFlipMorph",
+      "toElement": "readCssDurationMs"
+    },
+    {
+      "from": "src/lib/morph.ts",
+      "to": "src/lib/morph.ts",
+      "type": "call",
+      "fromElement": "manualFlipMorph",
+      "toElement": "readCssEasing"
     },
     {
       "from": "src/lib/morph.ts",
@@ -9951,6 +10148,114 @@
       "toElement": "Math.cos"
     },
     {
+      "from": "src/lib/hooks/useActiveVT.ts",
+      "to": "node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts",
+      "type": "import",
+      "toElement": "useCallback"
+    },
+    {
+      "from": "src/lib/hooks/useActiveVT.ts",
+      "to": "node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts",
+      "type": "import",
+      "toElement": "useEffect"
+    },
+    {
+      "from": "src/lib/hooks/useActiveVT.ts",
+      "to": "node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts",
+      "type": "import",
+      "toElement": "useState"
+    },
+    {
+      "from": "src/lib/hooks/useActiveVT.ts",
+      "to": "node_modules/.pnpm/@types+react-dom@19.2.3_@types+react@19.2.14/node_modules/@types/react-dom/index.d.ts",
+      "type": "import",
+      "toElement": "flushSync"
+    },
+    {
+      "from": "src/lib/hooks/useActiveVT.ts",
+      "to": "src/lib/hooks/useActiveVT.ts",
+      "type": "call",
+      "fromElement": "useActiveVT",
+      "toElement": "useState"
+    },
+    {
+      "from": "src/lib/hooks/useActiveVT.ts",
+      "to": "src/lib/hooks/useActiveVT.ts",
+      "type": "call",
+      "fromElement": "useActiveVT",
+      "toElement": "useEffect"
+    },
+    {
+      "from": "src/lib/hooks/useActiveVT.ts",
+      "to": "src/lib/hooks/useActiveVT.ts",
+      "type": "call",
+      "fromElement": "useActiveVT",
+      "toElement": "window.sessionStorage.getItem"
+    },
+    {
+      "from": "src/lib/hooks/useActiveVT.ts",
+      "to": "src/lib/hooks/useActiveVT.ts",
+      "type": "call",
+      "fromElement": "useActiveVT",
+      "toElement": "window.sessionStorage.removeItem"
+    },
+    {
+      "from": "src/lib/hooks/useActiveVT.ts",
+      "to": "src/lib/hooks/useActiveVT.ts",
+      "type": "call",
+      "fromElement": "useActiveVT",
+      "toElement": "Number"
+    },
+    {
+      "from": "src/lib/hooks/useActiveVT.ts",
+      "to": "src/lib/hooks/useActiveVT.ts",
+      "type": "call",
+      "fromElement": "useActiveVT",
+      "toElement": "setActiveId"
+    },
+    {
+      "from": "src/lib/hooks/useActiveVT.ts",
+      "to": "src/lib/hooks/useActiveVT.ts",
+      "type": "call",
+      "fromElement": "useActiveVT",
+      "toElement": "useCallback"
+    },
+    {
+      "from": "src/lib/hooks/useActiveVT.ts",
+      "to": "src/lib/hooks/useActiveVT.ts",
+      "type": "call",
+      "fromElement": "useActiveVT",
+      "toElement": "flushSync"
+    },
+    {
+      "from": "src/lib/hooks/useActiveVT.ts",
+      "to": "src/lib/hooks/useActiveVT.ts",
+      "type": "call",
+      "fromElement": "useActiveVT",
+      "toElement": "setActiveId"
+    },
+    {
+      "from": "src/lib/hooks/useActiveVT.ts",
+      "to": "src/lib/hooks/useActiveVT.ts",
+      "type": "call",
+      "fromElement": "useActiveVT",
+      "toElement": "useCallback"
+    },
+    {
+      "from": "src/lib/hooks/useActiveVT.ts",
+      "to": "src/lib/hooks/useActiveVT.ts",
+      "type": "call",
+      "fromElement": "rememberActiveForBack",
+      "toElement": "window.sessionStorage.setItem"
+    },
+    {
+      "from": "src/lib/hooks/useActiveVT.ts",
+      "to": "src/lib/hooks/useActiveVT.ts",
+      "type": "call",
+      "fromElement": "rememberActiveForBack",
+      "toElement": "String"
+    },
+    {
       "from": "src/lib/hooks/useFlipMorph.ts",
       "to": "node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts",
       "type": "import",
@@ -10646,6 +10951,12 @@
     },
     {
       "from": "src/app/(admin)/admin/page.tsx",
+      "to": "node_modules/.pnpm/next@15.1.6_@opentelemetry+api@1.9.0_@playwright+test@1.59.1_react-dom@19.0.0_react@19.0.0__react@19.0.0/node_modules/next/link.d.ts",
+      "type": "import",
+      "toElement": "default"
+    },
+    {
+      "from": "src/app/(admin)/admin/page.tsx",
       "to": "node_modules/.pnpm/lucide-react@1.7.0_react@19.0.0/node_modules/lucide-react/dist/lucide-react.d.ts",
       "type": "import",
       "toElement": "Store"
@@ -10854,6 +11165,18 @@
     },
     {
       "from": "src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx",
+      "to": "@/lib/hooks/useActiveVT",
+      "type": "import",
+      "toElement": "useActiveVT"
+    },
+    {
+      "from": "src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx",
+      "to": "@/lib/hooks/useActiveVT",
+      "type": "import",
+      "toElement": "ACTIVE_RESTAURANT_VT_STORAGE_KEY"
+    },
+    {
+      "from": "src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx",
       "to": "@/lib/utils/format",
       "type": "import",
       "toElement": "formatDistance"
@@ -10869,7 +11192,28 @@
       "to": "src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx",
       "type": "call",
       "fromElement": "DesktopPopularRestaurantsGrid",
+      "toElement": "useActiveVT"
+    },
+    {
+      "from": "src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx",
+      "to": "src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx",
+      "type": "call",
+      "fromElement": "DesktopPopularRestaurantsGrid",
       "toElement": "items.slice"
+    },
+    {
+      "from": "src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx",
+      "to": "src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx",
+      "type": "call",
+      "fromElement": "DesktopPopularRestaurantsGrid",
+      "toElement": "isActive"
+    },
+    {
+      "from": "src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx",
+      "to": "src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx",
+      "type": "call",
+      "fromElement": "DesktopPopularRestaurantsGrid",
+      "toElement": "activate"
     },
     {
       "from": "src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx",
@@ -10891,6 +11235,13 @@
       "type": "call",
       "fromElement": "DesktopPopularRestaurantCard",
       "toElement": "usePrefetchImage"
+    },
+    {
+      "from": "src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx",
+      "to": "src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx",
+      "type": "call",
+      "fromElement": "DesktopPopularRestaurantCard",
+      "toElement": "onActivate"
     },
     {
       "from": "src/app/(site)/_components/DesktopPopularRestaurantsGrid.tsx",
@@ -11035,6 +11386,13 @@
       "to": "src/app/(site)/_components/HeroFloatingCards.tsx",
       "type": "call",
       "fromElement": "HeroFloatingCards",
+      "toElement": "Math.min"
+    },
+    {
+      "from": "src/app/(site)/_components/HeroFloatingCards.tsx",
+      "to": "src/app/(site)/_components/HeroFloatingCards.tsx",
+      "type": "call",
+      "fromElement": "HeroFloatingCards",
       "toElement": "Math.max"
     },
     {
@@ -11089,6 +11447,18 @@
     },
     {
       "from": "src/app/(site)/_components/NearbyRestaurantsRow.tsx",
+      "to": "@/lib/hooks/useActiveVT",
+      "type": "import",
+      "toElement": "useActiveVT"
+    },
+    {
+      "from": "src/app/(site)/_components/NearbyRestaurantsRow.tsx",
+      "to": "@/lib/hooks/useActiveVT",
+      "type": "import",
+      "toElement": "ACTIVE_RESTAURANT_VT_STORAGE_KEY"
+    },
+    {
+      "from": "src/app/(site)/_components/NearbyRestaurantsRow.tsx",
       "to": "@/lib/utils/format",
       "type": "import",
       "toElement": "formatPrice"
@@ -11110,7 +11480,28 @@
       "to": "src/app/(site)/_components/NearbyRestaurantsRow.tsx",
       "type": "call",
       "fromElement": "NearbyRestaurantsRow",
+      "toElement": "useActiveVT"
+    },
+    {
+      "from": "src/app/(site)/_components/NearbyRestaurantsRow.tsx",
+      "to": "src/app/(site)/_components/NearbyRestaurantsRow.tsx",
+      "type": "call",
+      "fromElement": "NearbyRestaurantsRow",
       "toElement": "items.map"
+    },
+    {
+      "from": "src/app/(site)/_components/NearbyRestaurantsRow.tsx",
+      "to": "src/app/(site)/_components/NearbyRestaurantsRow.tsx",
+      "type": "call",
+      "fromElement": "NearbyRestaurantsRow",
+      "toElement": "isActive"
+    },
+    {
+      "from": "src/app/(site)/_components/NearbyRestaurantsRow.tsx",
+      "to": "src/app/(site)/_components/NearbyRestaurantsRow.tsx",
+      "type": "call",
+      "fromElement": "NearbyRestaurantsRow",
+      "toElement": "activate"
     },
     {
       "from": "src/app/(site)/_components/NearbyRestaurantsRow.tsx",
@@ -11132,6 +11523,13 @@
       "type": "call",
       "fromElement": "NearbyRestaurantCard",
       "toElement": "usePrefetchImage"
+    },
+    {
+      "from": "src/app/(site)/_components/NearbyRestaurantsRow.tsx",
+      "to": "src/app/(site)/_components/NearbyRestaurantsRow.tsx",
+      "type": "call",
+      "fromElement": "NearbyRestaurantCard",
+      "toElement": "onActivate"
     },
     {
       "from": "src/app/(site)/_components/NearbyRestaurantsRow.tsx",
@@ -14548,6 +14946,18 @@
     },
     {
       "from": "src/app/(site)/map/_components/MobileMapView.tsx",
+      "to": "@/lib/hooks/useActiveVT",
+      "type": "import",
+      "toElement": "useActiveVT"
+    },
+    {
+      "from": "src/app/(site)/map/_components/MobileMapView.tsx",
+      "to": "@/lib/hooks/useActiveVT",
+      "type": "import",
+      "toElement": "ACTIVE_RESTAURANT_VT_STORAGE_KEY"
+    },
+    {
+      "from": "src/app/(site)/map/_components/MobileMapView.tsx",
       "to": "@/lib/utils/format",
       "type": "import",
       "toElement": "formatPrice"
@@ -14571,6 +14981,13 @@
       "type": "call",
       "fromElement": "MobileMapView",
       "toElement": "useTransition"
+    },
+    {
+      "from": "src/app/(site)/map/_components/MobileMapView.tsx",
+      "to": "src/app/(site)/map/_components/MobileMapView.tsx",
+      "type": "call",
+      "fromElement": "MobileMapView",
+      "toElement": "useActiveVT"
     },
     {
       "from": "src/app/(site)/map/_components/MobileMapView.tsx",
@@ -14625,6 +15042,20 @@
       "from": "src/app/(site)/map/_components/MobileMapView.tsx",
       "to": "src/app/(site)/map/_components/MobileMapView.tsx",
       "type": "call",
+      "fromElement": "MobileMapView",
+      "toElement": "isActive"
+    },
+    {
+      "from": "src/app/(site)/map/_components/MobileMapView.tsx",
+      "to": "src/app/(site)/map/_components/MobileMapView.tsx",
+      "type": "call",
+      "fromElement": "MobileMapView",
+      "toElement": "activate"
+    },
+    {
+      "from": "src/app/(site)/map/_components/MobileMapView.tsx",
+      "to": "src/app/(site)/map/_components/MobileMapView.tsx",
+      "type": "call",
       "fromElement": "MobileMapResultCard",
       "toElement": "useRouter"
     },
@@ -14648,6 +15079,13 @@
       "type": "call",
       "fromElement": "MobileMapResultCard",
       "toElement": "encodeURIComponent"
+    },
+    {
+      "from": "src/app/(site)/map/_components/MobileMapView.tsx",
+      "to": "src/app/(site)/map/_components/MobileMapView.tsx",
+      "type": "call",
+      "fromElement": "MobileMapResultCard",
+      "toElement": "onActivate"
     },
     {
       "from": "src/app/(site)/map/_components/MobileMapView.tsx",
@@ -15502,6 +15940,18 @@
     },
     {
       "from": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
+      "to": "@/lib/hooks/useActiveVT",
+      "type": "import",
+      "toElement": "useActiveVT"
+    },
+    {
+      "from": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
+      "to": "@/lib/hooks/useActiveVT",
+      "type": "import",
+      "toElement": "ACTIVE_RESTAURANT_VT_STORAGE_KEY"
+    },
+    {
+      "from": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
       "to": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
       "type": "call",
       "fromElement": "SortChip",
@@ -15534,6 +15984,13 @@
       "type": "call",
       "fromElement": "SearchResultCard",
       "toElement": "encodeURIComponent"
+    },
+    {
+      "from": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
+      "to": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
+      "type": "call",
+      "fromElement": "SearchResultCard",
+      "toElement": "onActivate"
     },
     {
       "from": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
@@ -15610,6 +16067,13 @@
       "to": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
       "type": "call",
       "fromElement": "DesktopSearchResults",
+      "toElement": "useActiveVT"
+    },
+    {
+      "from": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
+      "to": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
+      "type": "call",
+      "fromElement": "DesktopSearchResults",
       "toElement": "useMemo"
     },
     {
@@ -15674,6 +16138,20 @@
       "type": "call",
       "fromElement": "DesktopSearchResults",
       "toElement": "filteredResults.map"
+    },
+    {
+      "from": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
+      "to": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
+      "type": "call",
+      "fromElement": "DesktopSearchResults",
+      "toElement": "isActive"
+    },
+    {
+      "from": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
+      "to": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
+      "type": "call",
+      "fromElement": "DesktopSearchResults",
+      "toElement": "activate"
     },
     {
       "from": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
@@ -15782,6 +16260,18 @@
     },
     {
       "from": "src/app/(site)/search/_components/MobileSearchResults.tsx",
+      "to": "@/lib/hooks/useActiveVT",
+      "type": "import",
+      "toElement": "useActiveVT"
+    },
+    {
+      "from": "src/app/(site)/search/_components/MobileSearchResults.tsx",
+      "to": "@/lib/hooks/useActiveVT",
+      "type": "import",
+      "toElement": "ACTIVE_RESTAURANT_VT_STORAGE_KEY"
+    },
+    {
+      "from": "src/app/(site)/search/_components/MobileSearchResults.tsx",
       "to": "@/lib/utils/format",
       "type": "import",
       "toElement": "formatPrice"
@@ -15810,6 +16300,13 @@
       "type": "call",
       "fromElement": "MobileSearchResults",
       "toElement": "useState"
+    },
+    {
+      "from": "src/app/(site)/search/_components/MobileSearchResults.tsx",
+      "to": "src/app/(site)/search/_components/MobileSearchResults.tsx",
+      "type": "call",
+      "fromElement": "MobileSearchResults",
+      "toElement": "useActiveVT"
     },
     {
       "from": "src/app/(site)/search/_components/MobileSearchResults.tsx",
@@ -15859,6 +16356,20 @@
       "type": "call",
       "fromElement": "MobileSearchResults",
       "toElement": "results.map"
+    },
+    {
+      "from": "src/app/(site)/search/_components/MobileSearchResults.tsx",
+      "to": "src/app/(site)/search/_components/MobileSearchResults.tsx",
+      "type": "call",
+      "fromElement": "MobileSearchResults",
+      "toElement": "isActive"
+    },
+    {
+      "from": "src/app/(site)/search/_components/MobileSearchResults.tsx",
+      "to": "src/app/(site)/search/_components/MobileSearchResults.tsx",
+      "type": "call",
+      "fromElement": "MobileSearchResults",
+      "toElement": "activate"
     },
     {
       "from": "src/app/(site)/search/_components/MobileSearchResults.tsx",
@@ -15915,6 +16426,13 @@
       "type": "call",
       "fromElement": "MobileSearchResultCard",
       "toElement": "encodeURIComponent"
+    },
+    {
+      "from": "src/app/(site)/search/_components/MobileSearchResults.tsx",
+      "to": "src/app/(site)/search/_components/MobileSearchResults.tsx",
+      "type": "call",
+      "fromElement": "MobileSearchResultCard",
+      "toElement": "onActivate"
     },
     {
       "from": "src/app/(site)/search/_components/MobileSearchResults.tsx",
@@ -18640,6 +19158,18 @@
     },
     {
       "from": "src/app/(site)/restaurant/[id]/_components/BackButton.tsx",
+      "to": "@/lib/hooks/useActiveVT",
+      "type": "import",
+      "toElement": "rememberActiveForBack"
+    },
+    {
+      "from": "src/app/(site)/restaurant/[id]/_components/BackButton.tsx",
+      "to": "@/lib/hooks/useActiveVT",
+      "type": "import",
+      "toElement": "ACTIVE_RESTAURANT_VT_STORAGE_KEY"
+    },
+    {
+      "from": "src/app/(site)/restaurant/[id]/_components/BackButton.tsx",
       "to": "src/app/(site)/restaurant/[id]/_components/BackButton.tsx",
       "type": "call",
       "fromElement": "BackButton",
@@ -18651,6 +19181,13 @@
       "type": "call",
       "fromElement": "BackButton",
       "toElement": "React.useCallback"
+    },
+    {
+      "from": "src/app/(site)/restaurant/[id]/_components/BackButton.tsx",
+      "to": "src/app/(site)/restaurant/[id]/_components/BackButton.tsx",
+      "type": "call",
+      "fromElement": "BackButton",
+      "toElement": "rememberActiveForBack"
     },
     {
       "from": "src/app/(site)/restaurant/[id]/_components/BackButton.tsx",

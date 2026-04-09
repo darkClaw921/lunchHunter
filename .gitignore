@@ -47,6 +47,13 @@ yarn-error.log*
 
 # uploads
 /public/uploads
+
+# serwist service worker (генерируется при build — не коммитим)
+/public/sw.js
+/public/sw.js.map
+/public/swe-worker-*.js
+/public/swe-worker-*.js.map
+
 .claude
 CLAUDE.md
 TODO.md

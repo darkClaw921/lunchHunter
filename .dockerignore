@@ -1,0 +1,66 @@
+# Node / пакетный менеджер
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.pnp
+.pnp.*
+
+# Next.js артефакты
+.next
+out
+build
+
+# Тестирование
+coverage
+playwright-report
+test-results
+e2e/.cache
+
+# Env файлы — передаются через docker compose env_file, не копируются в image
+.env
+.env.*
+!.env.example
+
+# Локальная SQLite база и загрузки — подключаются через volumes
+data
+public/uploads
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+
+# PWA service worker — генерируется при build внутри контейнера
+public/sw.js
+public/sw.js.map
+public/swe-worker-*.js
+public/swe-worker-*.js.map
+
+# Редакторы и OS
+.DS_Store
+.vscode
+.idea
+*.swp
+
+# Git (оставляем .git снаружи, используем BUILD_REVISION через build arg)
+.git
+.gitignore
+
+# Документация и служебные директории проекта
+.arhit
+.beads
+.claude
+CLAUDE.md
+TODO.md
+ANIMATIONS_GUIDE.md
+README.md
+architecture.md
+
+# TypeScript incremental
+*.tsbuildinfo
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore

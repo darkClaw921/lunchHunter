@@ -1,33 +1,31 @@
 # src/components/ui/RouteProgress.tsx
 
-Тонкая accent-полоска (3px) фиксированная сверху экрана, показывающая ход навигации.
+Тонкая accent-полоска сверху экрана, индикатор навигации между страницами.
 
-# Props
-- className?: string — для override z-index или других стилей корневого div.
+## Поведение
 
-# Экспорты
-- RouteProgress({className?}) — компонент-полоска. Монтируется один раз в (site)/layout.tsx.
-- ROUTE_PROGRESS_START_EVENT = "routeprogress:start" — имя CustomEvent.
-- dispatchRouteProgressStart() — helper для диспатча события из других мест (BackButton, обёртки Link). SSR-safe (typeof window === undefined → noop).
+Слушает кастомное событие 'routeprogress:start', которое диспатчит dispatchRouteProgressStart() перед навигацией. Через PROGRESS_DELAY_MS (16ms — один кадр) после события включается, имитирует прогресс до PROGRESS_CAP (85%) через requestAnimationFrame с замедлением по мере приближения. По смене usePathname() переходит в фазу finishing: скачок на 100% и fade-out.
 
-# State machine
-idle → delayed (PROGRESS_DELAY_MS = 16мс задержка) → active (requestAnimationFrame loop приращивает progress по кривой замедления до PROGRESS_CAP = 85%) → finishing (скачок до 100%, fade-out 220мс) → idle.
+## Токены
 
-# Поведение
-- Слушает window.addEventListener("routeprogress:start").
-- При получении: запоминает startTimeRef = performance.now(), ставит начальный progress = 12% (мгновенный визуальный отклик), переходит в delayed → через PROGRESS_DELAY_MS в active.
-- В active: rAF loop приращивает progress: Math.max(0.2, (remaining / PROGRESS_CAP) * PROGRESS_STEP) где PROGRESS_STEP = 0.9.
-- Слушает usePathname(): когда меняется — переходит в finishing, progress=100, через 260мс + remainingMinVisible идёт в idle. PROGRESS_MIN_VISIBLE_MS = 180мс гарантирует что даже на быстрых навигациях полоска видна (анти-мерцание).
-- Под prefers-reduced-motion: reduce CSS transitions становятся instant (универсальное правило в globals.css), логика та же.
+Все transitions используют токены ANIMATIONS_GUIDE §1.1 — никаких magic-numbers:
+- finishing: transform/opacity var(--dur-base) var(--ease-out-quart) + delay var(--dur-instant) на opacity
+- active: transform/opacity var(--dur-fast) var(--ease-out-quart)
+- idle: opacity var(--dur-instant) var(--ease-out-quart)
 
-# Стили
-- fixed inset-x-0 top-0 h-[3px] — толщина 3px.
-- bg-accent (#FF5C00).
-- box-shadow с двойным glow для лучшей видимости: 0 0 8px rgba(255,92,0,0.55), 0 0 2px rgba(255,92,0,0.9).
-- z-50 — выше BottomTabBar (z-40).
-- pointer-events-none.
-- transform: scaleX(progress/100), origin-left.
-- transition зависит от state: finishing → "transform 220ms var(--ease-out-quart), opacity 220ms ease 80ms"; active → "transform 180ms ease-out, opacity 120ms ease-out"; default → "opacity 80ms ease-out". Easing токен читается из globals.css.
+PROGRESS_FINISH_HIDE_MS = 240 (эквивалент --dur-base) — константа для setTimeout в finishing фазе, должна совпадать с duration в inline transition.
 
-# Используется
-- src/app/(site)/layout.tsx — монтаж первым элементом shell.
+## State machine
+
+'idle' → 'delayed' → 'active' → 'finishing' → 'idle'
+
+- idle: невидима (opacity 0)
+- delayed: ожидание PROGRESS_DELAY_MS перед показом (анти-мерцание для кеш-хитов)
+- active: имитация прогресса через rAF до PROGRESS_CAP
+- finishing: дожимание до 100% и скрытие
+
+## Экспорты
+
+- ROUTE_PROGRESS_START_EVENT = 'routeprogress:start'
+- dispatchRouteProgressStart(): void — SSR-safe диспатч события
+- RouteProgress({ className? }): JSX.Element — компонент-индикатор

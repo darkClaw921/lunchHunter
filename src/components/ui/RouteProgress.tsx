@@ -64,6 +64,12 @@ const PROGRESS_CAP = 85;
 /** Шаг приращения прогресса за один rAF-тик, когда < PROGRESS_CAP. */
 const PROGRESS_STEP = 0.9;
 
+/** Длительность fade-out в фазе finishing, мс. Эквивалент `--dur-base`
+ * (240ms из ANIMATIONS_GUIDE §1.1). Константа нужна и в `setTimeout`,
+ * и в inline-`transition` одновременно, поэтому повторяем тут.
+ * Если `--dur-base` поменяется в globals.css — поменять и здесь. */
+const PROGRESS_FINISH_HIDE_MS = 240;
+
 type ProgressState = "idle" | "delayed" | "active" | "finishing";
 
 export interface RouteProgressProps {
@@ -188,11 +194,14 @@ export function RouteProgress({
     setProgress(100);
 
     if (finishTimerRef.current) clearTimeout(finishTimerRef.current);
+    // PROGRESS_FINISH_HIDE_MS = --dur-base (240ms) — время на fade-out
+    // полоски в финишной фазе. Должно совпадать с durations в `transition`
+    // ниже, чтобы таймер срабатывал после того, как opacity доехала до 0.
     finishTimerRef.current = setTimeout(() => {
       setState("idle");
       setProgress(0);
       finishTimerRef.current = null;
-    }, 260 + remainingMinVisible);
+    }, PROGRESS_FINISH_HIDE_MS + remainingMinVisible);
   }, [pathname, state]);
 
   const visible =
@@ -209,12 +218,14 @@ export function RouteProgress({
         transform: `scaleX(${progress / 100})`,
         opacity: visible ? 1 : 0,
         boxShadow: "0 0 8px rgba(255, 92, 0, 0.55), 0 0 2px rgba(255, 92, 0, 0.9)",
+        // Все transitions — через токены --dur-* и --ease-* (ANIMATIONS_GUIDE §1.1).
+        // Никакой CSS-built-in `ease-out`/`ease`, никаких magic numbers (220/180/120).
         transition:
           state === "finishing"
-            ? "transform 220ms var(--ease-out-quart), opacity 220ms ease 80ms"
+            ? "transform var(--dur-base) var(--ease-out-quart), opacity var(--dur-base) var(--ease-out-quart) var(--dur-instant)"
             : state === "active"
-              ? "transform 180ms ease-out, opacity 120ms ease-out"
-              : "opacity 80ms ease-out",
+              ? "transform var(--dur-fast) var(--ease-out-quart), opacity var(--dur-fast) var(--ease-out-quart)"
+              : "opacity var(--dur-instant) var(--ease-out-quart)",
         willChange: "transform, opacity",
       }}
     />

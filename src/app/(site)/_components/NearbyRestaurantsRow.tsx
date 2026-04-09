@@ -6,6 +6,10 @@ import { useRouter } from "next/navigation";
 import { Card } from "@/components/ui/Card";
 import { navigate, supportsViewTransitions } from "@/lib/transitions";
 import { usePrefetchImage } from "@/lib/hooks/usePrefetchImage";
+import {
+  useActiveVT,
+  ACTIVE_RESTAURANT_VT_STORAGE_KEY,
+} from "@/lib/hooks/useActiveVT";
 import { formatPrice, formatDistance, formatRating } from "@/lib/utils/format";
 
 export interface NearbyRestaurantsRowItem {
@@ -27,18 +31,23 @@ export interface NearbyRestaurantsRowProps {
  * NearbyRestaurantsRow — горизонтальный скролл-список карточек
  * "Рядом с вами" для мобильной главной.
  *
- * Реализует shared-element morph через чистый {@link Link} из `next/link`
- * + inline `style={{ viewTransitionName: 'restaurant-image-${r.id}' }}` на
- * обложке карточки и `restaurant-title-${r.id}` на заголовке. В момент клика
- * на карточку браузер с View Transitions API сам находит парный элемент
- * с тем же именем на странице-приёмнике (`/restaurant/${slug}`) и делает
- * shared-element morph через `@view-transition { navigation: auto }` из
- * globals.css. Имена уникальны per-id, поэтому все карточки могут быть
- * одновременно на странице без VT-конфликта имён.
+ * Реализует shared-element morph через чистый {@link Link} из `next/link`.
  *
- * Для Telegram Mini App / старых WebView без VT API используется
- * `handleClick` fallback: `navigate()` из `@/lib/transitions` вызывает
- * `manualFlipMorph` (Web Animations API FLIP клон), находя target через
+ * По ANIMATIONS_GUIDE §9.5.3: `view-transition-name` выставляется **только
+ * на активной** карточке — той, по которой кликнули. До клика ни у одной
+ * карточки VT-имени нет. В момент клика `useActiveVT.activate(id)` через
+ * `flushSync` синхронно проставляет имя в DOM, после чего браузер снимает
+ * snapshot «до» с уже именованным элементом и делает morph на hero
+ * странице-приёмника. Так исключён риск `InvalidStateError` от дубликата
+ * имён между двумя одновременно живыми в DOM страницами при soft-навигации.
+ *
+ * Для back-навигации используется `sessionStorage`: BackButton на странице
+ * ресторана перед `router.back()` зовёт `rememberActiveForBack(...)`,
+ * `useActiveVT` в списке при монтировании поднимает id в state.
+ *
+ * Для Telegram Mini App / старых WebView без VT API — `handleClick` fallback:
+ * `navigate()` из `@/lib/transitions` вызывает `manualFlipMorph`
+ * (Web Animations API FLIP клон), находя target через
  * `[data-vt-target="restaurant-image-${r.id}"]` на странице детали.
  *
  * Парный landing target — hero-блок в `restaurant/[id]/page.tsx` и
@@ -47,10 +56,18 @@ export interface NearbyRestaurantsRowProps {
 export function NearbyRestaurantsRow({
   items,
 }: NearbyRestaurantsRowProps): React.JSX.Element {
+  const { activate, isActive } = useActiveVT<number>(
+    ACTIVE_RESTAURANT_VT_STORAGE_KEY,
+  );
   return (
     <div className="flex gap-3 overflow-x-auto no-scrollbar -mx-5 px-5 pb-1">
       {items.map((r) => (
-        <NearbyRestaurantCard key={r.id} item={r} />
+        <NearbyRestaurantCard
+          key={r.id}
+          item={r}
+          isActive={isActive(r.id)}
+          onActivate={() => activate(r.id)}
+        />
       ))}
     </div>
   );
@@ -58,8 +75,12 @@ export function NearbyRestaurantsRow({
 
 function NearbyRestaurantCard({
   item: r,
+  isActive,
+  onActivate,
 }: {
   item: NearbyRestaurantsRowItem;
+  isActive: boolean;
+  onActivate: () => void;
 }): React.JSX.Element {
   const router = useRouter();
   const linkRef = React.useRef<HTMLAnchorElement>(null);
@@ -67,6 +88,9 @@ function NearbyRestaurantCard({
   const href = `/restaurant/${r.slug}`;
 
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement>): void => {
+    // Проставляем VT-имя только в момент клика — синхронно, чтобы
+    // браузер снял snapshot «до» с уже именованным элементом.
+    onActivate();
     // На браузерах с VT API переход сработает автоматически через
     // @view-transition { navigation: auto } + именованные элементы.
     if (supportsViewTransitions()) return;
@@ -81,6 +105,13 @@ function NearbyRestaurantCard({
   const handlePrefetch = (): void => {
     prefetchImage(r.coverUrl);
   };
+
+  const imageVtStyle = isActive
+    ? { viewTransitionName: `restaurant-image-${r.id}` }
+    : undefined;
+  const titleVtStyle = isActive
+    ? { viewTransitionName: `restaurant-title-${r.id}` }
+    : undefined;
 
   return (
     <Link
@@ -101,7 +132,7 @@ function NearbyRestaurantCard({
               width={400}
               height={300}
               loading="lazy"
-              style={{ viewTransitionName: `restaurant-image-${r.id}` }}
+              style={imageVtStyle}
               className="h-full w-full object-cover"
             />
           ) : (
@@ -111,7 +142,7 @@ function NearbyRestaurantCard({
         <div className="p-3">
           <div className="flex items-center justify-between gap-2">
             <h3
-              style={{ viewTransitionName: `restaurant-title-${r.id}` }}
+              style={titleVtStyle}
               className="text-[13px] font-semibold text-fg-primary truncate min-h-[1rem]"
             >
               {r.name}

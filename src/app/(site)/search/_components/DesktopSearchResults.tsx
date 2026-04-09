@@ -12,6 +12,10 @@ import { MapView, type MapMarker } from "@/components/map/MapView";
 import { RadiusSelector } from "@/components/map/RadiusSelector";
 import { navigate, supportsViewTransitions } from "@/lib/transitions";
 import { usePrefetchImage } from "@/lib/hooks/usePrefetchImage";
+import {
+  useActiveVT,
+  ACTIVE_RESTAURANT_VT_STORAGE_KEY,
+} from "@/lib/hooks/useActiveVT";
 
 const MOSCOW_CENTER = { lat: 55.7558, lng: 37.6173 };
 
@@ -50,21 +54,24 @@ interface SearchResultCardProps {
   result: SearchResultItem;
   query: string;
   activeMarkerId: number | null;
+  isActive: boolean;
+  onActivate: () => void;
   onHoverEnter: () => void;
   onHoverLeave: () => void;
 }
 
 /**
- * Отдельный компонент карточки результата — имеет собственный useRef для
- * `linkRef`, который используется как `sourceEl` в `navigate()` fallback
- * на устройствах без View Transitions API. На устройствах с VT API клик
- * просто пропускается и браузер сам делает morph через
+ * Отдельный компонент карточки результата. `viewTransitionName` ставится
+ * **только** если `isActive === true` (§9.5.3). На устройствах с VT API
+ * клик просто пропускается и браузер сам делает morph через
  * `@view-transition { navigation: auto }`.
  */
 function SearchResultCard({
   result: r,
   query,
   activeMarkerId,
+  isActive,
+  onActivate,
   onHoverEnter,
   onHoverLeave,
 }: SearchResultCardProps): React.JSX.Element {
@@ -74,6 +81,7 @@ function SearchResultCard({
   const href = `/restaurant/${r.restaurantSlug}?q=${encodeURIComponent(query)}`;
 
   const handleClick = (event: ReactMouseEvent<HTMLAnchorElement>): void => {
+    onActivate();
     if (supportsViewTransitions()) return;
     event.preventDefault();
     navigate(router, href, {
@@ -85,6 +93,13 @@ function SearchResultCard({
   const handlePrefetch = (): void => {
     prefetchImage(r.restaurantCoverUrl);
   };
+
+  const imageVtStyle = isActive
+    ? { viewTransitionName: `restaurant-image-${r.restaurantId}` }
+    : undefined;
+  const titleVtStyle = isActive
+    ? { viewTransitionName: `restaurant-title-${r.restaurantId}` }
+    : undefined;
 
   return (
     <Link
@@ -101,7 +116,7 @@ function SearchResultCard({
       )}
     >
       <div
-        style={{ viewTransitionName: `restaurant-image-${r.restaurantId}` }}
+        style={imageVtStyle}
         className="h-[72px] w-[72px] shrink-0 rounded-xl bg-accent-light grid place-items-center overflow-hidden"
       >
         <UtensilsCrossed
@@ -111,7 +126,7 @@ function SearchResultCard({
       </div>
       <div className="flex-1 min-w-0 flex flex-col gap-1">
         <h3
-          style={{ viewTransitionName: `restaurant-title-${r.restaurantId}` }}
+          style={titleVtStyle}
           className="text-[15px] font-semibold text-fg-primary truncate min-h-[1.25rem]"
         >
           {r.restaurantName}
@@ -147,12 +162,9 @@ function SearchResultCard({
  *   `utensils`, flex-col info).
  * - Правая панель (≈45%) — MapLibre GL карта с маркерами.
  *
- * Каждая карточка результата — это отдельный {@link SearchResultCard},
- * обёрнутый в чистый {@link Link} + inline `viewTransitionName` для
- * shared-element morph к hero на странице ресторана. Имена уникальны
- * per-restaurant-id (например, `restaurant-image-42`), чтобы несколько
- * результатов одного ресторана не конфликтовали в снимке VT. В Telegram
- * WebView (без VT API) используется manual FLIP через `navigate()`.
+ * shared-element morph по ANIMATIONS_GUIDE §9.5.3 — `viewTransitionName`
+ * ставится только на активной карточке через `useActiveVT` + `flushSync`.
+ * В Telegram WebView (без VT API) используется manual FLIP через `navigate()`.
  */
 export function DesktopSearchResults({
   query,
@@ -162,6 +174,9 @@ export function DesktopSearchResults({
 }: DesktopSearchResultsProps): React.JSX.Element {
   const [radius, setRadius] = useState<number>(5000);
   const [activeMarkerId, setActiveMarkerId] = useState<number | null>(null);
+  const { activate, isActive } = useActiveVT<number>(
+    ACTIVE_RESTAURANT_VT_STORAGE_KEY,
+  );
 
   const filteredResults = useMemo(
     () =>
@@ -231,6 +246,8 @@ export function DesktopSearchResults({
                 result={r}
                 query={query}
                 activeMarkerId={activeMarkerId}
+                isActive={isActive(r.restaurantId)}
+                onActivate={() => activate(r.restaurantId)}
                 onHoverEnter={() => setActiveMarkerId(r.itemId)}
                 onHoverLeave={() => setActiveMarkerId(null)}
               />

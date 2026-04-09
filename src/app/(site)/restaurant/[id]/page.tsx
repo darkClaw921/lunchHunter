@@ -181,7 +181,7 @@ export default async function RestaurantDetailPage({
             {restaurant.category}
           </div>
         )}
-        <BackButton variant="icon" />
+        <BackButton variant="icon" restaurantId={restaurant.id} />
       </div>
 
       {/* Info */}

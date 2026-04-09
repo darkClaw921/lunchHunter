@@ -380,10 +380,11 @@ export function HeroFloatingCards({
           height: `${slot.size.h}px`,
           transform: `rotate(${slot.tilt})`,
         };
-        // Stagger через inline animationDelay: каждая карточка появляется
-        // на 80ms позже предыдущей (total ~480ms на 6 карточек).
+        // Stagger через inline animationDelay по ANIMATIONS_GUIDE §2.3:
+        // `Math.min(i * 30, 300)` — максимальная суммарная задержка 300ms
+        // (Закон №2 «Меньше — лучше»). Дольше — UI «течёт».
         const innerStyle: CSSProperties = {
-          animationDelay: `${i * 80}ms`,
+          animationDelay: `${Math.min(i * 30, 300)}ms`,
         };
 
         let content: React.JSX.Element;

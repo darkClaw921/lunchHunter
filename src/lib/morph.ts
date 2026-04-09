@@ -25,15 +25,32 @@
  *    атрибутом `data-vt-target="<kind>"` на новой странице. Это hero-блок
  *    в `restaurant/[id]/loading.tsx` или `page.tsx`.
  * 5. **Invert + Play**: анимируем `left`/`top`/`width`/`height` клона
- *    напрямую (НЕ через `transform: scale`). Это критично: клон содержит
- *    `<img object-cover>`, который при изменении контейнера автоматически
- *    пересчитывает свой crop на каждом кадре — без деформации и без
- *    выхода за границы. `transform: scale` дал бы либо растяжение
- *    (sx≠sy), либо клон, торчащий за hero (uniform scale). После того
- *    как клон достигает target размеров (offset 0.6), запускается
+ *    напрямую.
+ *
+ *    ⚠️ **Документированное исключение из ANIMATIONS_GUIDE §5 и анти-паттерна
+ *    «Анимация width/height/top/left»**: гайд требует FLIP через
+ *    `transform: translate(...) scale(...)`. Здесь это делать нельзя:
+ *
+ *    - Клон содержит `<img object-cover>`. При `transform: scale(sx, sy)`
+ *      с разными `sx`/`sy` (aspect-ratio карточки ≠ aspect-ratio hero)
+ *      img деформируется — прямоугольник вместо кроп.
+ *    - При uniform scale клон торчит за границы hero с одной из сторон.
+ *    - С прямой анимацией `width`/`height` браузер каждый кадр
+ *      пересчитывает `object-fit: cover` → crop остаётся корректным.
+ *
+ *    Layout-triggers здесь стоят в клоне, который лежит на `position: fixed`
+ *    поверх body — то есть reflow затрагивает только сам клон, не дёргает
+ *    остальную страницу. Это единственный случай в проекте, где анти-паттерн
+ *    оправдан и применяется осознанно.
+ *
+ *    После того как клон достигает target размеров (offset 0.6), запускается
  *    cross-fade между клоном (opacity 1→0) и оригинальным target
  *    (opacity 0→1) для бесшовной передачи.
  * 6. После окончания анимации удаляем клон, восстанавливаем target.
+ *
+ * Длительности и easing читаются из CSS-переменных (`--dur-slow`,
+ * `--dur-fast`, `--ease-out-quart`) — по ANIMATIONS_GUIDE §1.1. Никаких
+ * magic-numbers.
  *
  * Web Animations API поддержан везде где есть Chrome/Safari/Firefox
  * последних 5 лет — то есть на ВСЕХ устройствах, на которых может быть
@@ -59,22 +76,43 @@ interface ManualFlipMorphOptions {
   timeoutMs?: number;
 }
 
-const DEFAULT_DURATION_MS = 380;
 /**
- * Easing по умолчанию — читаем из CSS custom property `--ease-out-quart`,
- * определённой в `globals.css` (ANIMATIONS_GUIDE §1.1). Если по какой-то
- * причине токен не найден (раннее инициализирование, SSR), падаем на
- * его фактическое значение.
+ * Парсит CSS-длительность из `:root` (вида `240ms`, `0.24s`) в миллисекунды.
+ * Нужно потому, что Web Animations API принимает `number`, а CSS-переменные
+ * строковые. Если токен пустой или не парсится — возвращает fallback.
  */
-function getDefaultEasing(): string {
-  if (typeof window === "undefined") {
-    return "cubic-bezier(0.25, 1, 0.5, 1)";
-  }
-  const value = getComputedStyle(document.documentElement)
-    .getPropertyValue("--ease-out-quart")
+function readCssDurationMs(name: string, fallbackMs: number): number {
+  if (typeof window === "undefined") return fallbackMs;
+  const raw = getComputedStyle(document.documentElement)
+    .getPropertyValue(name)
     .trim();
-  return value || "cubic-bezier(0.25, 1, 0.5, 1)";
+  if (!raw) return fallbackMs;
+  if (raw.endsWith("ms")) {
+    const n = Number.parseFloat(raw.slice(0, -2));
+    return Number.isFinite(n) ? n : fallbackMs;
+  }
+  if (raw.endsWith("s")) {
+    const n = Number.parseFloat(raw.slice(0, -1));
+    return Number.isFinite(n) ? n * 1000 : fallbackMs;
+  }
+  const n = Number.parseFloat(raw);
+  return Number.isFinite(n) ? n : fallbackMs;
 }
+
+/**
+ * Читает cubic-bezier строку из CSS custom property. Если переменная не
+ * найдена (SSR, слишком ранний вызов) — возвращает fallback.
+ */
+function readCssEasing(name: string, fallback: string): string {
+  if (typeof window === "undefined") return fallback;
+  const raw = getComputedStyle(document.documentElement)
+    .getPropertyValue(name)
+    .trim();
+  return raw || fallback;
+}
+
+/** Максимальное время ожидания target-элемента после navigation (мс).
+ *  Это защитный таймаут, не анимация — в токены гайда не входит. */
 const DEFAULT_TARGET_TIMEOUT_MS = 1500;
 /**
  * Доля длительности (от 0 до 1), на которой клон полностью непрозрачен —
@@ -203,6 +241,10 @@ function createOverlayClone(
  *    left/top/width/height, с cross-fade в финале.
  * 7. Если target не найден за timeoutMs — fade-out clone и отказ от анимации.
  * 8. Cleanup: удалить clone, восстановить target.
+ *
+ * Длительность по умолчанию — читаем `--dur-slow` из CSS (400ms по гайду
+ * §1.1), easing — `--ease-out-quart`. Если переданы явные `duration`/`easing`
+ * — они имеют приоритет.
  */
 export async function manualFlipMorph(
   opts: ManualFlipMorphOptions,
@@ -211,8 +253,8 @@ export async function manualFlipMorph(
     sourceEl,
     targetSelector,
     navigate,
-    duration = DEFAULT_DURATION_MS,
-    easing = getDefaultEasing(),
+    duration = readCssDurationMs("--dur-slow", 400),
+    easing = readCssEasing("--ease-out-quart", "cubic-bezier(0.25, 1, 0.5, 1)"),
     timeoutMs = DEFAULT_TARGET_TIMEOUT_MS,
   } = opts;
 
@@ -250,11 +292,18 @@ export async function manualFlipMorph(
   const targetEl = await waitForElement(targetSelector, timeoutMs);
 
   if (!targetEl) {
-    // Цель не появилась — мягко убираем клон.
+    // Цель не появилась — мягко убираем клон. Токены: --dur-fast + --ease-out-quart.
     try {
       const fadeOut = clone.animate(
         [{ opacity: 1 }, { opacity: 0 }],
-        { duration: 160, easing: "ease-out", fill: "forwards" },
+        {
+          duration: readCssDurationMs("--dur-fast", 160),
+          easing: readCssEasing(
+            "--ease-out-quart",
+            "cubic-bezier(0.25, 1, 0.5, 1)",
+          ),
+          fill: "forwards",
+        },
       );
       await fadeOut.finished.catch(() => undefined);
     } catch {

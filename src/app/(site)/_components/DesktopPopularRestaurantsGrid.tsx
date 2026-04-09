@@ -6,6 +6,10 @@ import { useRouter } from "next/navigation";
 import { Star } from "lucide-react";
 import { navigate, supportsViewTransitions } from "@/lib/transitions";
 import { usePrefetchImage } from "@/lib/hooks/usePrefetchImage";
+import {
+  useActiveVT,
+  ACTIVE_RESTAURANT_VT_STORAGE_KEY,
+} from "@/lib/hooks/useActiveVT";
 import { formatDistance, formatRating } from "@/lib/utils/format";
 
 export interface DesktopPopularRestaurantsGridItem {
@@ -27,12 +31,11 @@ export interface DesktopPopularRestaurantsGridProps {
  * DesktopPopularRestaurantsGrid — сетка 4 карточек "Популярные рестораны"
  * в десктопном варианте главной (`DesktopHome`).
  *
- * Shared-element morph через чистый {@link Link} из `next/link` + inline
- * `style={{ viewTransitionName: 'restaurant-image-${r.id}' }}` на обложке
- * и `restaurant-title-${r.id}` на заголовке. В Chrome/Safari с VT API
- * переход сам находит парный элемент на `/restaurant/${slug}` через
- * `@view-transition { navigation: auto }` из globals.css. Имена уникальны
- * per-id, поэтому все 4 карточки сосуществуют без конфликтов.
+ * Shared-element morph по ANIMATIONS_GUIDE §9.5.3 — `view-transition-name`
+ * ставится **только на активной карточке** (той, по которой кликнули),
+ * через `useActiveVT` + `flushSync`. До клика ни у одной карточки имени
+ * нет — это исключает `InvalidStateError` от дубликатов имён при
+ * soft-навигации.
  *
  * Fallback для Telegram Mini App: `handleClick` обёртка проверяет
  * `supportsViewTransitions()` и при отсутствии API вызывает
@@ -44,10 +47,18 @@ export interface DesktopPopularRestaurantsGridProps {
 export function DesktopPopularRestaurantsGrid({
   items,
 }: DesktopPopularRestaurantsGridProps): React.JSX.Element {
+  const { activate, isActive } = useActiveVT<number>(
+    ACTIVE_RESTAURANT_VT_STORAGE_KEY,
+  );
   return (
     <div className="grid grid-cols-4 gap-5">
       {items.slice(0, 4).map((r) => (
-        <DesktopPopularRestaurantCard key={r.id} item={r} />
+        <DesktopPopularRestaurantCard
+          key={r.id}
+          item={r}
+          isActive={isActive(r.id)}
+          onActivate={() => activate(r.id)}
+        />
       ))}
     </div>
   );
@@ -55,8 +66,12 @@ export function DesktopPopularRestaurantsGrid({
 
 function DesktopPopularRestaurantCard({
   item: r,
+  isActive,
+  onActivate,
 }: {
   item: DesktopPopularRestaurantsGridItem;
+  isActive: boolean;
+  onActivate: () => void;
 }): React.JSX.Element {
   const router = useRouter();
   const linkRef = React.useRef<HTMLAnchorElement>(null);
@@ -64,6 +79,8 @@ function DesktopPopularRestaurantCard({
   const href = `/restaurant/${r.slug}`;
 
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement>): void => {
+    // Synchronously ставим VT-имя на эту карточку до snapshot'а.
+    onActivate();
     if (supportsViewTransitions()) return;
     event.preventDefault();
     navigate(router, href, {
@@ -75,6 +92,13 @@ function DesktopPopularRestaurantCard({
   const handlePrefetch = (): void => {
     prefetchImage(r.coverUrl);
   };
+
+  const imageVtStyle = isActive
+    ? { viewTransitionName: `restaurant-image-${r.id}` }
+    : undefined;
+  const titleVtStyle = isActive
+    ? { viewTransitionName: `restaurant-title-${r.id}` }
+    : undefined;
 
   return (
     <Link
@@ -94,7 +118,7 @@ function DesktopPopularRestaurantCard({
             width={400}
             height={300}
             loading="lazy"
-            style={{ viewTransitionName: `restaurant-image-${r.id}` }}
+            style={imageVtStyle}
             className="h-full w-full object-cover transition-transform group-hover:scale-[1.02]"
           />
         ) : (
@@ -105,7 +129,7 @@ function DesktopPopularRestaurantCard({
       </div>
       <div className="flex flex-col gap-2 p-4">
         <h3
-          style={{ viewTransitionName: `restaurant-title-${r.id}` }}
+          style={titleVtStyle}
           className="text-[16px] font-semibold text-fg-primary truncate min-h-[1.375rem]"
         >
           {r.name}

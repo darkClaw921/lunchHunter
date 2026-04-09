@@ -8,6 +8,10 @@ import { MapView, type MapMarker } from "@/components/map/MapView";
 import { RadiusSelector } from "@/components/map/RadiusSelector";
 import { navigate, supportsViewTransitions } from "@/lib/transitions";
 import { usePrefetchImage } from "@/lib/hooks/usePrefetchImage";
+import {
+  useActiveVT,
+  ACTIVE_RESTAURANT_VT_STORAGE_KEY,
+} from "@/lib/hooks/useActiveVT";
 import { formatPrice, formatDistance } from "@/lib/utils/format";
 
 export interface MobileMapItem {
@@ -58,6 +62,9 @@ export function MobileMapView({
 }: MobileMapViewProps): React.JSX.Element {
   const router = useRouter();
   const [isPending, startRouteTransition] = useTransition();
+  const { activate, isActive } = useActiveVT<number>(
+    ACTIVE_RESTAURANT_VT_STORAGE_KEY,
+  );
 
   const markers: MapMarker[] = items.map((item) => ({
     id: item.id,
@@ -117,7 +124,13 @@ export function MobileMapView({
           </div>
         ) : (
           top2.map((item) => (
-            <MobileMapResultCard key={item.id} item={item} query={query} />
+            <MobileMapResultCard
+              key={item.id}
+              item={item}
+              query={query}
+              isActive={isActive(item.restaurantId)}
+              onActivate={() => activate(item.restaurantId)}
+            />
           ))
         )}
       </div>
@@ -128,9 +141,13 @@ export function MobileMapView({
 function MobileMapResultCard({
   item,
   query,
+  isActive,
+  onActivate,
 }: {
   item: MobileMapItem;
   query: string;
+  isActive: boolean;
+  onActivate: () => void;
 }): React.JSX.Element {
   const router = useRouter();
   const linkRef = useRef<HTMLAnchorElement>(null);
@@ -138,6 +155,7 @@ function MobileMapResultCard({
   const href = `/restaurant/${item.restaurantSlug}?q=${encodeURIComponent(query)}`;
 
   const handleClick = (event: ReactMouseEvent<HTMLAnchorElement>): void => {
+    onActivate();
     if (supportsViewTransitions()) return;
     event.preventDefault();
     navigate(router, href, {
@@ -150,6 +168,13 @@ function MobileMapResultCard({
     prefetchImage(item.restaurantCoverUrl);
   };
 
+  const cardVtStyle = isActive
+    ? { viewTransitionName: `restaurant-image-${item.restaurantId}` }
+    : undefined;
+  const titleVtStyle = isActive
+    ? { viewTransitionName: `restaurant-title-${item.restaurantId}` }
+    : undefined;
+
   return (
     <Link
       ref={linkRef}
@@ -157,14 +182,12 @@ function MobileMapResultCard({
       onClick={handleClick}
       onPointerEnter={handlePrefetch}
       onPointerDown={handlePrefetch}
-      style={{ viewTransitionName: `restaurant-image-${item.restaurantId}` }}
+      style={cardVtStyle}
       className="flex items-center justify-between gap-3 rounded-xl border border-border bg-surface-primary p-3 shadow-hover"
     >
       <div className="min-w-0 flex-1">
         <div
-          style={{
-            viewTransitionName: `restaurant-title-${item.restaurantId}`,
-          }}
+          style={titleVtStyle}
           className="text-[14px] font-semibold text-fg-primary truncate min-h-[1.125rem]"
         >
           {item.restaurantName}

@@ -5,6 +5,10 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 import { navigateBack } from "@/lib/transitions";
+import {
+  rememberActiveForBack,
+  ACTIVE_RESTAURANT_VT_STORAGE_KEY,
+} from "@/lib/hooks/useActiveVT";
 
 export interface BackButtonProps {
   /** Визуальный вариант кнопки. */
@@ -21,6 +25,14 @@ export interface BackButtonProps {
   label?: string;
   /** aria-label для icon-варианта. */
   ariaLabel?: string;
+  /**
+   * Numeric id ресторана, с которого пользователь возвращается. Если задан,
+   * перед `router.back()` кладётся в sessionStorage через
+   * {@link rememberActiveForBack}, чтобы список на предыдущей странице
+   * восстановил `view-transition-name` на нужной карточке и VT morph
+   * сработал в обратную сторону (§9.5.3 ANIMATIONS_GUIDE).
+   */
+  restaurantId?: number;
 }
 
 /**
@@ -37,12 +49,16 @@ export function BackButton({
   className,
   label = "Назад к результатам",
   ariaLabel = "Назад",
+  restaurantId,
 }: BackButtonProps): React.JSX.Element {
   const router = useRouter();
 
   const handleClick = React.useCallback((): void => {
+    if (restaurantId !== undefined) {
+      rememberActiveForBack(ACTIVE_RESTAURANT_VT_STORAGE_KEY, restaurantId);
+    }
     navigateBack(router, fallbackHref);
-  }, [router, fallbackHref]);
+  }, [router, fallbackHref, restaurantId]);
 
   if (variant === "pill") {
     return (
