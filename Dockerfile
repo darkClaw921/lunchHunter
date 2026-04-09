@@ -103,7 +103,10 @@ RUN chmod +x /app/docker/entrypoint.sh
 RUN mkdir -p /app/data /app/public/uploads \
   && chown -R nextjs:nodejs /app/data /app/public/uploads /app/db-template /app/docker
 
-USER nextjs
+# Контейнер стартует под root — это намеренно. entrypoint.sh в фазе 1
+# chown'ит bind mount volumes (host UID может не совпадать с nextjs) и
+# через runuser переключается на nextjs для фазы 2 (init DB + node).
+# Финальный `node server.js` работает уже от имени nextjs uid=1001.
 
 EXPOSE ${PORT}
 

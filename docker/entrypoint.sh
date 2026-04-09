@@ -1,14 +1,16 @@
 #!/bin/sh
 # Entrypoint для prod-контейнера lunchHunter.
 #
-# При первом запуске (пустой volume /app/data) копирует template-базу,
-# сгенерированную во время docker build через pnpm db:migrate+seed.
-# Template лежит в /app/db-template/lunchhunter.db.
+# Двухфазный скрипт с re-exec через setpriv:
+#   Фаза 1 (root): чинит права на bind-mount volumes (host UID на Linux
+#          не совпадает с nextjs uid=1001) и re-exec'ится через setpriv.
+#   Фаза 2 (nextjs): копирует template-базу в volume при первом запуске,
+#          обновляет admin-пользователя из ADMIN_EMAIL/ADMIN_PASSWORD,
+#          и exec'ит node server.js.
 #
-# Затем всегда пересоздаёт admin-пользователя с актуальными
-# ADMIN_EMAIL / ADMIN_PASSWORD из env (idempotent upsert).
-#
-# Финальный шаг — exec node server.js (standalone Next.js).
+# setpriv (util-linux, есть в node:20-slim) делает чистый exec без fork:
+# PID 1 в итоге становится node server.js под nextjs, что даёт правильную
+# семантику signal handling для docker compose stop / SIGTERM.
 
 set -eu
 
@@ -16,6 +18,22 @@ DB_PATH="/app/data/lunchhunter.db"
 TEMPLATE_PATH="/app/db-template/lunchhunter.db"
 ADMIN_SCRIPT="/app/docker/admin-upsert.mjs"
 
+# ---------- Фаза 1: запуск под root ----------
+if [ "$(id -u)" = "0" ]; then
+  # chown volumes — idempotent при каждом старте. Bind mount на Linux
+  # сохраняет host UID директорий; без этого nextjs (1001) не может
+  # писать в /app/data и /app/public/uploads.
+  chown -R nextjs:nodejs /app/data /app/public/uploads 2>/dev/null || true
+  # Template-база и её директория тоже должны быть доступны на чтение
+  # со стороны nextjs (они уже chown'ены в Dockerfile, но перестраховка).
+  chown -R nextjs:nodejs /app/db-template 2>/dev/null || true
+  # Re-exec этого же скрипта под nextjs:nodejs через setpriv. --init-groups
+  # устанавливает supplementary groups согласно /etc/group. exec заменяет
+  # процесс → PID 1 остаётся тем же, signals корректно доставляются.
+  exec setpriv --reuid=nextjs --regid=nodejs --init-groups -- "$0" "$@"
+fi
+
+# ---------- Фаза 2: запуск под nextjs ----------
 if [ ! -f "$TEMPLATE_PATH" ]; then
   echo "[entrypoint] FATAL: template database missing at $TEMPLATE_PATH" >&2
   exit 1
