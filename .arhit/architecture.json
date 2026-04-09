@@ -1,6 +1,6 @@
 {
   "root": "/Users/igorgerasimov/claudeWorkspace/lunchHunter",
-  "generatedAt": "2026-04-09T22:23:54.966Z",
+  "generatedAt": "2026-04-09T23:14:12.580Z",
   "nodes": [
     {
       "id": "drizzle.config.ts",
@@ -2010,7 +2010,7 @@
           "name": "Db",
           "type": "type",
           "path": "src/lib/db/client.ts",
-          "line": 28,
+          "line": 35,
           "exports": [
             "Db"
           ]
@@ -2044,7 +2044,7 @@
           "name": "db",
           "type": "variable",
           "path": "src/lib/db/client.ts",
-          "line": 26,
+          "line": 33,
           "exports": [
             "db"
           ]

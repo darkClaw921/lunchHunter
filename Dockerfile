@@ -35,19 +35,40 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
 # Выполняет next build с output: "standalone". BUILD_REVISION пробрасывается
 # из docker-compose build args, чтобы precache revision в SW совпадал с
 # конкретной версией образа.
+#
+# Также создаёт template-базу ./data/lunchhunter.db: применяет drizzle
+# миграции + raw FTS5/R*Tree + seed (6 ресторанов, меню, бизнес-ланчи,
+# admin). Entrypoint runner-стадии скопирует её в volume при первом
+# запуске контейнера — на prod-хосте не нужны ни node, ни pnpm, ни tsx.
 FROM base AS builder
 ARG BUILD_REVISION
 ENV BUILD_REVISION=${BUILD_REVISION}
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
+# DATABASE_URL явно фиксируем на время билда — иначе фоллбэк в client.ts
+# создаёт относительный путь, который может конфликтовать с WORKDIR при
+# параллельных воркерах Collecting page data.
+ENV DATABASE_URL=file:./data/lunchhunter.db
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+# 1) Template-база: drizzle migrate + raw (FTS5/R*Tree/triggers) + seed.
+#    tsx и drizzle-kit доступны из devDependencies deps-стадии.
+RUN pnpm db:migrate \
+ && pnpm db:seed
+# 2) Сборка Next.js. Collecting page data теперь открывает валидную
+#    template-базу (таблицы есть). busy_timeout=5000 в client.ts спасает
+#    от SQLITE_BUSY при параллельных воркерах.
 RUN pnpm build
+# 3) Чистим WAL-артефакты, чтобы template был self-contained single-file.
+RUN rm -f data/lunchhunter.db-wal data/lunchhunter.db-shm
 
 
 # ---- Runner --------------------------------------------------------------
 # Минимальный runtime image: только standalone server + статика + public.
 # Пользователь nextjs (uid 1001) для безопасности — не root.
+#
+# На prod-хосте не требуется ничего, кроме docker engine. Все зависимости,
+# бинари нативных модулей, template-база и entrypoint-скрипт уже внутри.
 FROM node:20-slim AS runner
 WORKDIR /app
 
@@ -68,12 +89,22 @@ COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
+# Template-база из builder-стадии — копируется в volume при первом запуске
+# через docker/entrypoint.sh. Single-file (WAL-артефакты удалены в builder).
+COPY --from=builder --chown=nextjs:nodejs /app/data/lunchhunter.db /app/db-template/lunchhunter.db
+
+# Entrypoint + admin upsert скрипт. admin-upsert.mjs использует
+# better-sqlite3 и @node-rs/argon2 из standalone node_modules.
+COPY --chown=nextjs:nodejs docker/entrypoint.sh /app/docker/entrypoint.sh
+COPY --chown=nextjs:nodejs docker/admin-upsert.mjs /app/docker/admin-upsert.mjs
+RUN chmod +x /app/docker/entrypoint.sh
+
 # Директории для persistent данных (volumes из docker-compose).
 RUN mkdir -p /app/data /app/public/uploads \
-  && chown -R nextjs:nodejs /app/data /app/public/uploads
+  && chown -R nextjs:nodejs /app/data /app/public/uploads /app/db-template /app/docker
 
 USER nextjs
 
 EXPOSE ${PORT}
 
-CMD ["node", "server.js"]
+ENTRYPOINT ["/app/docker/entrypoint.sh"]

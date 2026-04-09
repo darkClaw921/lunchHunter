@@ -35,16 +35,18 @@ const nextConfig: NextConfig = {
   // Нативные модули с .node бинарниками: standalone трассировщик не всегда
   // вытягивает их автоматически, поэтому включаем руками для всех роутов.
   // bindings/file-uri-to-path — транзитивные зависимости better-sqlite3,
-  // загружаются динамически и не попадают в автоматический trace; должны
-  // быть захожены через .npmrc public-hoist-pattern.
+  // загружаются динамически и не попадают в автоматический trace.
+  // @node-rs/argon2-* и @img/sharp-* — платформо-специфичные subpackages,
+  // резолвятся через require(process.arch/platform) в runtime.
+  // Все они хоcтятся в корневой node_modules через .npmrc public-hoist-pattern.
   outputFileTracingIncludes: {
     "/*": [
       "node_modules/better-sqlite3/**/*",
       "node_modules/bindings/**/*",
       "node_modules/file-uri-to-path/**/*",
       "node_modules/sharp/**/*",
-      "node_modules/@node-rs/argon2/**/*",
-      "node_modules/@node-rs/argon2-*/**/*",
+      "node_modules/@node-rs/**/*",
+      "node_modules/@img/**/*",
     ],
   },
   async rewrites() {

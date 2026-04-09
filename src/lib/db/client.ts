@@ -21,6 +21,13 @@ if (!existsSync(dbDir)) {
 
 const sqlite = new Database(dbPath);
 sqlite.pragma("journal_mode = WAL");
+// busy_timeout: при конкурентных соединениях (например, параллельные
+// воркеры Next.js Collecting page data во время docker build, или
+// несколько серверных запросов в WAL-режиме) SQLite ждёт освобождения
+// блокировки до N мс вместо мгновенного SQLITE_BUSY. 5с — безопасный
+// дефолт для всех сценариев (build + runtime), стандартная рекомендация
+// для WAL.
+sqlite.pragma("busy_timeout = 5000");
 sqlite.pragma("foreign_keys = ON");
 
 export const db = drizzle(sqlite, { schema });

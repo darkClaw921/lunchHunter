@@ -41,8 +41,14 @@ services:
       - ./public/uploads:/app/public/uploads
     healthcheck:
       # Next.js не имеет built-in health endpoint — дёргаем главную.
-      # wget входит в node:20-slim base image.
-      test: ["CMD-SHELL", "wget -q --spider http://localhost:${PORT:-3000}/ || exit 1"]
+      # Используем чистый node (http.get) вместо wget/curl, потому что
+      # node:20-slim не содержит сетевых утилит. PORT внутри контейнера
+      # устанавливается через environment: PORT выше.
+      test:
+        - CMD
+        - node
+        - -e
+        - "require('http').get('http://localhost:'+(process.env.PORT||3000),r=>process.exit(r.statusCode===200?0:1)).on('error',()=>process.exit(1))"
       interval: 30s
       timeout: 5s
       retries: 3

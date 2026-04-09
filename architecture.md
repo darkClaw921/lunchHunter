@@ -78,7 +78,10 @@ lunchHunter/
 ├── Dockerfile                # Multi-stage build для production-образа
 ├── docker-compose.yml        # Prod-compose (порт из .env, volumes: data/uploads)
 ├── .dockerignore             # Исключения для docker build context
-├── .npmrc                    # pnpm public-hoist-pattern для bindings/file-uri-to-path
+├── .npmrc                    # pnpm public-hoist-pattern для native subpackages
+├── docker/
+│   ├── entrypoint.sh         # Runner entrypoint: init DB + admin upsert + node server.js
+│   └── admin-upsert.mjs      # Idempotent upsert admin из ADMIN_EMAIL/ADMIN_PASSWORD
 ├── README.md                 # Инструкции установки/запуска/тестов
 └── package.json              # pnpm + скрипты
 ```
@@ -132,11 +135,21 @@ ESLint: `next/core-web-vitals` + `next/typescript`.
 Игнорирует `node_modules`, `.next`, `data/`, `*.db`, `public/uploads`, env-файлы.
 
 ### [Dockerfile](./Dockerfile)
-Multi-stage production-образ на базе `node:20-slim` (debian, не alpine — для надёжности glibc-линковки нативных модулей). Стадии:
+Multi-stage production-образ на базе `node:20-slim` (debian, не alpine — для надёжности glibc-линковки нативных модулей). Полностью автономен: на prod-хосте не требуется ничего, кроме docker engine. Стадии:
 - `base` — установка `pnpm` через `corepack enable`, `PNPM_HOME=/pnpm`.
-- `deps` — установка `build-essential` + `python3` + `ca-certificates`, затем `pnpm install --frozen-lockfile` с BuildKit cache mount на `/pnpm/store` (ускоряет повторные билды).
-- `builder` — копирует `node_modules` из `deps`, весь исходный код, принимает `ARG BUILD_REVISION` и запускает `pnpm build` с `NEXT_TELEMETRY_DISABLED=1`, `NODE_ENV=production`.
-- `runner` — минимальный runtime: создаёт системного пользователя `nextjs:nodejs` (uid/gid 1001), копирует `public/`, `.next/standalone/`, `.next/static/` из `builder` с владельцем `nextjs:nodejs`, создаёт `/app/data` и `/app/public/uploads` (volume mount points). Устанавливает `HOSTNAME=0.0.0.0` (иначе standalone слушает только 127.0.0.1), `PORT=3000` (переопределяется через `docker compose`). Финальный `CMD ["node", "server.js"]` запускает standalone-сервер.
+- `deps` — установка `build-essential` + `python3` + `ca-certificates`, копирование `package.json`/`pnpm-lock.yaml`/`.npmrc`, затем `pnpm install --frozen-lockfile` с BuildKit cache mount на `/pnpm/store` (ускоряет повторные билды).
+- `builder` — копирует `node_modules` из `deps`, весь исходный код, принимает `ARG BUILD_REVISION`. Последовательно: (1) `pnpm db:migrate && pnpm db:seed` с `DATABASE_URL=file:./data/lunchhunter.db` — генерирует **template-базу** со схемой drizzle, raw migrations (FTS5, R\*Tree, триггеры) и seed-данными (6 ресторанов, меню, бизнес-ланчи, admin); (2) `pnpm build` — Next.js standalone build (`busy_timeout` в client.ts защищает от `SQLITE_BUSY` в параллельных воркерах Collecting page data); (3) `rm -f data/lunchhunter.db-wal data/lunchhunter.db-shm` — чистит WAL-артефакты, оставляя single-file template.
+- `runner` — минимальный runtime: создаёт системного пользователя `nextjs:nodejs` (uid/gid 1001), копирует `public/`, `.next/standalone/`, `.next/static/`, **template-базу в `/app/db-template/lunchhunter.db`**, `docker/entrypoint.sh` и `docker/admin-upsert.mjs`. Директории `/app/data` и `/app/public/uploads` создаются как volume mount points с правами `nextjs:nodejs`. `HOSTNAME=0.0.0.0` (иначе standalone слушает только 127.0.0.1), `PORT=3000` (переопределяется через `docker compose`). `ENTRYPOINT ["/app/docker/entrypoint.sh"]` — см. описание ниже.
+
+### [docker/entrypoint.sh](./docker/entrypoint.sh)
+Runner entrypoint-скрипт. При старте контейнера:
+1. Проверяет `$TEMPLATE_PATH=/app/db-template/lunchhunter.db` — FATAL если нет.
+2. Если `$DB_PATH=/app/data/lunchhunter.db` не существует (пустой volume на первом запуске) → `cp` template в volume. Иначе — сохраняет existing.
+3. `node /app/docker/admin-upsert.mjs` — пересоздаёт/обновляет admin-пользователя из `ADMIN_EMAIL`/`ADMIN_PASSWORD` env vars (идемпотентно, выполняется каждый старт — поддерживает ротацию пароля через `.env` без ручных SQL).
+4. `exec node server.js` — запуск Next.js standalone-сервера.
+
+### [docker/admin-upsert.mjs](./docker/admin-upsert.mjs)
+Standalone Node.js ESM-скрипт для admin upsert. Читает `DATABASE_URL`, `ADMIN_EMAIL`, `ADMIN_PASSWORD` из env. Хэширует пароль через `@node-rs/argon2` с теми же OWASP-параметрами, что и `src/lib/auth/password.ts` (`memoryCost: 19456, timeCost: 2, outputLen: 32, parallelism: 1`). UPSERT по email: если админ есть — обновляет `password_hash` + `role='admin'`, иначе INSERT с UUID id. Использует `better-sqlite3` и `@node-rs/argon2` из standalone `node_modules` — никаких дополнительных зависимостей или tsx/tsc в runner не требуется.
 
 ### [docker-compose.yml](./docker-compose.yml)
 Production compose-файл с одним сервисом `app`:
@@ -152,7 +165,12 @@ Production compose-файл с одним сервисом `app`:
 Исключения для docker build context: `node_modules`, `.next`, `data/`, `public/uploads/`, `*.db`, env-файлы (кроме `.env.example`), service worker артефакты, `.git`, `.arhit`, `.beads`, `.claude`, документация, TypeScript incremental кеши, сами Docker-файлы.
 
 ### [.npmrc](./.npmrc)
-pnpm-конфигурация для хостинга нативных зависимостей. `public-hoist-pattern[]=bindings`, `file-uri-to-path`, `node-gyp-build` — поднимают транзитивные зависимости `better-sqlite3` в корневой `node_modules`. Без этого Next.js standalone output не захватывает `bindings` (пакет, через который better-sqlite3 ищет `.node`-файл): он загружается динамически по вычисленному пути, и статический трассировщик не видит его в графе зависимостей. С этим паттерном pnpm создаёт симлинк `node_modules/bindings → .pnpm/bindings@...`, и трассировщик корректно резолвит пакет.
+pnpm-конфигурация для хостинга нативных зависимостей в корневой `node_modules`:
+- `public-hoist-pattern[]=bindings` + `file-uri-to-path` + `node-gyp-build` — транзитивные зависимости `better-sqlite3`, загружаются динамически.
+- `public-hoist-pattern[]=@node-rs/argon2-*` — платформо-специфичные subpackages (`@node-rs/argon2-linux-arm64-gnu`, `-x64-gnu`, и т.д.), резолвятся через `require(process.arch/platform)`.
+- `public-hoist-pattern[]=@img/sharp-*` + `@img/sharp-libvips-*` — платформо-специфичные subpackages `sharp`.
+
+Без этих хостингов Next.js standalone output трассировщик не захватывает transitive/optional dependencies: они живут только в `.pnpm/` и не симлинкованы в корневой `node_modules/<pkg>/`. С хостингом pnpm создаёт симлинки `node_modules/<pkg> → .pnpm/...`, и статический трассировщик корректно резолвит их в финальный standalone bundle.
 
 ### [package.json](./package.json) — секция pnpm
 `pnpm.onlyBuiltDependencies`: `["@node-rs/argon2", "@serwist/sw", "better-sqlite3", "esbuild", "sharp"]`. pnpm v10+ по умолчанию блокирует lifecycle-скрипты (`postinstall`, `preinstall`) всех зависимостей для безопасности. Без этой секции в Docker-билде нативные модули не компилируются под linux/arm64 и падает `next build` на стадии `Collecting page data` (`Could not locate the bindings file`). Локально на macOS prebuilt бинари уже есть, поэтому эффекта нет — секция нужна для воспроизводимых CI/Docker-билдов.
@@ -212,7 +230,7 @@ Next.js Metadata API manifest route — отдаёт `/manifest.webmanifest`. Э
 ## База данных
 
 ### [src/lib/db/client.ts](./src/lib/db/client.ts)
-Инициализация клиента Drizzle + better-sqlite3. Резолвит `DATABASE_URL` (поддерживает префикс `file:`), создаёт директорию `data/` при необходимости, включает `journal_mode = WAL` и `foreign_keys = ON`.
+Инициализация клиента Drizzle + better-sqlite3. Резолвит `DATABASE_URL` (поддерживает префикс `file:`), создаёт директорию `data/` при необходимости, включает `journal_mode = WAL`, `busy_timeout = 5000` (SQLite ждёт до 5с освобождения лока вместо мгновенного `SQLITE_BUSY` — критично для параллельных воркеров Next.js Collecting page data при docker build и для конкурентных серверных запросов в WAL-режиме) и `foreign_keys = ON`.
 
 Экспорты:
 - `db` — Drizzle instance с подключённой схемой.
