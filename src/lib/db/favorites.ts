@@ -4,13 +4,25 @@
  * Избранное полиморфно: одна таблица `favorites` с (userId, targetType, targetId).
  * targetType ∈ {"restaurant", "menu_item", "lunch"}.
  */
-import { and, eq, inArray } from "drizzle-orm";
+import { and, eq, inArray, sql } from "drizzle-orm";
 import { db } from "./client";
 import {
   favorites,
   type FavoriteTargetType,
   FAVORITE_TARGET_TYPES,
 } from "./schema";
+
+/**
+ * Возвращает общее количество избранных элементов пользователя (всех типов).
+ */
+export async function getUserFavoritesCount(userId: string): Promise<number> {
+  const row = await db
+    .select({ count: sql<number>`COUNT(*)` })
+    .from(favorites)
+    .where(eq(favorites.userId, userId))
+    .get();
+  return row?.count ?? 0;
+}
 
 export function isValidFavoriteTargetType(
   value: unknown,

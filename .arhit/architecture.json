@@ -1,6 +1,6 @@
 {
   "root": "/Users/igorgerasimov/claudeWorkspace/lunchHunter",
-  "generatedAt": "2026-04-09T13:38:02.668Z",
+  "generatedAt": "2026-04-09T14:10:23.975Z",
   "nodes": [
     {
       "id": "drizzle.config.ts",
@@ -266,6 +266,27 @@
           "path": "src/app/sw.ts",
           "line": 72,
           "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/lib/cities.ts",
+      "name": "cities.ts",
+      "type": "file",
+      "path": "src/lib/cities.ts",
+      "exports": [
+        "AVAILABLE_CITIES"
+      ],
+      "children": [
+        {
+          "id": "src/lib/cities.ts:AVAILABLE_CITIES",
+          "name": "AVAILABLE_CITIES",
+          "type": "variable",
+          "path": "src/lib/cities.ts",
+          "line": 6,
+          "exports": [
+            "AVAILABLE_CITIES"
+          ]
         }
       ]
     },
@@ -1628,6 +1649,7 @@
       "type": "file",
       "path": "src/lib/db/favorites.ts",
       "exports": [
+        "getUserFavoritesCount",
         "isValidFavoriteTargetType",
         "isFavorited",
         "getFavoritedIds",
@@ -1640,11 +1662,21 @@
       ],
       "children": [
         {
+          "id": "src/lib/db/favorites.ts:getUserFavoritesCount",
+          "name": "getUserFavoritesCount",
+          "type": "function",
+          "path": "src/lib/db/favorites.ts",
+          "line": 18,
+          "exports": [
+            "getUserFavoritesCount"
+          ]
+        },
+        {
           "id": "src/lib/db/favorites.ts:isValidFavoriteTargetType",
           "name": "isValidFavoriteTargetType",
           "type": "function",
           "path": "src/lib/db/favorites.ts",
-          "line": 15,
+          "line": 27,
           "exports": [
             "isValidFavoriteTargetType"
           ]
@@ -1654,7 +1686,7 @@
           "name": "isFavorited",
           "type": "function",
           "path": "src/lib/db/favorites.ts",
-          "line": 27,
+          "line": 39,
           "exports": [
             "isFavorited"
           ]
@@ -1664,7 +1696,7 @@
           "name": "getFavoritedIds",
           "type": "function",
           "path": "src/lib/db/favorites.ts",
-          "line": 50,
+          "line": 62,
           "exports": [
             "getFavoritedIds"
           ]
@@ -1674,7 +1706,7 @@
           "name": "toggleFavorite",
           "type": "function",
           "path": "src/lib/db/favorites.ts",
-          "line": 73,
+          "line": 85,
           "exports": [
             "toggleFavorite"
           ]
@@ -1684,7 +1716,7 @@
           "name": "getUserFavorites",
           "type": "function",
           "path": "src/lib/db/favorites.ts",
-          "line": 145,
+          "line": 157,
           "exports": [
             "getUserFavorites"
           ]
@@ -1694,7 +1726,7 @@
           "name": "FavoriteRestaurantRow",
           "type": "interface",
           "path": "src/lib/db/favorites.ts",
-          "line": 99,
+          "line": 111,
           "exports": [
             "FavoriteRestaurantRow"
           ]
@@ -1704,7 +1736,7 @@
           "name": "FavoriteMenuItemRow",
           "type": "interface",
           "path": "src/lib/db/favorites.ts",
-          "line": 110,
+          "line": 122,
           "exports": [
             "FavoriteMenuItemRow"
           ]
@@ -1714,7 +1746,7 @@
           "name": "FavoriteLunchRow",
           "type": "interface",
           "path": "src/lib/db/favorites.ts",
-          "line": 122,
+          "line": 134,
           "exports": [
             "FavoriteLunchRow"
           ]
@@ -1724,7 +1756,7 @@
           "name": "UserFavorites",
           "type": "interface",
           "path": "src/lib/db/favorites.ts",
-          "line": 135,
+          "line": 147,
           "exports": [
             "UserFavorites"
           ]
@@ -2135,6 +2167,79 @@
           "exports": [
             "searchHistoryRelations"
           ]
+        }
+      ]
+    },
+    {
+      "id": "src/lib/db/search-history.ts",
+      "name": "search-history.ts",
+      "type": "file",
+      "path": "src/lib/db/search-history.ts",
+      "exports": [
+        "recordSearchQuery",
+        "getUserSearchHistory",
+        "deleteSearchHistoryEntry",
+        "clearUserSearchHistory",
+        "SearchHistoryEntry"
+      ],
+      "children": [
+        {
+          "id": "src/lib/db/search-history.ts:recordSearchQuery",
+          "name": "recordSearchQuery",
+          "type": "function",
+          "path": "src/lib/db/search-history.ts",
+          "line": 28,
+          "exports": [
+            "recordSearchQuery"
+          ]
+        },
+        {
+          "id": "src/lib/db/search-history.ts:getUserSearchHistory",
+          "name": "getUserSearchHistory",
+          "type": "function",
+          "path": "src/lib/db/search-history.ts",
+          "line": 64,
+          "exports": [
+            "getUserSearchHistory"
+          ]
+        },
+        {
+          "id": "src/lib/db/search-history.ts:deleteSearchHistoryEntry",
+          "name": "deleteSearchHistoryEntry",
+          "type": "function",
+          "path": "src/lib/db/search-history.ts",
+          "line": 84,
+          "exports": [
+            "deleteSearchHistoryEntry"
+          ]
+        },
+        {
+          "id": "src/lib/db/search-history.ts:clearUserSearchHistory",
+          "name": "clearUserSearchHistory",
+          "type": "function",
+          "path": "src/lib/db/search-history.ts",
+          "line": 96,
+          "exports": [
+            "clearUserSearchHistory"
+          ]
+        },
+        {
+          "id": "src/lib/db/search-history.ts:SearchHistoryEntry",
+          "name": "SearchHistoryEntry",
+          "type": "interface",
+          "path": "src/lib/db/search-history.ts",
+          "line": 12,
+          "exports": [
+            "SearchHistoryEntry"
+          ]
+        },
+        {
+          "id": "src/lib/db/search-history.ts:MAX_HISTORY_PER_USER",
+          "name": "MAX_HISTORY_PER_USER",
+          "type": "variable",
+          "path": "src/lib/db/search-history.ts",
+          "line": 19,
+          "exports": []
         }
       ]
     },
@@ -3237,7 +3342,7 @@
           "name": "getInitials",
           "type": "function",
           "path": "src/app/(site)/profile/page.tsx",
-          "line": 31,
+          "line": 36,
           "exports": []
         },
         {
@@ -3245,7 +3350,7 @@
           "name": "ProfilePage",
           "type": "function",
           "path": "src/app/(site)/profile/page.tsx",
-          "line": 43,
+          "line": 48,
           "exports": [
             "ProfilePage"
           ]
@@ -3255,7 +3360,7 @@
           "name": "SettingRow",
           "type": "function",
           "path": "src/app/(site)/profile/page.tsx",
-          "line": 144,
+          "line": 164,
           "exports": []
         },
         {
@@ -3263,7 +3368,7 @@
           "name": "SettingRowProps",
           "type": "interface",
           "path": "src/app/(site)/profile/page.tsx",
-          "line": 137,
+          "line": 156,
           "exports": []
         },
         {
@@ -3271,17 +3376,25 @@
           "name": "dynamic",
           "type": "variable",
           "path": "src/app/(site)/profile/page.tsx",
-          "line": 14,
+          "line": 19,
           "exports": [
             "dynamic"
           ]
+        },
+        {
+          "id": "src/app/(site)/profile/page.tsx:DEFAULT_CITY",
+          "name": "DEFAULT_CITY",
+          "type": "variable",
+          "path": "src/app/(site)/profile/page.tsx",
+          "line": 28,
+          "exports": []
         },
         {
           "id": "src/app/(site)/profile/page.tsx:GUEST_USER",
           "name": "GUEST_USER",
           "type": "variable",
           "path": "src/app/(site)/profile/page.tsx",
-          "line": 23,
+          "line": 30,
           "exports": []
         }
       ]
@@ -3349,7 +3462,7 @@
           "name": "parseSort",
           "type": "function",
           "path": "src/app/(site)/search/page.tsx",
-          "line": 26,
+          "line": 28,
           "exports": []
         },
         {
@@ -3357,7 +3470,7 @@
           "name": "buildFtsMatchQuery",
           "type": "function",
           "path": "src/app/(site)/search/page.tsx",
-          "line": 31,
+          "line": 33,
           "exports": []
         },
         {
@@ -3365,7 +3478,7 @@
           "name": "searchItems",
           "type": "function",
           "path": "src/app/(site)/search/page.tsx",
-          "line": 59,
+          "line": 61,
           "exports": []
         },
         {
@@ -3373,7 +3486,7 @@
           "name": "SearchResultsPage",
           "type": "function",
           "path": "src/app/(site)/search/page.tsx",
-          "line": 123,
+          "line": 125,
           "exports": [
             "SearchResultsPage"
           ]
@@ -3383,7 +3496,7 @@
           "name": "FilterChip",
           "type": "function",
           "path": "src/app/(site)/search/page.tsx",
-          "line": 239,
+          "line": 215,
           "exports": []
         },
         {
@@ -3391,7 +3504,7 @@
           "name": "PageProps",
           "type": "interface",
           "path": "src/app/(site)/search/page.tsx",
-          "line": 19,
+          "line": 21,
           "exports": []
         },
         {
@@ -3399,7 +3512,7 @@
           "name": "Row",
           "type": "interface",
           "path": "src/app/(site)/search/page.tsx",
-          "line": 41,
+          "line": 43,
           "exports": []
         },
         {
@@ -3407,7 +3520,7 @@
           "name": "Sort",
           "type": "type",
           "path": "src/app/(site)/search/page.tsx",
-          "line": 17,
+          "line": 19,
           "exports": []
         },
         {
@@ -3415,7 +3528,7 @@
           "name": "dynamic",
           "type": "variable",
           "path": "src/app/(site)/search/page.tsx",
-          "line": 10,
+          "line": 12,
           "exports": [
             "dynamic"
           ]
@@ -3425,7 +3538,7 @@
           "name": "DEFAULT_LAT",
           "type": "variable",
           "path": "src/app/(site)/search/page.tsx",
-          "line": 13,
+          "line": 15,
           "exports": []
         },
         {
@@ -3433,7 +3546,7 @@
           "name": "DEFAULT_LNG",
           "type": "variable",
           "path": "src/app/(site)/search/page.tsx",
-          "line": 14,
+          "line": 16,
           "exports": []
         },
         {
@@ -3441,7 +3554,7 @@
           "name": "DEFAULT_RADIUS",
           "type": "variable",
           "path": "src/app/(site)/search/page.tsx",
-          "line": 15,
+          "line": 17,
           "exports": []
         },
         {
@@ -3449,7 +3562,7 @@
           "name": "SORT_LABEL",
           "type": "variable",
           "path": "src/app/(site)/search/page.tsx",
-          "line": 117,
+          "line": 119,
           "exports": []
         }
       ]
@@ -4227,6 +4340,142 @@
       ]
     },
     {
+      "id": "src/app/(site)/profile/about/page.tsx",
+      "name": "page.tsx",
+      "type": "file",
+      "path": "src/app/(site)/profile/about/page.tsx",
+      "exports": [
+        "AboutPage",
+        "dynamic"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/profile/about/page.tsx:AboutPage",
+          "name": "AboutPage",
+          "type": "function",
+          "path": "src/app/(site)/profile/about/page.tsx",
+          "line": 14,
+          "exports": [
+            "AboutPage"
+          ]
+        },
+        {
+          "id": "src/app/(site)/profile/about/page.tsx:AboutRow",
+          "name": "AboutRow",
+          "type": "function",
+          "path": "src/app/(site)/profile/about/page.tsx",
+          "line": 102,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/profile/about/page.tsx:AboutRowProps",
+          "name": "AboutRowProps",
+          "type": "interface",
+          "path": "src/app/(site)/profile/about/page.tsx",
+          "line": 95,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/profile/about/page.tsx:dynamic",
+          "name": "dynamic",
+          "type": "variable",
+          "path": "src/app/(site)/profile/about/page.tsx",
+          "line": 4,
+          "exports": [
+            "dynamic"
+          ]
+        },
+        {
+          "id": "src/app/(site)/profile/about/page.tsx:APP_VERSION",
+          "name": "APP_VERSION",
+          "type": "variable",
+          "path": "src/app/(site)/profile/about/page.tsx",
+          "line": 12,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/profile/city/page.tsx",
+      "name": "page.tsx",
+      "type": "file",
+      "path": "src/app/(site)/profile/city/page.tsx",
+      "exports": [
+        "CityPage",
+        "dynamic"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/profile/city/page.tsx:CityPage",
+          "name": "CityPage",
+          "type": "function",
+          "path": "src/app/(site)/profile/city/page.tsx",
+          "line": 19,
+          "exports": [
+            "CityPage"
+          ]
+        },
+        {
+          "id": "src/app/(site)/profile/city/page.tsx:dynamic",
+          "name": "dynamic",
+          "type": "variable",
+          "path": "src/app/(site)/profile/city/page.tsx",
+          "line": 10,
+          "exports": [
+            "dynamic"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/profile/history/page.tsx",
+      "name": "page.tsx",
+      "type": "file",
+      "path": "src/app/(site)/profile/history/page.tsx",
+      "exports": [
+        "SearchHistoryPage",
+        "dynamic"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/profile/history/page.tsx:SearchHistoryPage",
+          "name": "SearchHistoryPage",
+          "type": "function",
+          "path": "src/app/(site)/profile/history/page.tsx",
+          "line": 19,
+          "exports": [
+            "SearchHistoryPage"
+          ]
+        },
+        {
+          "id": "src/app/(site)/profile/history/page.tsx:HistoryList",
+          "name": "HistoryList",
+          "type": "function",
+          "path": "src/app/(site)/profile/history/page.tsx",
+          "line": 46,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/profile/history/page.tsx:GuestState",
+          "name": "GuestState",
+          "type": "function",
+          "path": "src/app/(site)/profile/history/page.tsx",
+          "line": 106,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/profile/history/page.tsx:dynamic",
+          "name": "dynamic",
+          "type": "variable",
+          "path": "src/app/(site)/profile/history/page.tsx",
+          "line": 8,
+          "exports": [
+            "dynamic"
+          ]
+        }
+      ]
+    },
+    {
       "id": "src/app/(site)/restaurant/[id]/page.tsx",
       "name": "page.tsx",
       "type": "file",
@@ -4242,7 +4491,7 @@
           "name": "RestaurantDetailPage",
           "type": "function",
           "path": "src/app/(site)/restaurant/[id]/page.tsx",
-          "line": 30,
+          "line": 31,
           "exports": [
             "RestaurantDetailPage"
           ]
@@ -4252,7 +4501,7 @@
           "name": "formatMenuPrice",
           "type": "function",
           "path": "src/app/(site)/restaurant/[id]/page.tsx",
-          "line": 240,
+          "line": 237,
           "exports": [
             "formatMenuPrice"
           ]
@@ -4262,7 +4511,7 @@
           "name": "PageProps",
           "type": "interface",
           "path": "src/app/(site)/restaurant/[id]/page.tsx",
-          "line": 25,
+          "line": 26,
           "exports": []
         },
         {
@@ -4270,7 +4519,7 @@
           "name": "dynamic",
           "type": "variable",
           "path": "src/app/(site)/restaurant/[id]/page.tsx",
-          "line": 20,
+          "line": 21,
           "exports": [
             "dynamic"
           ]
@@ -4280,7 +4529,7 @@
           "name": "DEFAULT_LAT",
           "type": "variable",
           "path": "src/app/(site)/restaurant/[id]/page.tsx",
-          "line": 22,
+          "line": 23,
           "exports": []
         },
         {
@@ -4288,7 +4537,7 @@
           "name": "DEFAULT_LNG",
           "type": "variable",
           "path": "src/app/(site)/restaurant/[id]/page.tsx",
-          "line": 23,
+          "line": 24,
           "exports": []
         }
       ]
@@ -4356,6 +4605,43 @@
           "type": "variable",
           "path": "src/app/(site)/search/_components/DesktopSearchResults.tsx",
           "line": 12,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/search/_components/MobileSearchResults.tsx",
+      "name": "MobileSearchResults.tsx",
+      "type": "file",
+      "path": "src/app/(site)/search/_components/MobileSearchResults.tsx",
+      "exports": [
+        "MobileSearchResults"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/search/_components/MobileSearchResults.tsx:MobileSearchResults",
+          "name": "MobileSearchResults",
+          "type": "function",
+          "path": "src/app/(site)/search/_components/MobileSearchResults.tsx",
+          "line": 24,
+          "exports": [
+            "MobileSearchResults"
+          ]
+        },
+        {
+          "id": "src/app/(site)/search/_components/MobileSearchResults.tsx:MapThumbnail",
+          "name": "MapThumbnail",
+          "type": "function",
+          "path": "src/app/(site)/search/_components/MobileSearchResults.tsx",
+          "line": 160,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/search/_components/MobileSearchResults.tsx:MobileSearchResultsProps",
+          "name": "MobileSearchResultsProps",
+          "type": "interface",
+          "path": "src/app/(site)/search/_components/MobileSearchResults.tsx",
+          "line": 14,
           "exports": []
         }
       ]
@@ -4534,6 +4820,48 @@
           "path": "src/app/api/auth/telegram/route.ts",
           "line": 26,
           "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/api/profile/city/route.ts",
+      "name": "route.ts",
+      "type": "file",
+      "path": "src/app/api/profile/city/route.ts",
+      "exports": [
+        "POST"
+      ],
+      "children": [
+        {
+          "id": "src/app/api/profile/city/route.ts:POST",
+          "name": "POST",
+          "type": "function",
+          "path": "src/app/api/profile/city/route.ts",
+          "line": 12,
+          "exports": [
+            "POST"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/api/profile/search-history/route.ts",
+      "name": "route.ts",
+      "type": "file",
+      "path": "src/app/api/profile/search-history/route.ts",
+      "exports": [
+        "DELETE"
+      ],
+      "children": [
+        {
+          "id": "src/app/api/profile/search-history/route.ts:DELETE",
+          "name": "DELETE",
+          "type": "function",
+          "path": "src/app/api/profile/search-history/route.ts",
+          "line": 9,
+          "exports": [
+            "DELETE"
+          ]
         }
       ]
     },
@@ -4780,6 +5108,77 @@
       ]
     },
     {
+      "id": "src/app/(site)/profile/city/_components/CityPicker.tsx",
+      "name": "CityPicker.tsx",
+      "type": "file",
+      "path": "src/app/(site)/profile/city/_components/CityPicker.tsx",
+      "exports": [
+        "CityPicker"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/profile/city/_components/CityPicker.tsx:CityPicker",
+          "name": "CityPicker",
+          "type": "function",
+          "path": "src/app/(site)/profile/city/_components/CityPicker.tsx",
+          "line": 20,
+          "exports": [
+            "CityPicker"
+          ]
+        },
+        {
+          "id": "src/app/(site)/profile/city/_components/CityPicker.tsx:CityPickerProps",
+          "name": "CityPickerProps",
+          "type": "interface",
+          "path": "src/app/(site)/profile/city/_components/CityPicker.tsx",
+          "line": 11,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/profile/history/_components/ClearHistoryButton.tsx",
+      "name": "ClearHistoryButton.tsx",
+      "type": "file",
+      "path": "src/app/(site)/profile/history/_components/ClearHistoryButton.tsx",
+      "exports": [
+        "ClearHistoryButton"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/profile/history/_components/ClearHistoryButton.tsx:ClearHistoryButton",
+          "name": "ClearHistoryButton",
+          "type": "function",
+          "path": "src/app/(site)/profile/history/_components/ClearHistoryButton.tsx",
+          "line": 11,
+          "exports": [
+            "ClearHistoryButton"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/profile/history/_components/DeleteHistoryItemButton.tsx",
+      "name": "DeleteHistoryItemButton.tsx",
+      "type": "file",
+      "path": "src/app/(site)/profile/history/_components/DeleteHistoryItemButton.tsx",
+      "exports": [
+        "DeleteHistoryItemButton"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/profile/history/_components/DeleteHistoryItemButton.tsx:DeleteHistoryItemButton",
+          "name": "DeleteHistoryItemButton",
+          "type": "function",
+          "path": "src/app/(site)/profile/history/_components/DeleteHistoryItemButton.tsx",
+          "line": 11,
+          "exports": [
+            "DeleteHistoryItemButton"
+          ]
+        }
+      ]
+    },
+    {
       "id": "src/app/(site)/restaurant/[id]/_components/BackButton.tsx",
       "name": "BackButton.tsx",
       "type": "file",
@@ -4855,6 +5254,35 @@
           "type": "variable",
           "path": "src/app/(site)/restaurant/[id]/_components/DesktopRestaurantDetail.tsx",
           "line": 35,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/restaurant/[id]/_components/RestaurantMapModal.tsx",
+      "name": "RestaurantMapModal.tsx",
+      "type": "file",
+      "path": "src/app/(site)/restaurant/[id]/_components/RestaurantMapModal.tsx",
+      "exports": [
+        "RestaurantMapModal"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/restaurant/[id]/_components/RestaurantMapModal.tsx:RestaurantMapModal",
+          "name": "RestaurantMapModal",
+          "type": "function",
+          "path": "src/app/(site)/restaurant/[id]/_components/RestaurantMapModal.tsx",
+          "line": 14,
+          "exports": [
+            "RestaurantMapModal"
+          ]
+        },
+        {
+          "id": "src/app/(site)/restaurant/[id]/_components/RestaurantMapModal.tsx:RestaurantMapModalProps",
+          "name": "RestaurantMapModalProps",
+          "type": "interface",
+          "path": "src/app/(site)/restaurant/[id]/_components/RestaurantMapModal.tsx",
+          "line": 7,
           "exports": []
         }
       ]
@@ -5126,6 +5554,27 @@
           "path": "src/app/api/admin/restaurants/[id]/route.ts",
           "line": 16,
           "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/api/profile/search-history/[id]/route.ts",
+      "name": "route.ts",
+      "type": "file",
+      "path": "src/app/api/profile/search-history/[id]/route.ts",
+      "exports": [
+        "DELETE"
+      ],
+      "children": [
+        {
+          "id": "src/app/api/profile/search-history/[id]/route.ts:DELETE",
+          "name": "DELETE",
+          "type": "function",
+          "path": "src/app/api/profile/search-history/[id]/route.ts",
+          "line": 9,
+          "exports": [
+            "DELETE"
+          ]
         }
       ]
     },

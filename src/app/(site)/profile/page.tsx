@@ -8,8 +8,13 @@ import {
   LogOut,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { eq } from "drizzle-orm";
 import { ProfileNotificationsToggle } from "./_components/ProfileNotificationsToggle";
 import { validateSession } from "@/lib/auth/session";
+import { db } from "@/lib/db/client";
+import { users } from "@/lib/db/schema";
+import { getUserFavoritesCount } from "@/lib/db/favorites";
 
 export const dynamic = "force-dynamic";
 
@@ -20,12 +25,12 @@ export const dynamic = "force-dynamic";
  * Telegram name/username и avatar_url; иначе показываем email/имя либо
  * гостевой placeholder (предложение войти через TG-бота).
  */
+const DEFAULT_CITY = "Москва";
+
 const GUEST_USER = {
   name: "Гость",
   subtitle: "Войдите через Telegram-бота",
   initials: "?",
-  city: "Москва",
-  favoritesCount: 0,
 };
 
 function getInitials(name: string): string {
@@ -52,6 +57,18 @@ export default async function ProfilePage(): Promise<React.JSX.Element> {
     : GUEST_USER.subtitle;
   const initials = user ? getInitials(displayName) : GUEST_USER.initials;
   const avatarUrl = user?.avatarUrl ?? null;
+
+  let favoritesCount = 0;
+  let city = DEFAULT_CITY;
+  if (user) {
+    favoritesCount = await getUserFavoritesCount(user.id);
+    const row = await db
+      .select({ city: users.city })
+      .from(users)
+      .where(eq(users.id, user.id))
+      .get();
+    city = row?.city ?? DEFAULT_CITY;
+  }
 
   return (
     <div className="flex flex-col px-5 pt-8 pb-4">
@@ -87,9 +104,10 @@ export default async function ProfilePage(): Promise<React.JSX.Element> {
         <SettingRow
           icon={<Heart className="h-5 w-5" />}
           label="Избранные заведения"
+          href="/favorites"
           rightExtra={
             <span className="inline-flex items-center h-5 px-2 rounded-full bg-accent text-white text-[11px] font-semibold">
-              {GUEST_USER.favoritesCount}
+              {favoritesCount}
             </span>
           }
           chevron
@@ -97,15 +115,15 @@ export default async function ProfilePage(): Promise<React.JSX.Element> {
         <SettingRow
           icon={<Clock className="h-5 w-5" />}
           label="История поиска"
+          href="/profile/history"
           chevron
         />
         <SettingRow
           icon={<MapPin className="h-5 w-5" />}
           label="Город"
+          href="/profile/city"
           rightExtra={
-            <span className="text-[13px] text-fg-secondary">
-              {GUEST_USER.city}
-            </span>
+            <span className="text-[13px] text-fg-secondary">{city}</span>
           }
           chevron
         />
@@ -117,6 +135,7 @@ export default async function ProfilePage(): Promise<React.JSX.Element> {
         <SettingRow
           icon={<Info className="h-5 w-5" />}
           label="О приложении"
+          href="/profile/about"
           chevron
         />
       </ul>
@@ -137,6 +156,7 @@ export default async function ProfilePage(): Promise<React.JSX.Element> {
 interface SettingRowProps {
   icon: React.ReactNode;
   label: string;
+  href?: string;
   rightExtra?: React.ReactNode;
   chevron?: boolean;
 }
@@ -144,26 +164,37 @@ interface SettingRowProps {
 function SettingRow({
   icon,
   label,
+  href,
   rightExtra,
   chevron = false,
 }: SettingRowProps): React.JSX.Element {
+  const content = (
+    <div className="flex items-center gap-3 rounded-xl border border-border bg-surface-primary px-4 h-14 transition-colors hover:bg-surface-secondary">
+      <span className="h-9 w-9 rounded-full bg-accent-light text-accent grid place-items-center shrink-0">
+        {icon}
+      </span>
+      <span className="flex-1 text-[14px] font-medium text-fg-primary">
+        {label}
+      </span>
+      {rightExtra ? <span className="shrink-0">{rightExtra}</span> : null}
+      {chevron ? (
+        <ChevronRight
+          className="h-5 w-5 text-fg-muted shrink-0"
+          aria-hidden="true"
+        />
+      ) : null}
+    </div>
+  );
+
   return (
     <li>
-      <div className="flex items-center gap-3 rounded-xl border border-border bg-surface-primary px-4 h-14">
-        <span className="h-9 w-9 rounded-full bg-accent-light text-accent grid place-items-center shrink-0">
-          {icon}
-        </span>
-        <span className="flex-1 text-[14px] font-medium text-fg-primary">
-          {label}
-        </span>
-        {rightExtra ? <span className="shrink-0">{rightExtra}</span> : null}
-        {chevron ? (
-          <ChevronRight
-            className="h-5 w-5 text-fg-muted shrink-0"
-            aria-hidden="true"
-          />
-        ) : null}
-      </div>
+      {href ? (
+        <Link href={href} className="block">
+          {content}
+        </Link>
+      ) : (
+        content
+      )}
     </li>
   );
 }

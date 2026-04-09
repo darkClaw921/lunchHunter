@@ -20,7 +20,7 @@ lunchHunter/
 │   │   │   ├── business-lunch/page.tsx     # Business Lunch List
 │   │   │   ├── business-lunch/[id]/        # Business Lunch Detail
 │   │   │   ├── favorites/page.tsx          # Избранное (server, validateSession)
-│   │   │   └── profile/                    # Профиль + toggle client
+│   │   │   └── profile/                    # Профиль (root) + history/city/about
 │   │   ├── (admin)/admin/                   # Protected admin route group
 │   │   │   ├── layout.tsx                   # Session guard + AdminShell
 │   │   │   ├── _components/AdminShell.tsx
@@ -35,6 +35,9 @@ lunchHunter/
 │   │       ├── restaurants/[id]/route.ts    # Ресторан + фото + меню
 │   │       ├── business-lunch/route.ts      # Список ланчей + фильтры
 │   │       ├── favorites/route.ts           # Toggle/Get избранного (polymorphic)
+│   │       ├── profile/city/route.ts        # POST — сохранить users.city
+│   │       ├── profile/search-history/route.ts            # DELETE — очистить всю историю
+│   │       ├── profile/search-history/[id]/route.ts       # DELETE — удалить одну запись
 │   │       └── admin/                       # Admin API (auth, CRUD, upload)
 │   │           ├── auth/login/route.ts
 │   │           ├── auth/logout/route.ts
@@ -222,6 +225,7 @@ Server-side helpers для работы с полиморфным избранн
 - `getFavoritedIds(userId, targetType, targetIds)` — batch-проверка, возвращает `Set<number>` для подсветки на списочных страницах / меню.
 - `toggleFavorite(userId, targetType, targetId)` — idempotent toggle, возвращает `{favorited: boolean}`.
 - `getUserFavorites(userId)` — возвращает все избранные элементы пользователя, сгруппированные по трём типам: `{restaurants, menuItems, lunches}` с присоединёнными деталями (raw SQL через `sqlite.prepare`).
+- `getUserFavoritesCount(userId)` — возвращает общее число избранных элементов пользователя (одним COUNT-запросом, используется на `/profile`).
 - Типы: `FavoriteRestaurantRow`, `FavoriteMenuItemRow`, `FavoriteLunchRow`, `UserFavorites`.
 
 ### [src/lib/db/seed.ts](./src/lib/db/seed.ts)
@@ -381,7 +385,10 @@ Search Results List. Server component. Читает `q` и `sort` из
 дешёвые» и т.д.; список карточек результата (ресторан, название позиции,
 рейтинг, badge расстояния, крупная accent-цена). Ссылка с карточки —
 `/restaurant/[slug]?q=...` для подсветки позиции. Компонент `FilterChip` —
-внутренний хелпер для активной/неактивной фильтр-пилюли.
+внутренний хелпер для активной/неактивной фильтр-пилюли. При наличии
+непустого `q` и валидной сессии вызывает `recordSearchQuery(userId, q)`
+из `@/lib/db/search-history`, чтобы запрос попал в
+`/profile/history`.
 
 ### [src/app/(site)/map/page.tsx](<./src/app/(site)/map/page.tsx>)
 Search Map. Server component. Читает `q` и `radius` из URL. Выполняет
@@ -473,14 +480,84 @@ Profile (server component, `dynamic = "force-dynamic"`). Читает текущ
 `user.tgId` заполнен — показывает Telegram-имя и `@username`, аватар из
 `avatarUrl` (через `next/image` с `unoptimized`), бейдж "Telegram". Если
 сессии нет — гостевой placeholder с предложением войти через Telegram-бота.
-Список настроек: «Избранные заведения», «История поиска», «Город»,
-«Уведомления» (toggle — client component), «О приложении»; кнопка «Выйти»
-только у залогиненных. Хелпер `getInitials(name)` для fallback-аватара.
+Для залогиненного пользователя дополнительно читает
+`getUserFavoritesCount(userId)` и `users.city` из БД, чтобы отобразить
+актуальные значения в списке настроек. Список настроек — `SettingRow`-ы,
+обёрнутые в `next/link` c href-ами: «Избранные заведения» → `/favorites`,
+«История поиска» → `/profile/history`, «Город» → `/profile/city`,
+«Уведомления» (toggle без href, client component), «О приложении» →
+`/profile/about`; кнопка «Выйти» пока без onClick (API logout-user ещё не
+реализован). Хелпер `getInitials(name)` для fallback-аватара.
 
 ### [src/app/(site)/profile/_components/ProfileNotificationsToggle.tsx](<./src/app/(site)/profile/_components/ProfileNotificationsToggle.tsx>)
 Client component. `role=switch` toggle с accent fill когда enabled, border
 fill когда disabled. Хранит состояние локально (useState). На Phase 6
 подключим к user settings.
+
+### [src/app/(site)/profile/history/page.tsx](<./src/app/(site)/profile/history/page.tsx>)
+Server component, `dynamic = "force-dynamic"`. Страница «История поиска»:
+читает сессию через `validateSession()` и список записей через
+`getUserSearchHistory()` из `@/lib/db/search-history`. Три состояния —
+guest (CTA на /profile), empty (иллюстрация + CTA «Перейти к поиску»),
+filled (список записей со значком `Clock`, кликабельный Link ведёт
+`/search?q=<query>`, справа `DeleteHistoryItemButton` для удаления). Над
+списком — счётчик и `ClearHistoryButton` для полной очистки. Шапка с
+`ArrowLeft` возвращает на `/profile`.
+
+### [src/app/(site)/profile/history/_components/ClearHistoryButton.tsx](<./src/app/(site)/profile/history/_components/ClearHistoryButton.tsx>)
+Client component. Кнопка «Очистить всё» с `window.confirm`; при
+подтверждении шлёт `DELETE /api/profile/search-history` и вызывает
+`router.refresh()` для перерисовки server component.
+
+### [src/app/(site)/profile/history/_components/DeleteHistoryItemButton.tsx](<./src/app/(site)/profile/history/_components/DeleteHistoryItemButton.tsx>)
+Client component. Маленькая кнопка-крестик справа от каждой записи
+истории; шлёт `DELETE /api/profile/search-history/[id]` и обновляет
+страницу через `router.refresh()`.
+
+### [src/app/(site)/profile/city/page.tsx](<./src/app/(site)/profile/city/page.tsx>)
+Server component, `dynamic = "force-dynamic"`. Страница выбора города.
+Читает `users.city` текущего пользователя из БД и рендерит клиентский
+`CityPicker` со списком `AVAILABLE_CITIES` из `@/lib/cities`. Для гостя —
+информационный блок, что без авторизации сохранение недоступно.
+
+### [src/app/(site)/profile/city/_components/CityPicker.tsx](<./src/app/(site)/profile/city/_components/CityPicker.tsx>)
+Client component. Список городов с оптимистичным выделением. При выборе
+шлёт `POST /api/profile/city` с JSON `{ city }`, при ошибке откатывает
+выбор и показывает inline-ошибку. Ре-экспортирует `AVAILABLE_CITIES`
+из `@/lib/cities` для удобства.
+
+### [src/app/(site)/profile/about/page.tsx](<./src/app/(site)/profile/about/page.tsx>)
+Server component, `dynamic = "force-static"`. Статическая страница «О
+приложении»: логотип, название, версия (`APP_VERSION`), описание
+проекта, блок «Технологии» (Next.js 15 / React 19 / TypeScript / Tailwind
+/ Drizzle / SQLite) и список внешних ссылок через вспомогательный
+`AboutRow` — «Связаться с нами» (mailto) и «Исходный код» (github).
+
+### [src/app/api/profile/city/route.ts](<./src/app/api/profile/city/route.ts>)
+POST endpoint. Требует сессию (`validateSession()`), валидирует `city` по
+`AVAILABLE_CITIES` и обновляет `users.city` через Drizzle. Отвечает
+`{ ok: true, city }` при успехе, 401/400 при ошибках.
+
+### [src/app/api/profile/search-history/route.ts](<./src/app/api/profile/search-history/route.ts>)
+DELETE endpoint. Очищает всю историю поиска залогиненного пользователя
+через `clearUserSearchHistory()`.
+
+### [src/app/api/profile/search-history/[id]/route.ts](<./src/app/api/profile/search-history/[id]/route.ts>)
+DELETE endpoint. Удаляет одну запись истории по id через
+`deleteSearchHistoryEntry()`, проверяя принадлежность пользователю на
+уровне WHERE-клаузы.
+
+### [src/lib/db/search-history.ts](<./src/lib/db/search-history.ts>)
+Server-side helpers для таблицы `search_history`. Экспортирует
+`SearchHistoryEntry` (DTO), `recordSearchQuery(userId, query)` — дедупит
+против 5 последних записей и подрезает историю до 50 записей на
+пользователя, `getUserSearchHistory(userId, limit?)` — свежие сверху,
+`deleteSearchHistoryEntry(userId, id)` и `clearUserSearchHistory(userId)`.
+
+### [src/lib/cities.ts](<./src/lib/cities.ts>)
+Экспорт `AVAILABLE_CITIES` — список поддерживаемых городов для профиля
+пользователя. Используется `CityPicker`-ом и API `/api/profile/city`
+для валидации входа.
 
 ## Desktop компоненты (Phase 4)
 
@@ -563,6 +640,40 @@ Client component (`"use client"`). Desktop split-view для страницы п
 ссылку «Открыть». `onMarkerClick` синхронизирует `activeMarkerId`.
 
 Экспорты: `DesktopSearchResults`, `DesktopSearchResultsProps`, `DesktopSort`.
+
+### [src/app/(site)/search/_components/MobileSearchResults.tsx](<./src/app/(site)/search/_components/MobileSearchResults.tsx>)
+Client component (`"use client"`). Мобильный список результатов поиска с
+миниатюрой карты в правой части каждой карточки. Внутри файла два
+компонента: экспортный `MobileSearchResults` (список + модальное окно) и
+приватный `MapThumbnail` (лёгкая превью-карта без maplibre-gl).
+
+`MobileSearchResults({ query, results })` рендерит колонку `relative
+overflow-hidden` карточек. Внутри карточки: абсолютно-позиционированная
+кнопка `MapThumbnail` справа (170px), и `Link` поверх с `pr-[150px]`,
+ведущий на `/restaurant/[slug]?q=`. Над списком — модальное окно
+(`fixed inset-0 z-50 bg-black/50 backdrop-blur-sm`), которое открывается
+установкой `selected` (состояние `useState<SearchResultItem | null>`).
+Закрытие: клик по backdrop (`onClick={close}`), кнопка `X` справа вверху,
+клавиша `Escape` (effect подписывается на `keydown` и выставляет
+`document.body.style.overflow = "hidden"` пока открыто). Карта внутри
+модалки — реальный `MapView` (MapLibre) с одним маркером, центрированным
+на выбранной точке (zoom 15), плюс pill с названием ресторана и блюда
+внизу слева.
+
+`MapThumbnail({ lat, lng, onOpen })` — превью 170×full-height. Считает
+worldPx на zoom 15 по формуле Web Mercator, определяет набор тайлов
+(`tileX0..tileX1 × tileY0..tileY1`), покрывающих видимую область, и
+рендерит их как `<img loading="lazy">` из
+`https://tile.openstreetmap.org/{z}/{x}/{y}.png`, абсолютно позиционируя
+каждый по `(tx*256-x0, ty*256-y0)`. По центру — оранжевый accent-dot
+(16px, 3px white border). Бесшовный переход в левую часть карточки:
+два декоративных слоя (`pointer-events-none`) — (1) `backdrop-filter:
+blur(6px)` с линейной mask-image от чёрного к прозрачному; (2) белый
+linear-gradient от `--color-surface-primary` до прозрачного на всю
+ширину кнопки. По клику вызывает `e.preventDefault()` + `stopPropagation`,
+чтобы не триггерить внешний `Link`, и `onOpen()`.
+
+Экспорты: `MobileSearchResults`.
 
 ### [src/app/(site)/restaurant/[id]/_components/DesktopRestaurantDetail.tsx](<./src/app/(site)/restaurant/[id]/_components/DesktopRestaurantDetail.tsx>)
 Server component. Desktop-вариант страницы ресторана (pencil frame Yi1h9 —

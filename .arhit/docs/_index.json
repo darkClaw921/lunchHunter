@@ -1,0 +1,34 @@
+[
+  {
+    "element": "src/app/(site)/profile/page.tsx",
+    "path": "src/app/(site)/profile/page.tsx",
+    "type": "file",
+    "content": "Серверная страница профиля. Читает сессию через validateSession, для залогиненного пользователя дополнительно получает getUserFavoritesCount и users.city из БД. SettingRow-ы теперь обёрнуты в next/link: Избранные → /favorites, История поиска → /profile/history, Город → /profile/city, О приложении → /profile/about. Уведомления — client toggle без href. Кнопка Выйти пока без обработчика (logout-user endpoint отсутствует).",
+    "createdAt": "2026-04-09T13:56:50.246Z",
+    "updatedAt": "2026-04-09T13:56:50.246Z"
+  },
+  {
+    "element": "src/lib/db/search-history.ts",
+    "path": "src/lib/db/search-history.ts",
+    "type": "file",
+    "content": "Helper-функции для таблицы search_history. recordSearchQuery дедупит относительно 5 последних записей и подрезает историю до 50 на пользователя. getUserSearchHistory возвращает свежие сверху. deleteSearchHistoryEntry и clearUserSearchHistory для управления записями.",
+    "createdAt": "2026-04-09T13:56:50.474Z",
+    "updatedAt": "2026-04-09T13:56:50.474Z"
+  },
+  {
+    "element": "src/lib/cities.ts",
+    "path": "src/lib/cities.ts",
+    "type": "file",
+    "content": "Константа AVAILABLE_CITIES — список поддерживаемых городов (Москва, Санкт-Петербург, Екатеринбург, Новосибирск, Казань, Нижний Новгород, Краснодар). Используется CityPicker и API /api/profile/city для валидации.",
+    "createdAt": "2026-04-09T13:56:50.702Z",
+    "updatedAt": "2026-04-09T13:56:50.702Z"
+  },
+  {
+    "element": "src/app/(site)/search/_components/MobileSearchResults.tsx",
+    "path": "src/app/(site)/search/_components/MobileSearchResults.tsx",
+    "type": "file",
+    "content": "Мобильный список результатов поиска с миниатюрой карты в правой части каждой карточки и модальным окном с интерактивной картой.\n\n# Компоненты\n- MobileSearchResults({ query, results }) — экспортный client-компонент (use client), содержит состояние selected (SearchResultItem | null). Рендерит колонку карточек и модалку.\n- MapThumbnail({ lat, lng, onOpen }) — приватный, лёгкий превью карты без maplibre-gl инстанса.\n\n# Карточка\n- Обёртка: relative overflow-hidden rounded-xl bg-surface-primary.\n- Справа absolute кнопка MapThumbnail (170px ширина), слева Link с pr-[150px] на /restaurant/[slug]?q=.\n- Инфо: название ресторана / название блюда / рейтинг + distance pill / цена (accent).\n\n# MapThumbnail\n- Вычисляет Web Mercator world-pixels на zoom 15 и набор OSM raster-тайлов tileX0..tileX1 × tileY0..tileY1, покрывающих видимую область W×H (170×full-height).\n- Рендерит их как <img loading=lazy> из https://tile.openstreetmap.org/{z}/{x}/{y}.png с absolute left/top.\n- По центру оранжевый accent-маркер (16px, 3px white border, box-shadow).\n- Бесшовный переход в левую часть карточки через два декоративных слоя (pointer-events-none):\n  1. backdrop-filter: blur(6px) с линейной mask-image от чёрного (30%) к прозрачному (100%)\n  2. белый linear-gradient от --color-surface-primary к прозрачному\n- onClick: e.preventDefault() + stopPropagation() чтобы не триггерить внешний Link, и onOpen().\n\n# Модалка\n- Открывается когда selected != null. Fixed inset-0 z-50 bg-black/50 backdrop-blur-sm.\n- Внутри: rounded-2xl контейнер 60vh max-h-520px, MapView (MapLibre+OSM) с одним маркером, center={lat,lng}, zoom 15.\n- Pill с названием ресторана и блюда внизу слева (pointer-events-none).\n- Закрытие: клик по backdrop (onClick={close}), кнопка X в правом верхнем углу, Escape (useEffect listener на document keydown).\n- useEffect также блокирует прокрутку фона через document.body.style.overflow='hidden' пока открыта.\n\n# Зависимости\n- next/link, lucide-react (Star, X), react\n- @/components/map/MapView — интерактивная MapLibre карта в модалке\n- @/lib/utils/format — formatPrice, formatDistance, formatRating\n- @/app/api/search/route — тип SearchResultItem\n\n# Использование\nВызывается из src/app/(site)/search/page.tsx в мобильной ветке рендера (md:hidden) вместо inline-списка карточек.",
+    "createdAt": "2026-04-09T14:10:02.671Z",
+    "updatedAt": "2026-04-09T14:10:02.671Z"
+  }
+]

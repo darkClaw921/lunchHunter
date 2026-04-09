@@ -1,10 +1,12 @@
 import Link from "next/link";
-import { ArrowLeft, SlidersHorizontal, ArrowDownUp, Star } from "lucide-react";
+import { ArrowLeft, SlidersHorizontal, ArrowDownUp } from "lucide-react";
 import { sqlite } from "@/lib/db/client";
 import { bboxFromRadius, haversineDistance } from "@/lib/geo/haversine";
+import { validateSession } from "@/lib/auth/session";
+import { recordSearchQuery } from "@/lib/db/search-history";
 import { SearchHomeForm } from "../_components/SearchHomeForm";
 import { DesktopSearchResults } from "./_components/DesktopSearchResults";
-import { formatPrice, formatDistance, formatRating } from "@/lib/utils/format";
+import { MobileSearchResults } from "./_components/MobileSearchResults";
 import type { SearchResultItem } from "@/app/api/search/route";
 
 export const dynamic = "force-dynamic";
@@ -129,6 +131,18 @@ export default async function SearchResultsPage({
 
   const results = q ? searchItems(q, sort) : [];
 
+  // Сохраняем запрос в историю, только если есть сессия и непустой q.
+  if (q) {
+    const session = await validateSession();
+    if (session) {
+      try {
+        await recordSearchQuery(session.user.id, q);
+      } catch {
+        // silent fail — history не критична для ответа
+      }
+    }
+  }
+
   return (
     <>
       <DesktopSearchResults
@@ -184,53 +198,15 @@ export default async function SearchResultsPage({
       </div>
 
       {/* Results */}
-      <div className="px-5 mt-3 flex flex-col gap-3">
-        {results.length === 0 ? (
-          <div className="py-10 text-center text-fg-muted text-sm">
-            {q
-              ? `Ничего не найдено по запросу «${q}»`
-              : "Введите запрос в строке поиска"}
-          </div>
-        ) : (
-          results.map((r) => (
-            <Link
-              key={r.itemId}
-              href={{
-                pathname: `/restaurant/${r.restaurantSlug}`,
-                query: { q },
-              }}
-              className="block rounded-xl border border-border bg-surface-primary p-4 hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] transition-shadow"
-            >
-              <div className="flex items-start justify-between gap-3">
-                <div className="min-w-0 flex-1">
-                  <div className="text-[12px] font-medium text-fg-muted">
-                    {r.restaurantName}
-                  </div>
-                  <div className="text-[15px] font-semibold text-fg-primary mt-0.5 line-clamp-1">
-                    {r.itemName}
-                  </div>
-                  <div className="flex items-center gap-2 mt-2 text-[12px] text-fg-secondary">
-                    <span className="inline-flex items-center gap-0.5">
-                      <Star className="h-3 w-3 fill-current" aria-hidden="true" />
-                      {formatRating(r.rating)}
-                    </span>
-                    {r.distanceMeters !== null ? (
-                      <span className="inline-flex items-center h-5 px-2 rounded-full bg-accent-light text-accent text-[11px] font-medium">
-                        {formatDistance(r.distanceMeters)}
-                      </span>
-                    ) : null}
-                  </div>
-                </div>
-                <div className="shrink-0 text-right">
-                  <div className="text-[20px] font-bold text-accent leading-none">
-                    {formatPrice(r.price)}
-                  </div>
-                </div>
-              </div>
-            </Link>
-          ))
-        )}
-      </div>
+      {results.length === 0 ? (
+        <div className="px-5 mt-3 py-10 text-center text-fg-muted text-sm">
+          {q
+            ? `Ничего не найдено по запросу «${q}»`
+            : "Введите запрос в строке поиска"}
+        </div>
+      ) : (
+        <MobileSearchResults query={q} results={results} />
+      )}
       </div>
     </>
   );
