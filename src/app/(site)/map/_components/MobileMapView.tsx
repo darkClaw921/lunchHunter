@@ -75,6 +75,7 @@ export function MobileMapView({
     price: item.price,
     distanceMeters: item.distanceMeters,
     href: `/restaurant/${item.restaurantSlug}?q=${encodeURIComponent(query)}`,
+    coverUrl: item.restaurantCoverUrl,
   }));
 
   const handleRadiusChange = (next: number): void => {

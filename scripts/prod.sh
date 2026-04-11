@@ -97,7 +97,7 @@ ok ".env валиден"
 # 3. Зависимости
 if [ "$DO_BUILD" = "1" ]; then
   info "Установка зависимостей (все, для build)..."
-  pnpm install --frozen-lockfile
+  pnpm install --frozen-lockfile --prod=false
 else
   if [ ! -d node_modules ]; then
     info "Установка production-зависимостей..."

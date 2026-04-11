@@ -5,16 +5,19 @@ import {
   Bell,
   Info,
   ChevronRight,
-  LogOut,
+  Receipt,
+  Trophy,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { eq } from "drizzle-orm";
 import { ProfileNotificationsToggle } from "./_components/ProfileNotificationsToggle";
+import { LogoutButton } from "./_components/LogoutButton";
 import { validateSession } from "@/lib/auth/session";
 import { db } from "@/lib/db/client";
 import { users } from "@/lib/db/schema";
 import { getUserFavoritesCount } from "@/lib/db/favorites";
+import { ReceiptStats } from "./_components/ReceiptStats";
 
 export const dynamic = "force-dynamic";
 
@@ -29,7 +32,7 @@ const DEFAULT_CITY = "Москва";
 
 const GUEST_USER = {
   name: "Гость",
-  subtitle: "Войдите через Telegram-бота",
+  subtitle: "Войдите, чтобы сохранять избранное",
   initials: "?",
 };
 
@@ -113,6 +116,18 @@ export default async function ProfilePage(): Promise<React.JSX.Element> {
           chevron
         />
         <SettingRow
+          icon={<Receipt className="h-5 w-5" />}
+          label="Мои чеки"
+          href="/profile/receipts"
+          chevron
+        />
+        <SettingRow
+          icon={<Trophy className="h-5 w-5" />}
+          label="Топ пользователей"
+          href="/leaderboard"
+          chevron
+        />
+        <SettingRow
           icon={<Clock className="h-5 w-5" />}
           label="История поиска"
           href="/profile/history"
@@ -140,15 +155,31 @@ export default async function ProfilePage(): Promise<React.JSX.Element> {
         />
       </ul>
 
+      {/* Mini receipt stats */}
       {user ? (
-        <button
-          type="button"
-          className="mt-6 inline-flex items-center justify-center gap-2 h-12 rounded-xl border border-border bg-surface-primary text-error font-medium hover:bg-error/5 transition-colors"
-        >
-          <LogOut className="h-5 w-5" aria-hidden="true" />
-          Выйти
-        </button>
+        <div className="mt-4">
+          <ReceiptStats compact />
+        </div>
       ) : null}
+
+      {user ? (
+        <LogoutButton />
+      ) : (
+        <div className="mt-6 flex flex-col gap-2">
+          <Link
+            href="/login"
+            className="inline-flex items-center justify-center h-12 rounded-xl bg-accent text-white font-medium transition-colors"
+          >
+            Войти
+          </Link>
+          <Link
+            href="/register"
+            className="inline-flex items-center justify-center h-12 rounded-xl border border-border bg-surface-primary text-fg-primary font-medium hover:bg-surface-secondary transition-colors"
+          >
+            Создать аккаунт
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

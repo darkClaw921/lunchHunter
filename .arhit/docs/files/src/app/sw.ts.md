@@ -1,0 +1,3 @@
+# src/app/sw.ts
+
+Service worker (Serwist). Precache shell + /offline via self.__SW_MANIFEST, runtimeCaching=defaultCache из @serwist/next/worker, document-fallback на /offline. Push handler парсит event.data.json() как PushPayload={title,body,icon?,url?,data?} (фолбэк text()), вызывает showNotification с icon=/icons/icon-192.png, badge=/icons/icon-192.png и data.url. notificationclick ищет существующее окно через clients.matchAll, вызывает client.navigate(url)+focus() либо clients.openWindow. message handler отвечает на {type:'SKIP_WAITING'} → self.skipWaiting(). skipWaiting/clientsClaim/navigationPreload включены. Структурно повторяет sw.ts из cliongo.

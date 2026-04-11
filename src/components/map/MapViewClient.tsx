@@ -25,6 +25,8 @@ export interface MapMarker {
   distanceMeters?: number | null;
   /** Link target (e.g. /restaurant/slug). */
   href?: string | null;
+  /** Restaurant cover image URL for popup thumbnail. */
+  coverUrl?: string | null;
 }
 
 export interface MapViewClientProps {
@@ -141,9 +143,11 @@ function buildPopupHtml(marker: MapMarker): string {
       ? escapeHtml(formatDistance(marker.distanceMeters))
       : "";
   const href = marker.href ? escapeHtml(marker.href) : "";
+  const coverUrl = marker.coverUrl ? escapeHtml(marker.coverUrl) : "";
 
   return `
 <div class="lh-map-popup" style="font-family: inherit; min-width: 180px; max-width: 240px;">
+  ${coverUrl ? `<img src="${coverUrl}" alt="${title}" loading="lazy" onerror="this.style.display='none'" style="width: 100%; height: 100px; object-fit: cover; border-radius: 8px 8px 0 0; margin-bottom: 8px;" />` : ""}
   <div style="font-size: 14px; font-weight: 700; color: #111; line-height: 1.3; margin-bottom: 4px;">${title}</div>
   ${position ? `<div style="font-size: 12px; color: #555; margin-bottom: 6px;">${position}</div>` : ""}
   <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">

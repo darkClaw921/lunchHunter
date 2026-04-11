@@ -195,9 +195,9 @@
     "element": "src/components/mobile/BottomTabBar.tsx",
     "path": "src/components/mobile/BottomTabBar.tsx",
     "type": "file",
-    "content": "BottomTabBar — fixed-bottom mobile навигация по pencil lanchHunter.pen. Client component (\"use client\").\n\n**Структура:**\n- 5 табов: Поиск (/), Бизнес-ланч (/business-lunch), Карта (/map), Избранное (/favorites), Профиль (/profile)\n- Активный таб: bg-accent-light text-accent (pill-фон)\n- Неактивный: text-fg-secondary hover:text-fg-primary\n- Поддерживает safe-area-inset-bottom через env()\n\n**Логика определения активного таба:**\n- isTabActive(pathname, item) — проверяет matchPrefixes[] против pathname\n- Для \"/\" (Поиск) — строгое равенство, иначе startsWith(prefix)\n\n**Экспорты:**\n- BottomTabBar (основной компонент)\n- BottomTabBarProps { items?, className? }\n- BottomTabItem { href, label, icon, matchPrefixes? }\n- DEFAULT_TABS — readonly array по умолчанию из 5 табов\n\n**Route transitions + haptics + VT (Фаза 4):**\n1. **TransitionLink вместо Link** — каждый таб использует @/components/ui/TransitionLink. Это автоматически даёт: haptics.tap() → RouteProgress start → navigateWithViewTransition.\n2. **haptics.selection()** в onClick (через handleTabClick) — дополнительный \"переключение выбора\" хаптик, корректнее для навигационных табов чем medium impact.\n3. **active:scale-95 transition-transform duration-100** — press-эффект на каждом TransitionLink.\n4. **viewTransitionName: 'bottom-tab-indicator'** — CRITICAL: вешается ТОЛЬКО на активный таб через inline style. Браузер делает morph скользящего pill-индикатора через View Transitions API. Имя должно быть УНИКАЛЬНЫМ на всё дерево, иначе VT API падает с ошибкой дублирования.\n\n**Зависимости:**\n- next/navigation (usePathname)\n- lucide-react (Search, UtensilsCrossed, Map, Heart, User, LucideIcon)\n- @/lib/utils/cn\n- @/components/ui/TransitionLink (Фаза 2)\n- @/lib/hooks/useHaptics (Фаза 1)",
+    "content": "Fixed-bottom мобильная навигация. 6 табов: Поиск, Бизнес-ланч, Карта, Избранное, Рейтинг (Trophy → /leaderboard), Профиль. Активный таб получает pill-фон с accent-tint через viewTransitionName: bottom-tab-indicator. Экспортирует: BottomTabBar компонент, DEFAULT_TABS массив, BottomTabItem и BottomTabBarProps интерфейсы. Поддерживает safe-area-inset-bottom, haptics через useHaptics(), View Transitions API morph. Используется в (site)/layout.tsx.",
     "createdAt": "2026-04-09T15:59:58.805Z",
-    "updatedAt": "2026-04-09T15:59:58.805Z"
+    "updatedAt": "2026-04-10T16:56:22.677Z"
   },
   {
     "element": "src/app/(site)/_components/NearbyRestaurantsRow.tsx",
@@ -459,9 +459,9 @@
     "element": "next.config.ts",
     "path": "next.config.ts",
     "type": "file",
-    "content": "Конфигурация Next.js 15 с PWA через @serwist/next и production-настройками для Docker.\n\n## Основные настройки\n\n- reactStrictMode: true — React strict mode для обнаружения проблем в dev\n- output: 'standalone' — минимальный self-contained артефакт в .next/standalone для Docker-образов (server.js + только необходимые файлы из node_modules, без полного node_modules)\n- experimental.typedRoutes: true — типизированные ссылки между страницами\n- serverExternalPackages: ['better-sqlite3'] — нативный SQLite binding не должен бандлиться Next.js\n\n## outputFileTracingIncludes\n\nГарантированно включает в standalone-сборку .node бинарники нативных модулей, которые автоматический трассировщик может пропустить:\n- node_modules/better-sqlite3/**/* — SQLite native binding\n- node_modules/sharp/**/* — Image processing для /api/admin/upload\n- node_modules/@node-rs/argon2/**/* + @node-rs/argon2-*/**/* — Rust-based password hashing для auth\n\nПрименяется к глобу '/*' — все роуты.\n\n## Revision для precache\n\nОпределяется по приоритету (для инвалидации service worker precache при каждом билде):\n1. process.env.BUILD_REVISION — передаётся через Docker build arg (docker-compose.yml args.BUILD_REVISION)\n2. git rev-parse HEAD — локальные билды в git-репо\n3. randomUUID() — fallback если ни того, ни другого нет\n\nHardcoded 'v1' приводил к stale precache: после rebuild'а HTML /offline ссылался на новые чанки, а старый SW отдавал старый HTML.\n\n## withSerwistInit (PWA)\n\nОбёртка @serwist/next генерирует public/sw.js из src/app/sw.ts:\n- cacheOnNavigation: true — кеш при навигации\n- reloadOnOnline: false — не форсить reload при возврате online\n- disable: process.env.NODE_ENV === 'development' — SW отключён в dev\n- additionalPrecacheEntries: [{ url: '/offline', revision }] — precache fallback-страницы\n\n## rewrites()\n\n- /dev-sw.js → /api/dev-sw — заглушка для старых PWA-клиентов. Serwist в dev отключён, но ранее установленный SW может стучаться в /dev-sw.js. Отдаём самораспаковывающийся stub через api route (Next.js не любит точку в имени сегмента, поэтому используем rewrite).\n\n## Связи\n\n- src/app/sw.ts — swSrc для Serwist\n- public/sw.js — swDest (генерируется)\n- src/app/api/dev-sw/route.ts — stub для старых PWA-клиентов\n- Dockerfile — использует output: 'standalone' для сборки\n- docker-compose.yml — передаёт BUILD_REVISION через build args",
+    "content": "Конфиг Next.js обёрнут withSerwistInit({swSrc:'src/app/sw.ts', swDest:'public/sw.js', cacheOnNavigation:true, reloadOnOnline:false, disable: process.env.DISABLE_PWA==='1', additionalPrecacheEntries:[{url:'/offline', revision}]}). ВАЖНО: Serwist включён и в dev (не гейтится NODE_ENV), чтобы Push API физически мог подписаться — иначе navigator.serviceWorker.ready не резолвится. Отключается флагом DISABLE_PWA=1. revision для precache: BUILD_REVISION → git HEAD → randomUUID. output:'standalone' для Docker, outputFileTracingIncludes для better-sqlite3/sharp/@node-rs/argon2. rewrite /dev-sw.js → /api/dev-sw (заглушка для старых клиентов).",
     "createdAt": "2026-04-09T20:18:20.709Z",
-    "updatedAt": "2026-04-09T22:09:53.321Z"
+    "updatedAt": "2026-04-11T19:16:01.333Z"
   },
   {
     "element": "src/lib/hooks/useActiveVT.ts",
@@ -502,5 +502,325 @@
     "content": "# Docker Autonomous Production — Обновление\n\nРасширение Docker-сборки для полностью автономного развёртывания на proд-сервере, где кроме docker engine нет ничего (нет node, pnpm, tsx, git). Все шаги инициализации БД и admin-пользователя выполняются внутри контейнера.\n\n## Архитектура\n\n### Build time (docker build)\n\n1. **deps stage:** pnpm install --frozen-lockfile с .npmrc (public-hoist-pattern для native subpackages)\n2. **builder stage:**\n   - DATABASE_URL=file:./data/lunchhunter.db\n   - pnpm db:migrate — drizzle migrate + raw FTS5/R*Tree/триггеры → schema в ./data/lunchhunter.db\n   - pnpm db:seed — 6 ресторанов, меню, бизнес-ланчи, dummy admin\n   - pnpm build — Next.js standalone output (Collecting page data открывает ту же базу, busy_timeout=5000 защищает от SQLITE_BUSY)\n   - rm data/lunchhunter.db-wal data/lunchhunter.db-shm — чистка WAL-артефактов, получаем single-file template\n3. **runner stage:**\n   - Копирует .next/standalone + .next/static + public\n   - Копирует /app/data/lunchhunter.db → /app/db-template/lunchhunter.db (template)\n   - Копирует docker/entrypoint.sh + docker/admin-upsert.mjs\n   - ENTRYPOINT [/app/docker/entrypoint.sh]\n\n### Runtime (docker compose up)\n\ndocker-entrypoint.sh последовательно:\n\n1. **Проверка template:** если /app/db-template/lunchhunter.db нет — FATAL exit 1\n2. **Init DB:** если /app/data/lunchhunter.db не существует (пустой volume на первом запуске) → cp template в volume. Иначе — пропуск\n3. **Admin upsert:** node /app/docker/admin-upsert.mjs\n   - Читает ADMIN_EMAIL, ADMIN_PASSWORD из env\n   - UPSERT по email: обновляет password_hash или создаёт нового админа с UUID\n   - Пароли хешируются через @node-rs/argon2 с OWASP параметрами (идентично src/lib/auth/password.ts)\n   - Идемпотентно, выполняется каждый старт — поддерживает ротацию пароля через .env без ручных SQL\n4. **Start server:** exec node server.js (Next.js standalone)\n\n## Проблемы, которые решает эта схема\n\n### Проблема 1: SQLITE_BUSY при docker build\n\nСимптом: pnpm build падает на стадии Collecting page data:\n```\nSqliteError: database is locked\n    at 3638 (.next/server/app/api/admin/auth/logout/route.js:1:3659)\n```\n\nПричина: Collecting page data параллельно импортирует все route-модули. Каждый route через @/lib/auth/session → @/lib/db/client вызывает new Database(dbPath) + pragma journal_mode = WAL. Параллельные воркеры конфликтуют на WAL write-блокировке при первом pragma-запросе.\n\nРешение: pragma busy_timeout = 5000 в src/lib/db/client.ts. SQLite ждёт до 5с освобождения лока вместо мгновенного SQLITE_BUSY. Это стандартная best practice для WAL-режима.\n\n### Проблема 2: Чистая prod-машина без node/pnpm\n\nНа prod-сервере есть только docker engine. Нет node, pnpm, tsx, git. Значит нельзя запустить pnpm db:migrate на хосте или внутри контейнера (devDeps нужны).\n\nРешение: template-подход. Миграции + seed выполняются во время docker build (когда devDeps ещё доступны в builder stage). Результат — полная single-file SQLite база — копируется в runner stage как template. При первом запуске контейнера entrypoint.sh копирует template в volume.\n\n### Проблема 3: Admin пароль нужно менять без доступа к SQL\n\nНа prod-сервере нет sqlite3 CLI и нет способа выполнять ручные запросы. Администратор может менять только .env файл.\n\nРешение: admin-upsert.mjs выполняется каждый старт контейнера. Читает ADMIN_EMAIL/ADMIN_PASSWORD из env, хеширует через @node-rs/argon2 с теми же параметрами что и runtime auth, UPSERT в users. Если в .env обновлён пароль — при следующем docker compose up -d --force-recreate новый пароль применяется.\n\n### Проблема 4: @node-rs/argon2 не находит platform-specific subpackage\n\nСимптом: Cannot find module '@node-rs/argon2-linux-arm64-gnu'\n\nПричина: В pnpm layout платформо-специфичные subpackages лежат в .pnpm/@node-rs+argon2-linux-arm64-gnu@.../node_modules/@node-rs/argon2-linux-arm64-gnu/, а в корневой node_modules/@node-rs/ симлинк только на argon2 (родительский пакет). Next.js standalone трассировщик не видит вложенные subpackages, если они не hoisted в корень.\n\nРешение: В .npmrc добавлены public-hoist-pattern для native subpackages:\n```\npublic-hoist-pattern[]=@node-rs/argon2-*\npublic-hoist-pattern[]=@img/sharp-*\npublic-hoist-pattern[]=@img/sharp-libvips-*\n```\n\nPnpm создаёт симлинки node_modules/@node-rs/argon2-linux-arm64-gnu и т.д., и трассировщик их копирует в standalone.\n\n## Cross-architecture билды\n\nDocker build происходит на архитектуре хоста (arm64 на M-series Mac, amd64 на x86 Linux). Устанавливаются только prebuilt binaries для этой архитектуры.\n\nДля деплоя на другую архитектуру (например, билд на M1 Mac → amd64 prod сервер):\n```bash\ndocker buildx build --platform linux/amd64 -t lunchhunter:latest .\n```\n\nPnpm install внутри эмулируемого контейнера установит правильные @node-rs/argon2-linux-x64-gnu и @img/sharp-linux-x64.\n\n## Использование\n\n### Первое развёртывание на чистый сервер\n\n```bash\n# На прод-сервере (только docker engine):\ngit clone <repo> lunchhunter\ncd lunchhunter\ncp .env.example .env\n$EDITOR .env  # заполнить PORT, ADMIN_PASSWORD, OPENROUTER_API_KEY, TELEGRAM_BOT_TOKEN\n\ndocker compose up -d --build\n```\n\nПервый запуск:\n1. docker собирает образ (с установкой build-essential, pnpm install, db:migrate, db:seed, pnpm build)\n2. Контейнер стартует — entrypoint копирует template в volume\n3. Admin создаётся с паролем из .env\n4. Next.js сервер стартует на PORT из .env\n\n### Смена пароля admin\n\n```bash\n$EDITOR .env  # изменить ADMIN_PASSWORD\ndocker compose up -d --force-recreate\n```\n\nПри старте admin-upsert.mjs обновит password_hash.\n\n### Смена порта\n\n```bash\n$EDITOR .env  # изменить PORT\ndocker compose up -d --force-recreate\n```\n\n### Обновление кода (новые миграции)\n\n⚠️ На данный момент если схема изменилась между версиями, нужна ручная миграция:\n```bash\ndocker compose exec app sh -c 'cd /app && node ...'  # TODO\n```\n\nАвтоматические миграции existing-базы не реализованы (template используется только при первом запуске). Для MVP это приемлемо. В будущем можно добавить compile миграций через esbuild в builder stage и вызов их в entrypoint.sh.",
     "createdAt": "2026-04-09T23:13:55.041Z",
     "updatedAt": "2026-04-09T23:13:55.041Z"
+  },
+  {
+    "element": "src/app/(site)/_components/CategoryChips.tsx",
+    "path": "src/app/(site)/_components/CategoryChips.tsx",
+    "type": "file",
+    "content": "Клиентский компонент фильтров категорий заведений на главной странице. Принимает массив categories и activeKey. При клике навигирует на /?cat=key через useRouter. Использует Chip из UI-компонентов с haptic-feedback.",
+    "createdAt": "2026-04-10T16:03:48.255Z",
+    "updatedAt": "2026-04-10T16:03:48.255Z"
+  },
+  {
+    "element": "src/app/api/notifications/subscribe/route.ts",
+    "path": "src/app/api/notifications/subscribe/route.ts",
+    "type": "file",
+    "content": "API endpoint для управления push-подписками. POST — сохранить подписку (upsert по endpoint), DELETE — удалить подписку. Требует аутентификацию через validateSession().",
+    "createdAt": "2026-04-10T16:03:55.294Z",
+    "updatedAt": "2026-04-10T16:03:55.294Z"
+  },
+  {
+    "element": "src/app/api/notifications/send/route.ts",
+    "path": "src/app/api/notifications/send/route.ts",
+    "type": "file",
+    "content": "API endpoint отправки push-уведомлений (только admin). POST принимает title, body, url. Отправляет через web-push всем подписчикам, чистит невалидные подписки (410/404).",
+    "createdAt": "2026-04-10T16:03:55.519Z",
+    "updatedAt": "2026-04-10T16:03:55.519Z"
+  },
+  {
+    "element": "src/lib/hooks/usePushSubscription.ts",
+    "path": "src/lib/hooks/usePushSubscription.ts",
+    "type": "file",
+    "content": "React-хук Web Push подписки. Возвращает { isSupported, isSubscribed, permission, isLoading, subscribe, unsubscribe }. isSupported = window.isSecureContext && 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window (БЕЗ зависимости от env, чтобы не блокировать UI). В useEffect синхронизирует permission и текущую подписку через navigator.serviceWorker.ready + pushManager.getSubscription. subscribe(): requestPermission → fetch('/api/notifications/vapid-public-key') → pushManager.subscribe({userVisibleOnly:true, applicationServerKey:urlBase64ToUint8Array(publicKey)}) → POST /api/notifications/subscribe. unsubscribe(): pushManager.getSubscription → sub.unsubscribe() + DELETE /api/notifications/subscribe. VAPID key больше НЕ инлайнится в клиентский бандл — приходит с бэкенда через /api/notifications/vapid-public-key, благодаря чему смена ключа не требует пересборки фронта, а пустая env-переменная не ломает isSupported.",
+    "createdAt": "2026-04-10T16:03:55.736Z",
+    "updatedAt": "2026-04-11T19:15:52.345Z"
+  },
+  {
+    "element": "src/lib/db/schema.ts:reviews",
+    "path": "src/lib/db/schema.ts",
+    "type": "variable",
+    "content": "Таблица reviews — отзывы пользователей на рестораны с подтверждением чеком. Поля: id (PK), userId (FK→users, cascade), restaurantId (FK→restaurants, cascade), text, rating (1-5), receiptImageUrl, receiptTotal (nullable), receiptDate (nullable), receiptItemsJson (JSON nullable), receiptEstablishmentName (nullable), matchConfidence (real 0-1), status (pending/approved/rejected, default approved), createdAt. Индексы: reviews_restaurant_idx, reviews_user_idx, reviews_status_idx.",
+    "createdAt": "2026-04-10T16:26:01.642Z",
+    "updatedAt": "2026-04-10T16:26:01.642Z"
+  },
+  {
+    "element": "src/lib/db/schema.ts:receipts",
+    "path": "src/lib/db/schema.ts",
+    "type": "variable",
+    "content": "Таблица receipts — standalone загрузки чеков для статистики пользователей. Поля: id (PK), userId (FK→users, cascade), restaurantId (FK→restaurants, set null, nullable), imageUrl, total (nullable), date (nullable), itemsJson (JSON nullable), establishmentName (nullable), createdAt. Индекс: receipts_user_idx.",
+    "createdAt": "2026-04-10T16:26:03.560Z",
+    "updatedAt": "2026-04-10T16:26:03.560Z"
+  },
+  {
+    "element": "src/lib/db/migrations/0002_reviews_receipts.sql",
+    "path": "",
+    "type": "unknown",
+    "content": "Миграция для создания таблиц reviews и receipts. Создаёт обе таблицы с полными FK constraints (CASCADE/SET NULL), индексами для оптимизации запросов по restaurantId, userId, status.",
+    "createdAt": "2026-04-10T16:26:05.031Z",
+    "updatedAt": "2026-04-10T16:26:05.031Z"
+  },
+  {
+    "element": "src/lib/llm/receipt-ocr.ts",
+    "path": "src/lib/llm/receipt-ocr.ts",
+    "type": "file",
+    "content": "OCR чеков через Vision LLM. Реюзает prepareImageForLlm() из ocr.ts и getVisionModel() из client.ts. Экспортирует: recognizeReceipt(imageBuffer) — принимает Buffer, отправляет в LLM с Zod-схемой ReceiptOcrResultSchema, возвращает структурированный результат (establishmentName, items[], total, date, time). Также экспортирует ReceiptItemSchema и ReceiptOcrResultSchema для использования в API routes. Зависимости: ai (generateObject), zod, ./client, ./ocr.",
+    "createdAt": "2026-04-10T16:30:02.378Z",
+    "updatedAt": "2026-04-10T16:55:24.248Z"
+  },
+  {
+    "element": "src/lib/utils/fuzzy-match.ts",
+    "path": "src/lib/utils/fuzzy-match.ts",
+    "type": "file",
+    "content": "Fuzzy-match для сопоставления названий заведений. Использует Dice coefficient (bigram overlap) на нормализованных строках (lowercase, без пунктуации). Экспортирует: matchEstablishmentName(ocrName, restaurantName) — возвращает { match: boolean, confidence: number }. Порог совпадения >= 0.3. Также экспортирует diceCoefficient(a, b) для тестирования. Используется в API reviews и receipts для проверки соответствия чека ресторану.",
+    "createdAt": "2026-04-10T16:30:04.590Z",
+    "updatedAt": "2026-04-10T16:55:27.537Z"
+  },
+  {
+    "element": "src/lib/db/reviews.ts",
+    "path": "src/lib/db/reviews.ts",
+    "type": "file",
+    "content": "Server-side helpers для работы с отзывами ресторанов. Паттерн аналогичен favorites.ts. Экспортирует: createReview(data: CreateReviewData) — insert в таблицу reviews; getReviewsByRestaurant(restaurantId, limit?) — JOIN с users, только approved, DESC по createdAt; getRestaurantReviewStats(restaurantId) — возвращает { count, avgRating }. Зависимости: drizzle-orm, ./client, ./schema.",
+    "createdAt": "2026-04-10T16:35:56.565Z",
+    "updatedAt": "2026-04-10T16:55:29.937Z"
+  },
+  {
+    "element": "src/lib/db/receipt-categories.ts",
+    "path": "src/lib/db/receipt-categories.ts",
+    "type": "file",
+    "content": "Категоризация позиций чеков по keyword-словарю. Экспортирует: categorizeItem(itemName) — определяет категорию позиции (beer, wine, tips, food и т.д.) по ключевым словам; ReceiptItemCategory — тип категории; CATEGORY_LABELS — маппинг категорий на человекочитаемые названия для UI. Используется в receipts.ts для статистики и в ReceiptStats/LeaderboardTable компонентах.",
+    "createdAt": "2026-04-10T16:35:58.256Z",
+    "updatedAt": "2026-04-10T16:55:37.498Z"
+  },
+  {
+    "element": "src/lib/db/receipts.ts",
+    "path": "src/lib/db/receipts.ts",
+    "type": "file",
+    "content": "Server-side helpers для работы с чеками пользователей. CRUD, статистика, лидерборд и процентили. Экспортирует: createReceipt(data) — insert; getUserReceipts(userId) — список чеков; getUserReceiptStats(userId) — агрегация: totalSpent, visitCount, categoryBreakdown; getLeaderboard(category, limit?) — топ пользователей по категории; getUserPercentile(userId, category) — процентиль пользователя. Использует categorizeItem из receipt-categories.ts. Зависимости: drizzle-orm, ./client, ./schema, ./receipt-categories.",
+    "createdAt": "2026-04-10T16:35:59.421Z",
+    "updatedAt": "2026-04-10T16:55:32.363Z"
+  },
+  {
+    "element": "src/app/api/upload/route.ts",
+    "path": "src/app/api/upload/route.ts",
+    "type": "file",
+    "content": "API route для user-level загрузки файлов. POST — multipart upload с ресайзом через sharp (max 1600px, WebP quality 85). Требует авторизованную сессию (validateSession). Сохраняет в /public/uploads/{uuid}.webp. Копия паттерна из admin/upload/route.ts, но с пользовательской авторизацией.",
+    "createdAt": "2026-04-10T16:41:56.058Z",
+    "updatedAt": "2026-04-10T16:55:50.862Z"
+  },
+  {
+    "element": "src/app/api/reviews/route.ts",
+    "path": "src/app/api/reviews/route.ts",
+    "type": "file",
+    "content": "API route для отзывов ресторанов. POST — создание отзыва: validateSession(), multipart/form-data (file, restaurantId, text, rating 1-5), OCR чека через recognizeReceipt(), fuzzy match с confidence >= 0.3, сохранение фото через sharp в /uploads/, insert в reviews + receipts. Возвращает { id, status }. GET — список approved отзывов для ресторана (?restaurantId=N) с данными авторов. Зависимости: sharp, receipt-ocr, fuzzy-match, reviews.ts, receipts.ts.",
+    "createdAt": "2026-04-10T16:41:59.917Z",
+    "updatedAt": "2026-04-10T16:55:41.706Z"
+  },
+  {
+    "element": "src/app/api/reviews/[id]/receipt-image/route.ts",
+    "path": "src/app/api/reviews/[id]/receipt-image/route.ts",
+    "type": "file",
+    "content": "API route для просмотра фото чека отзыва. GET — только для админов (requireAdmin()). Возвращает { url } с путём к изображению чека для указанного отзыва. Используется в ReviewCard для кнопки 'Посмотреть чек'.",
+    "createdAt": "2026-04-10T16:42:01.659Z",
+    "updatedAt": "2026-04-10T16:55:43.186Z"
+  },
+  {
+    "element": "src/app/api/receipts/route.ts",
+    "path": "src/app/api/receipts/route.ts",
+    "type": "file",
+    "content": "API route для standalone загрузки чеков из профиля. POST — validateSession(), multipart/form-data (file), OCR через recognizeReceipt(), сохранение в /uploads/, insert в receipts. Не привязан к ресторану (restaurantId опционален). GET — список чеков текущего пользователя. Зависимости: sharp, receipt-ocr, receipts.ts.",
+    "createdAt": "2026-04-10T16:42:03.584Z",
+    "updatedAt": "2026-04-10T16:55:45.221Z"
+  },
+  {
+    "element": "src/app/api/receipts/stats/route.ts",
+    "path": "src/app/api/receipts/stats/route.ts",
+    "type": "file",
+    "content": "API route для статистики чеков пользователя. GET — требует авторизацию, возвращает { totalSpent, visitCount, categoryBreakdown } через getUserReceiptStats(). Используется в ReceiptStats компоненте.",
+    "createdAt": "2026-04-10T16:42:04.588Z",
+    "updatedAt": "2026-04-10T16:55:46.571Z"
+  },
+  {
+    "element": "src/app/api/leaderboard/route.ts",
+    "path": "src/app/api/leaderboard/route.ts",
+    "type": "file",
+    "content": "API route для лидерборда пользователей. GET ?category=total|beer|wine|tips — топ пользователей + процентиль текущего юзера. Возвращает { leaderboard: [...], userPercentile: number }. Валидирует категорию по VALID_CATEGORIES. Требует авторизацию. Зависимости: receipts.ts (getLeaderboard, getUserPercentile).",
+    "createdAt": "2026-04-10T16:42:05.617Z",
+    "updatedAt": "2026-04-10T16:55:48.918Z"
+  },
+  {
+    "element": "src/app/(site)/restaurant/[id]/_components/ReviewCard.tsx",
+    "path": "src/app/(site)/restaurant/[id]/_components/ReviewCard.tsx",
+    "type": "file",
+    "content": "Client component — карточка отзыва. Показывает: автор, рейтинг звёздами, текст, бейдж 'Чек подтверждён' (CheckCircle), дату и сумму из чека. Раскрываемый список позиций чека (ChevronDown/Up). Кнопка 'Посмотреть чек' (только для isAdmin) — показывает фото чека через /api/reviews/:id/receipt-image. Props: ReviewCardProps (id, authorName, authorAvatar, rating, text, receiptTotal, receiptDate, receiptItems, isAdmin).",
+    "createdAt": "2026-04-10T16:49:49.025Z",
+    "updatedAt": "2026-04-10T16:56:01.604Z"
+  },
+  {
+    "element": "src/app/(site)/profile/_components/ReceiptUpload.tsx",
+    "path": "src/app/(site)/profile/_components/ReceiptUpload.tsx",
+    "type": "file",
+    "content": "Client component — форма загрузки чека из профиля. Фото-инпут (image/*, camera capture), превью загруженного фото, POST на /api/receipts. После успешной загрузки показывает превью OCR результата: позиции, сумма, дата, заведение. Стейты: idle, loading, success, error. Используется на странице /profile/receipts.",
+    "createdAt": "2026-04-10T16:49:49.409Z",
+    "updatedAt": "2026-04-10T16:56:05.809Z"
+  },
+  {
+    "element": "src/app/(site)/restaurant/[id]/_components/ReviewForm.tsx",
+    "path": "src/app/(site)/restaurant/[id]/_components/ReviewForm.tsx",
+    "type": "file",
+    "content": "Client component — форма создания отзыва с загрузкой фото чека. Фото-инпут (accept=image/*, capture=environment), интерактивный звёздный рейтинг (1-5), textarea для текста. POST на /api/reviews с multipart/form-data. Стейты: idle, loading, success, error. Props: restaurantId, onSuccess callback.",
+    "createdAt": "2026-04-10T16:49:52.526Z",
+    "updatedAt": "2026-04-10T16:56:03.874Z"
+  },
+  {
+    "element": "src/app/(site)/profile/_components/ReceiptStats.tsx",
+    "path": "src/app/(site)/profile/_components/ReceiptStats.tsx",
+    "type": "file",
+    "content": "Client component — мини-статистика чеков пользователя. Fetch /api/receipts/stats. Показывает: totalSpent (Wallet icon), visitCount (MapPin), categoryBreakdown (TrendingUp). Props: compact? — компактный режим для встраивания в профиль. Использует CATEGORY_LABELS из receipt-categories.ts для отображения категорий.",
+    "createdAt": "2026-04-10T16:49:53.196Z",
+    "updatedAt": "2026-04-10T16:56:08.229Z"
+  },
+  {
+    "element": "src/app/(site)/restaurant/[id]/_components/ReviewSection.tsx",
+    "path": "src/app/(site)/restaurant/[id]/_components/ReviewSection.tsx",
+    "type": "file",
+    "content": "Client component — секция отзывов на странице ресторана. Показывает заголовок со статистикой (средний рейтинг, кол-во), список ReviewCard, кнопку 'Оставить отзыв' и ReviewForm. Props: reviews[], reviewStats, restaurantId, isAdmin, isAuthenticated. Используется в DesktopRestaurantDetail и мобильном layout страницы ресторана.",
+    "createdAt": "2026-04-10T16:49:54.813Z",
+    "updatedAt": "2026-04-10T16:55:57.489Z"
+  },
+  {
+    "element": "src/app/(site)/leaderboard/page.tsx",
+    "path": "src/app/(site)/leaderboard/page.tsx",
+    "type": "file",
+    "content": "Server component — страница лидерборда /leaderboard. Проверяет авторизацию (validateSession). Гости видят CTA на вход с Trophy иконкой. Авторизованные — LeaderboardTable. Header с кнопкой назад (→ /profile). Зависимости: validateSession, LeaderboardTable.",
+    "createdAt": "2026-04-10T16:49:55.670Z",
+    "updatedAt": "2026-04-10T16:56:13.398Z"
+  },
+  {
+    "element": "src/app/(site)/leaderboard/_components/LeaderboardTable.tsx",
+    "path": "src/app/(site)/leaderboard/_components/LeaderboardTable.tsx",
+    "type": "file",
+    "content": "Client component — таблица лидерборда с табами категорий. Fetch /api/leaderboard?category=X. Табы: total, beer, wine, tips и другие из CATEGORY_LABELS. Таблица рангов: позиция (Crown/Medal/Trophy иконки для топ-3), аватар, имя, сумма. Внизу — процентиль текущего пользователя. Зависимости: lucide-react, formatPrice, CATEGORY_LABELS.",
+    "createdAt": "2026-04-10T16:49:57.711Z",
+    "updatedAt": "2026-04-10T16:56:10.987Z"
+  },
+  {
+    "element": "src/app/(site)/profile/receipts/page.tsx",
+    "path": "src/app/(site)/profile/receipts/page.tsx",
+    "type": "file",
+    "content": "Страница списка чеков пользователя /profile/receipts. Показывает загруженные чеки и кнопку загрузки нового. Использует ReceiptUpload для формы загрузки. Header с кнопкой назад (→ /profile).",
+    "createdAt": "2026-04-10T16:49:59.241Z",
+    "updatedAt": "2026-04-10T16:56:14.510Z"
+  },
+  {
+    "element": "src/components/desktop/DesktopInstallCard.tsx",
+    "path": "src/components/desktop/DesktopInstallCard.tsx",
+    "type": "file",
+    "content": "DesktopInstallCard — плавающая карточка установки PWA для desktop (≥md). Client component.\n\n## Назначение\nОтображает предложение установить приложение на десктопе во всех поддерживаемых браузерах. Mobile-эквивалент — PWAInstallBanner.\n\n## Поведение по браузерам\n- **Chromium / Edge / Brave (desktop)**: подписка на beforeinstallprompt через общий хук useBeforeInstallPrompt. По клику на 'Установить' вызывается нативный promptInstall() (программный install API).\n- **Safari macOS Sonoma+ / Safari 17+**: программного API нет, beforeinstallprompt не фаерится. Детектим через UA (Safari + Mac + !iOS) и показываем инструкцию 'File → Add to Dock'. Единственная кнопка — 'Понятно' (dismiss).\n- **Firefox / прочие**: рендерим null.\n- **Если display-mode: standalone** (приложение уже установлено) — null.\n- **Если пользователь закрывал ранее** (localStorage lh:pwa-install-dismissed-desktop) — null.\n\n## Детект Safari desktop\ndetectSafariDesktop(): /Safari/.test(ua) && !/Chrome|Chromium|CriOS|FxiOS|Edg|OPR/.test(ua) && /Macintosh|Mac OS X/.test(ua) && !/iPad|iPhone|iPod/.test(ua).\n\n## Стиль\nФикс-позиция bottom-6 right-6, 360px ширина, surface-primary фон, accent-light иконка Download, accent-кнопка. hidden md:flex — скрывается на мобильных.\n\n## Зависимости\n- @/components/mobile/useBeforeInstallPrompt (общий хук — ловит beforeinstallprompt)\n- lucide-react (Download, X)\n- @/lib/utils/cn\n\n## Используется в\n- src/app/(site)/page.tsx — рядом с PWAInstallBanner, на главной странице.",
+    "createdAt": "2026-04-11T18:27:43.296Z",
+    "updatedAt": "2026-04-11T18:35:15.039Z"
+  },
+  {
+    "element": "src/app/sw.ts",
+    "path": "src/app/sw.ts",
+    "type": "file",
+    "content": "Service worker (Serwist). Precache shell + /offline via self.__SW_MANIFEST, runtimeCaching=defaultCache из @serwist/next/worker, document-fallback на /offline. Push handler парсит event.data.json() как PushPayload={title,body,icon?,url?,data?} (фолбэк text()), вызывает showNotification с icon=/icons/icon-192.png, badge=/icons/icon-192.png и data.url. notificationclick ищет существующее окно через clients.matchAll, вызывает client.navigate(url)+focus() либо clients.openWindow. message handler отвечает на {type:'SKIP_WAITING'} → self.skipWaiting(). skipWaiting/clientsClaim/navigationPreload включены. Структурно повторяет sw.ts из cliongo.",
+    "createdAt": "2026-04-11T18:28:04.829Z",
+    "updatedAt": "2026-04-11T18:54:40.487Z"
+  },
+  {
+    "element": "src/components/desktop/DesktopInstallButton.tsx",
+    "path": "src/components/desktop/DesktopInstallButton.tsx",
+    "type": "file",
+    "content": "DesktopInstallButton — client-компонент с кнопкой 'Установить приложение' для desktop PWA.\n\n## Что делает\n\nРендерит оранжевую кнопку с иконкой Download, по клику вызывает нативный install-диалог Chrome/Edge через deferredPrompt.prompt(). Использует общий хук useBeforeInstallPrompt из src/components/mobile/useBeforeInstallPrompt.ts — событие beforeinstallprompt глобальное, поэтому один и тот же хук работает и для мобильного баннера, и для этой кнопки.\n\n## Поведение\n\n- Не рендерится, пока не произошла гидратация (избегаем hydration mismatch).\n- Не рендерится, если приложение уже запущено в standalone-режиме (isStandalone).\n- Не рендерится, если пользователь закрыл prompt и мы записали 'lh:pwa-install-dismissed-desktop' = 1 в localStorage.\n- Не рендерится, если браузер не выстрелил beforeinstallprompt (Safari, Firefox) — тогда !canInstall.\n- На клике вызывает promptInstall(), если outcome === 'dismissed' — сохраняем флаг в localStorage и скрываем кнопку до сброса.\n\n## CSS\n\nhidden md:inline-flex — скрыта на мобильных (там работает PWAInstallBanner), видна на md+. Оранжевый фон #FF5C00 под бренд.\n\n## Размещение\n\nВставлен в src/app/(site)/_components/DesktopHome.tsx внутри hero-секции, под SearchHomeForm.\n\n## Зависимости\n\n- @/components/mobile/useBeforeInstallPrompt — хук с deferredPrompt\n- @/lib/utils/cn — утилита classnames\n- lucide-react (Download)",
+    "createdAt": "2026-04-11T18:43:52.647Z",
+    "updatedAt": "2026-04-11T18:43:52.647Z"
+  },
+  {
+    "element": "src/app/(site)/profile/_components/ProfileNotificationsToggle.tsx",
+    "path": "src/app/(site)/profile/_components/ProfileNotificationsToggle.tsx",
+    "type": "file",
+    "content": "Client toggle для push-уведомлений в профиле. Использует usePushSubscription(). Кнопка-свитч (role='switch', aria-checked=isSubscribed) вызывает subscribe/unsubscribe. disabled когда !isSupported || isLoading || permission==='denied'. Рендерит подсказку 'Браузер не поддерживает' при !isSupported и 'Заблокировано в браузере' при isDenied. Размер 11/6.",
+    "createdAt": "2026-04-11T18:54:49.538Z",
+    "updatedAt": "2026-04-11T18:54:49.538Z"
+  },
+  {
+    "element": "pwa-install-strategy",
+    "path": "",
+    "type": "page",
+    "content": "Стратегия PWA install prompt в lunchHunter: НЕ используем custom install banner. Полагаемся на нативный UI браузера:\n\n- Desktop Chromium: иконка установки в адресной строке появляется автоматически когда manifest + SW удовлетворяют install-критериям (name/short_name, icons 192+512, start_url, display=standalone, SW с fetch handler). Никаких preventDefault() на beforeinstallprompt — любое подавление mini-infobar может скрыть и desktop-prompt в некоторых браузерах.\n- Android Chrome: встроенный add-to-home-screen mini-infobar.\n- iOS Safari: beforeinstallprompt никогда не фаерится — iOS требует Share → Add to Home Screen вручную, никакой программной альтернативы нет.\n\nВажно: Serwist отключён в dev (next.config.ts: disable на NODE_ENV==='development'), поэтому install prompt в dev никогда не появится. Тестировать только через next build && next start или Docker.\n\nРаньше были src/components/mobile/PWAInstallBanner.tsx и useBeforeInstallPrompt.ts — удалены, т.к. banner висел с md:hidden и на desktop никогда не показывался, а вызов preventDefault() на beforeinstallprompt мог мешать нативному UI. Подход скопирован с cliongo (frontend/users), где install прекрасно работает через встроенный браузерный UI без кастомного компонента.",
+    "createdAt": "2026-04-11T18:55:01.577Z",
+    "updatedAt": "2026-04-11T18:55:01.577Z"
+  },
+  {
+    "element": "src/app/api/notifications/vapid-public-key/route.ts",
+    "path": "src/app/api/notifications/vapid-public-key/route.ts",
+    "type": "file",
+    "content": "GET /api/notifications/vapid-public-key. Возвращает { publicKey: string } — VAPID public key для подписки на push-уведомления. Источник: process.env.VAPID_PUBLIC_KEY || process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY. Если ключ не задан — 500 с {error:'VAPID public key not configured'}. Используется usePushSubscription.subscribe() в момент запроса подписки, чтобы не инлайнить ключ в клиентский бандл и менять его без пересборки фронта.",
+    "createdAt": "2026-04-11T19:15:55.062Z",
+    "updatedAt": "2026-04-11T19:15:55.062Z"
+  },
+  {
+    "element": "src/app/api/auth/register/route.ts",
+    "path": "src/app/api/auth/register/route.ts",
+    "type": "file",
+    "content": "POST /api/auth/register. Принимает {email, password, name} (zod: email, min 6, 1-64). Нормализует email (trim+lowercase), проверяет уникальность по users.email (409 если занят), хэширует пароль argon2id через hashPassword, инсертит users с id=randomUUID, role='user', name.trim(). После инсерта createSession + setSessionCookie. Успех: {ok:true}.",
+    "createdAt": "2026-04-11T19:26:49.548Z",
+    "updatedAt": "2026-04-11T19:26:49.548Z"
+  },
+  {
+    "element": "src/app/api/auth/login/route.ts",
+    "path": "src/app/api/auth/login/route.ts",
+    "type": "file",
+    "content": "POST /api/auth/login. End-user login по email+password (в отличие от /api/admin/auth/login не ограничивает role). Zod валидация, lookup по users.email (нормализация trim+lowercase), verifyPassword argon2, createSession + setSessionCookie. 401 при несовпадении.",
+    "createdAt": "2026-04-11T19:26:52.199Z",
+    "updatedAt": "2026-04-11T19:26:52.199Z"
+  },
+  {
+    "element": "src/app/api/auth/logout/route.ts",
+    "path": "src/app/api/auth/logout/route.ts",
+    "type": "file",
+    "content": "POST /api/auth/logout. Читает SESSION_COOKIE_NAME, удаляет сессию через deleteSession (если есть), очищает cookie через clearSessionCookie. Всегда {ok:true}.",
+    "createdAt": "2026-04-11T19:26:53.700Z",
+    "updatedAt": "2026-04-11T19:26:53.700Z"
+  },
+  {
+    "element": "src/app/(site)/login/page.tsx",
+    "path": "src/app/(site)/login/page.tsx",
+    "type": "file",
+    "content": "Страница /login — server component. validateSession: если уже авторизован → redirect /profile. Рендерит LoginForm внутри Suspense (useSearchParams требует границу). Брендированный layout: лого LH + карточка с формой. dynamic='force-dynamic'.",
+    "createdAt": "2026-04-11T19:26:56.177Z",
+    "updatedAt": "2026-04-11T19:26:56.177Z"
+  },
+  {
+    "element": "src/app/(site)/register/page.tsx",
+    "path": "src/app/(site)/register/page.tsx",
+    "type": "file",
+    "content": "Страница /register — server component. validateSession → redirect /profile если авторизован. Рендерит RegisterForm в брендированной карточке. dynamic='force-dynamic'.",
+    "createdAt": "2026-04-11T19:26:57.519Z",
+    "updatedAt": "2026-04-11T19:26:57.519Z"
+  },
+  {
+    "element": "src/app/(site)/login/_components/LoginForm.tsx",
+    "path": "src/app/(site)/login/_components/LoginForm.tsx",
+    "type": "file",
+    "content": "Client-форма /login. React Hook Form + zod ({email, password:min6}). POST /api/auth/login; при успехе router.replace(redirectTo из ?redirect) + router.refresh(). Серверные ошибки в alert. Ссылка на /register.",
+    "createdAt": "2026-04-11T19:27:00.205Z",
+    "updatedAt": "2026-04-11T19:27:00.205Z"
+  },
+  {
+    "element": "src/app/(site)/register/_components/RegisterForm.tsx",
+    "path": "src/app/(site)/register/_components/RegisterForm.tsx",
+    "type": "file",
+    "content": "Client-форма /register. React Hook Form + zod ({name:1-64, email, password:min6}). POST /api/auth/register; при успехе router.replace('/profile') + router.refresh(). Серверные ошибки в alert (в т.ч. 409 'email занят'). Ссылка на /login.",
+    "createdAt": "2026-04-11T19:27:03.184Z",
+    "updatedAt": "2026-04-11T19:27:03.184Z"
+  },
+  {
+    "element": "src/app/(site)/profile/_components/LogoutButton.tsx",
+    "path": "src/app/(site)/profile/_components/LogoutButton.tsx",
+    "type": "file",
+    "content": "Client-кнопка 'Выйти' в /profile. POST /api/auth/logout → router.replace('/') + router.refresh(). disabled во время запроса, иконка LogOut из lucide, стиль с бордером и text-error.",
+    "createdAt": "2026-04-11T19:27:03.785Z",
+    "updatedAt": "2026-04-11T19:27:03.785Z"
   }
 ]

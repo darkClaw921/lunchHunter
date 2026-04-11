@@ -246,12 +246,99 @@ export const searchHistory = sqliteTable(
 );
 
 /* ============================================================
+   Push subscriptions (Web Push / VAPID)
+   ============================================================ */
+export const pushSubscriptions = sqliteTable(
+  "push_subscriptions",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    endpoint: text("endpoint").notNull(),
+    keysJson: text("keys_json").notNull(),
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .notNull()
+      .default(sql`(unixepoch())`),
+  },
+  (t) => [
+    uniqueIndex("push_subscriptions_endpoint_uq").on(t.endpoint),
+    index("push_subscriptions_user_idx").on(t.userId),
+  ],
+);
+
+/* ============================================================
+   Reviews
+   ============================================================ */
+export const reviews = sqliteTable(
+  "reviews",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    restaurantId: integer("restaurant_id")
+      .notNull()
+      .references(() => restaurants.id, { onDelete: "cascade" }),
+    text: text("text").notNull(),
+    rating: integer("rating").notNull(),
+    receiptImageUrl: text("receipt_image_url").notNull(),
+    receiptTotal: integer("receipt_total"),
+    receiptDate: text("receipt_date"),
+    receiptItemsJson: text("receipt_items_json"),
+    receiptEstablishmentName: text("receipt_establishment_name"),
+    matchConfidence: real("match_confidence"),
+    status: text("status", {
+      enum: ["pending", "approved", "rejected"],
+    })
+      .notNull()
+      .default("approved"),
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .notNull()
+      .default(sql`(unixepoch())`),
+  },
+  (t) => [
+    index("reviews_restaurant_idx").on(t.restaurantId),
+    index("reviews_user_idx").on(t.userId),
+    index("reviews_status_idx").on(t.status),
+  ],
+);
+
+/* ============================================================
+   Receipts (standalone uploads for statistics)
+   ============================================================ */
+export const receipts = sqliteTable(
+  "receipts",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    restaurantId: integer("restaurant_id").references(() => restaurants.id, {
+      onDelete: "set null",
+    }),
+    imageUrl: text("image_url").notNull(),
+    total: integer("total"),
+    date: text("date"),
+    itemsJson: text("items_json"),
+    establishmentName: text("establishment_name"),
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .notNull()
+      .default(sql`(unixepoch())`),
+  },
+  (t) => [index("receipts_user_idx").on(t.userId)],
+);
+
+/* ============================================================
    Relations
    ============================================================ */
 export const usersRelations = relations(users, ({ many }) => ({
   sessions: many(sessions),
   favorites: many(favorites),
   searchHistory: many(searchHistory),
+  pushSubscriptions: many(pushSubscriptions),
+  reviews: many(reviews),
+  receipts: many(receipts),
 }));
 
 
@@ -268,6 +355,7 @@ export const restaurantsRelations = relations(restaurants, ({ many }) => ({
   menuCategories: many(menuCategories),
   menuItems: many(menuItems),
   businessLunches: many(businessLunches),
+  reviews: many(reviews),
 }));
 
 export const restaurantPhotosRelations = relations(
@@ -334,5 +422,37 @@ export const searchHistoryRelations = relations(searchHistory, ({ one }) => ({
   user: one(users, {
     fields: [searchHistory.userId],
     references: [users.id],
+  }),
+}));
+
+export const pushSubscriptionsRelations = relations(
+  pushSubscriptions,
+  ({ one }) => ({
+    user: one(users, {
+      fields: [pushSubscriptions.userId],
+      references: [users.id],
+    }),
+  }),
+);
+
+export const reviewsRelations = relations(reviews, ({ one }) => ({
+  user: one(users, {
+    fields: [reviews.userId],
+    references: [users.id],
+  }),
+  restaurant: one(restaurants, {
+    fields: [reviews.restaurantId],
+    references: [restaurants.id],
+  }),
+}));
+
+export const receiptsRelations = relations(receipts, ({ one }) => ({
+  user: one(users, {
+    fields: [receipts.userId],
+    references: [users.id],
+  }),
+  restaurant: one(restaurants, {
+    fields: [receipts.restaurantId],
+    references: [restaurants.id],
   }),
 }));

@@ -3,10 +3,20 @@ import { BottomTabBar } from "@/components/mobile/BottomTabBar";
 import { TelegramWebAppBootstrap } from "@/components/mobile/TelegramWebAppBootstrap";
 import { TopNav } from "@/components/desktop/TopNav";
 import { RouteProgress } from "@/components/ui/RouteProgress";
+import { validateSession } from "@/lib/auth/session";
 
 export const metadata: Metadata = {
   title: "lancHunter — поиск бизнес-ланчей рядом",
 };
+
+function computeInitials(name: string | null, email: string | null): string | null {
+  const source = name?.trim() || email?.trim() || "";
+  if (!source) return null;
+  const parts = source.split(/[\s@]+/).filter(Boolean);
+  if (parts.length === 0) return null;
+  if (parts.length === 1) return (parts[0] ?? "").slice(0, 2).toUpperCase();
+  return `${(parts[0] ?? "").charAt(0)}${(parts[1] ?? "").charAt(0)}`.toUpperCase();
+}
 
 /**
  * (site) layout — адаптивный shell для публичного клиентского приложения.
@@ -24,11 +34,16 @@ export const metadata: Metadata = {
  * `children` через nested wrapper-div'ы с `md:hidden` — на desktop они
  * схлопываются (display:none), не мешая полноширинному layout.
  */
-export default function SiteLayout({
+export default async function SiteLayout({
   children,
 }: {
   children: React.ReactNode;
-}): React.JSX.Element {
+}): Promise<React.JSX.Element> {
+  const session = await validateSession();
+  const userInitials = session
+    ? computeInitials(session.user.name, session.user.email)
+    : null;
+
   return (
     <div className="min-h-screen">
       {/* Глобальный прогресс-бар переходов: рендерится в DOM всегда,
@@ -43,7 +58,7 @@ export default function SiteLayout({
       <TelegramWebAppBootstrap />
 
       {/* Desktop TopNav (hidden <md via TopNav's own md:flex) */}
-      <TopNav />
+      <TopNav userInitials={userInitials} />
 
       {/* Wrapper: mobile центрирует 430px колонку на тёплом фоне,
           desktop — прозрачный (body bg-[page-bg] виден насквозь) */}

@@ -4,7 +4,7 @@
  * Все функции выполняются в server-runtime (Next.js App Router) и возвращают
  * сериализуемые DTO. Используются страницами `(site)/*`.
  */
-import { asc, desc, eq, sql } from "drizzle-orm";
+import { and, asc, desc, eq, sql } from "drizzle-orm";
 import { db, sqlite } from "./client";
 import {
   restaurants,
@@ -49,13 +49,18 @@ export async function getNearbyRestaurants(
     userLat?: number;
     userLng?: number;
     limit?: number;
+    category?: string | null;
   } = {},
 ): Promise<NearbyRestaurant[]> {
   const limit = params.limit ?? 10;
+  const conditions = [eq(restaurants.status, "published")];
+  if (params.category) {
+    conditions.push(eq(restaurants.category, params.category));
+  }
   const rows = await db
     .select()
     .from(restaurants)
-    .where(eq(restaurants.status, "published"))
+    .where(and(...conditions))
     .orderBy(desc(restaurants.rating))
     .limit(limit);
 

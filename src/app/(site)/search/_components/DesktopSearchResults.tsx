@@ -197,6 +197,7 @@ export function DesktopSearchResults({
         price: r.price,
         distanceMeters: r.distanceMeters,
         href: `/restaurant/${r.restaurantSlug}?q=${encodeURIComponent(query)}`,
+        coverUrl: r.restaurantCoverUrl,
       })),
     [filteredResults, query],
   );

@@ -17,6 +17,11 @@ import { RestaurantMapModal } from "./_components/RestaurantMapModal";
 import { FavoriteButton } from "@/components/ui/FavoriteButton";
 import { validateSession } from "@/lib/auth/session";
 import { getFavoritedIds, isFavorited } from "@/lib/db/favorites";
+import {
+  getReviewsByRestaurant,
+  getRestaurantReviewStats,
+} from "@/lib/db/reviews";
+import { ReviewSection } from "./_components/ReviewSection";
 
 export const dynamic = "force-dynamic";
 
@@ -102,6 +107,26 @@ export default async function RestaurantDetailPage({
     : new Set<number>();
   const favoritedMenuItemIdsArr = Array.from(favoritedMenuItemIds);
 
+  // Fetch reviews
+  const [reviewRows, reviewStats] = await Promise.all([
+    getReviewsByRestaurant(restaurant.id),
+    getRestaurantReviewStats(restaurant.id),
+  ]);
+  const isAdmin = session?.user.role === "admin";
+
+  // Serialize reviews for client components (Date → ISO string)
+  const reviews = reviewRows.map((r) => ({
+    id: r.id,
+    authorName: r.authorName,
+    authorAvatarUrl: r.authorAvatarUrl,
+    rating: r.rating,
+    text: r.text,
+    receiptTotal: r.receiptTotal,
+    receiptDate: r.receiptDate,
+    receiptItemsJson: r.receiptItemsJson,
+    createdAt: r.createdAt.toISOString(),
+  }));
+
   // Parse hours_json → формат "HH:MM — HH:MM" (first available day) или fallback.
   const hoursLabel = ((): string => {
     if (!restaurant.hoursJson) return "—";
@@ -145,6 +170,9 @@ export default async function RestaurantDetailPage({
         restaurantFavorited={restaurantFavorited}
         favoritedMenuItemIds={favoritedMenuItemIdsArr}
         isAuthenticated={isAuthenticated}
+        reviews={reviews}
+        reviewStats={reviewStats}
+        isAdmin={isAdmin}
         className="hidden md:flex"
       />
       <div className="flex flex-col md:hidden">
@@ -210,7 +238,9 @@ export default async function RestaurantDetailPage({
           <span className="text-[13px] font-medium ml-1 text-fg-primary">
             {formatRating(restaurant.rating)}
           </span>
-          <span className="text-[12px] text-fg-muted">(128 отзывов)</span>
+          <span className="text-[12px] text-fg-muted">
+            ({reviewStats.count} {reviewStats.count === 1 ? "отзыв" : reviewStats.count >= 2 && reviewStats.count <= 4 ? "отзыва" : "отзывов"})
+          </span>
         </div>
         <div className="mt-2 flex items-center gap-1 text-[13px] text-fg-secondary">
           <MapPin className="h-4 w-4 text-accent" aria-hidden="true" />
@@ -246,6 +276,17 @@ export default async function RestaurantDetailPage({
           initialFavorited={restaurantFavorited}
           isAuthenticated={isAuthenticated}
           variant="button"
+        />
+      </div>
+
+      {/* Reviews */}
+      <div className="px-5 mb-6">
+        <ReviewSection
+          reviews={reviews}
+          reviewStats={reviewStats}
+          restaurantId={restaurant.id}
+          isAdmin={isAdmin}
+          isAuthenticated={isAuthenticated}
         />
       </div>
       </div>

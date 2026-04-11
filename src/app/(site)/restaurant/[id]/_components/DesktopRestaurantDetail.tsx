@@ -1,6 +1,7 @@
 import { MapPin, Clock3, Phone, Star } from "lucide-react";
 import { RestaurantMenu, type MenuCategory } from "./RestaurantMenu";
 import { BackButton } from "./BackButton";
+import { ReviewSection, type ReviewSectionProps } from "./ReviewSection";
 import { formatRating } from "@/lib/utils/format";
 import { cn } from "@/lib/utils/cn";
 import { MapView, type MapMarker } from "@/components/map/MapView";
@@ -23,32 +24,11 @@ export interface DesktopRestaurantDetailProps {
   restaurantFavorited: boolean;
   favoritedMenuItemIds: number[];
   isAuthenticated: boolean;
+  reviews: ReviewSectionProps["reviews"];
+  reviewStats: ReviewSectionProps["reviewStats"];
+  isAdmin: boolean;
   className?: string;
 }
-
-interface Review {
-  author: string;
-  rating: number;
-  text: string;
-}
-
-const DEMO_REVIEWS: readonly Review[] = [
-  {
-    author: "Анна К.",
-    rating: 5,
-    text: "Отличное место! Пиво всегда свежее, кухня на высоте. Рекомендую всем словно с чистотой.",
-  },
-  {
-    author: "Дмитрий М.",
-    rating: 4,
-    text: "Хороший выбор крафтового пива. Немного шумно по вечерам, но атмосфера уютная.",
-  },
-  {
-    author: "Елена В.",
-    rating: 5,
-    text: "Бизнес-ланч отменный: сытно, быстро и вкусно. Официанты внимательные, обязательно вернусь.",
-  },
-];
 
 /**
  * Desktop — Restaurant Detail (frame Yi1h9 в lanchHunter.pen).
@@ -80,6 +60,9 @@ export function DesktopRestaurantDetail({
   restaurantFavorited,
   favoritedMenuItemIds,
   isAuthenticated,
+  reviews,
+  reviewStats,
+  isAdmin,
   className,
 }: DesktopRestaurantDetailProps): React.JSX.Element {
   const miniMapMarkers: MapMarker[] = [
@@ -203,41 +186,13 @@ export function DesktopRestaurantDetail({
             <p className="text-[13px] text-fg-secondary">{address}</p>
           </section>
 
-          <section className="flex flex-col gap-3">
-            <h3 className="text-[16px] font-semibold text-fg-primary">
-              Отзывы
-            </h3>
-            {DEMO_REVIEWS.map((r, idx) => (
-              <div
-                key={idx}
-                className="flex flex-col gap-2 rounded-2xl bg-surface-secondary p-4"
-              >
-                <div className="flex items-center gap-2">
-                  <span className="h-8 w-8 rounded-full bg-accent grid place-items-center text-white text-[12px] font-semibold">
-                    {r.author.split(" ").map((w) => w[0]).join("").slice(0, 2)}
-                  </span>
-                  <span className="text-[13px] font-semibold text-fg-primary">
-                    {r.author}
-                  </span>
-                  <div className="flex items-center gap-0.5 text-amber-400 ml-auto">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star
-                        key={i}
-                        className={cn(
-                          "h-3 w-3",
-                          i < r.rating ? "fill-current" : "",
-                        )}
-                        aria-hidden="true"
-                      />
-                    ))}
-                  </div>
-                </div>
-                <p className="text-[12px] text-fg-secondary leading-relaxed">
-                  {r.text}
-                </p>
-              </div>
-            ))}
-          </section>
+          <ReviewSection
+            reviews={reviews}
+            reviewStats={reviewStats}
+            restaurantId={restaurantId}
+            isAdmin={isAdmin}
+            isAuthenticated={isAuthenticated}
+          />
         </aside>
       </div>
     </div>

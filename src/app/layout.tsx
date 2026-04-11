@@ -1,9 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { ServiceWorkerCleanup } from "@/components/ServiceWorkerCleanup";
 import "./globals.css";
-
-const IS_DEV = process.env.NODE_ENV === "development";
 
 const geistSans = Geist({
   subsets: ["latin", "latin-ext"],
@@ -54,7 +51,6 @@ export default function RootLayout({
   return (
     <html lang="ru" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body className="min-h-screen text-fg-primary font-sans antialiased">
-        {IS_DEV ? <ServiceWorkerCleanup /> : null}
         {children}
       </body>
     </html>

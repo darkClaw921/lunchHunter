@@ -18,7 +18,10 @@ const withSerwist = withSerwistInit({
   swDest: "public/sw.js",
   cacheOnNavigation: true,
   reloadOnOnline: false,
-  disable: process.env.NODE_ENV === "development",
+  // Serwist включён и в dev, чтобы Push API работал локально. Отключить можно
+  // переменной окружения DISABLE_PWA=1 (например, если SW от прошлой сессии
+  // раздаёт stale-чанки).
+  disable: process.env.DISABLE_PWA === "1",
   additionalPrecacheEntries: [{ url: "/offline", revision }],
 });
 
@@ -48,6 +51,25 @@ const nextConfig: NextConfig = {
       "node_modules/@node-rs/**/*",
       "node_modules/@img/**/*",
     ],
+  },
+  // В dev Serwist перегенерирует public/sw.js на каждый rebuild; Next.js
+  // watcher видит это и запускает повторную компиляцию → бесконечный лупу.
+  // Явно игнорируем генерируемые SW-файлы в watchOptions.
+  webpack: (config) => {
+    const ignored = [
+      "**/node_modules/**",
+      "**/.git/**",
+      "**/.next/**",
+      "**/public/sw.js",
+      "**/public/sw.js.map",
+      "**/public/swe-worker-*.js",
+      "**/public/workbox-*.js",
+    ];
+    config.watchOptions = {
+      ...(config.watchOptions ?? {}),
+      ignored,
+    };
+    return config;
   },
   async rewrites() {
     return [

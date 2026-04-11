@@ -8,6 +8,20 @@
       "when": 1775668571824,
       "tag": "0000_nervous_mad_thinker",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1775700000000,
+      "tag": "0001_push_subscriptions",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1775900000000,
+      "tag": "0002_reviews_receipts",
+      "breakpoints": true
     }
   ]
 }

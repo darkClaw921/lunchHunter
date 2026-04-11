@@ -10,9 +10,11 @@
 #   5. Запускает `next dev` на порту ${PORT:-3000}
 #
 # Использование:
-#   ./scripts/dev.sh              # обычный запуск
+#   ./scripts/dev.sh              # обычный запуск (http://localhost)
 #   ./scripts/dev.sh --seed       # принудительный re-seed
 #   ./scripts/dev.sh --fresh      # удалить БД и пересоздать с нуля
+#   ./scripts/dev.sh --https      # HTTPS через --experimental-https
+#                                 #   (нужно для PWA/Push API на телефоне по LAN)
 #   PORT=4000 ./scripts/dev.sh    # кастомный порт
 
 set -euo pipefail
@@ -36,12 +38,14 @@ ok()    { printf "${GREEN}[dev]${NC} %s\n" "$*"; }
 # Парсинг флагов
 FORCE_SEED=0
 FRESH_DB=0
+USE_HTTPS=0
 for arg in "$@"; do
   case "$arg" in
     --seed)  FORCE_SEED=1 ;;
     --fresh) FRESH_DB=1; FORCE_SEED=1 ;;
+    --https) USE_HTTPS=1 ;;
     -h|--help)
-      sed -n '2,20p' "$0"
+      sed -n '2,22p' "$0"
       exit 0
       ;;
     *) warn "Неизвестный флаг: $arg (игнорирую)" ;;
@@ -109,12 +113,27 @@ else
 fi
 
 # 5. Запуск dev-сервера
-PORT="${PORT:-3000}"
-ok "Next.js dev-сервер запускается на http://localhost:${PORT}"
-echo
-info "Админка: http://localhost:${PORT}/admin/login"
-info "Mobile view: DevTools → Toggle device toolbar → iPhone 14 Pro"
-info "Telegram WebApp: http://localhost:${PORT}/tg (требует запуск через Telegram BotFather)"
-echo
+PORT="${PORT:-3002}"
 
-exec pnpm dev --port "${PORT}"
+if [ "$USE_HTTPS" = "1" ]; then
+  SCHEME="https"
+  ok "Next.js dev-сервер (HTTPS) запускается на https://localhost:${PORT}"
+  warn "При первом запуске браузер покажет предупреждение о самоподписанном сертификате — прими его."
+  warn "Для доступа с телефона по LAN открой https://<LAN-IP>:${PORT} и прими серт."
+  echo
+  info "Админка:  https://localhost:${PORT}/admin/login"
+  info "Mobile:   DevTools → Toggle device toolbar → iPhone 14 Pro"
+  info "Telegram: https://localhost:${PORT}/tg"
+  echo
+  exec pnpm dev --experimental-https --port "${PORT}"
+else
+  ok "Next.js dev-сервер запускается на http://localhost:${PORT}"
+  warn "Push API / Notification API работают ТОЛЬКО на localhost или https://."
+  warn "Для тестов PWA с телефона по LAN запусти: ./scripts/dev.sh --https"
+  echo
+  info "Админка:  http://localhost:${PORT}/admin/login"
+  info "Mobile:   DevTools → Toggle device toolbar → iPhone 14 Pro"
+  info "Telegram: http://localhost:${PORT}/tg (требует запуск через Telegram BotFather)"
+  echo
+  exec pnpm dev --port "${PORT}"
+fi

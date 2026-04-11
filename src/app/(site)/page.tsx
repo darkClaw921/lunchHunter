@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { Bell, Search } from "lucide-react";
-import { Chip } from "@/components/ui/Chip";
 import { Badge } from "@/components/ui/Badge";
 import { SearchHomeForm } from "./_components/SearchHomeForm";
 import { DesktopHome } from "./_components/DesktopHome";
 import { NearbyRestaurantsRow } from "./_components/NearbyRestaurantsRow";
-import { PWAInstallBanner } from "@/components/mobile/PWAInstallBanner";
+import { CategoryChips } from "./_components/CategoryChips";
+
 import {
   getNearbyRestaurants,
   getPopularQueries,
@@ -22,19 +22,27 @@ const DEFAULT_LAT = 55.7558;
 const DEFAULT_LNG = 37.6173;
 
 const CATEGORIES = [
-  { key: "bars", label: "Бары" },
-  { key: "cafe", label: "Кафе" },
-  { key: "rest", label: "Рестораны" },
-  { key: "fast", label: "Фастфуд" },
+  { key: "Бар", label: "Бары" },
+  { key: "Кафе", label: "Кафе" },
+  { key: "Фастфуд", label: "Фастфуд" },
+  { key: "Бургерная", label: "Бургерные" },
 ];
 
-export default async function HomePage(): Promise<React.JSX.Element> {
+interface HomePageProps {
+  searchParams: Promise<{ cat?: string }>;
+}
+
+export default async function HomePage({ searchParams }: HomePageProps): Promise<React.JSX.Element> {
+  const params = await searchParams;
+  const activeCat = CATEGORIES.find((c) => c.key === params.cat)?.key ?? null;
+
   const [nearby, popular, featuredLunches, featuredMenu, minLunchPrice] =
     await Promise.all([
       getNearbyRestaurants({
         userLat: DEFAULT_LAT,
         userLng: DEFAULT_LNG,
         limit: 8,
+        category: activeCat,
       }),
       getPopularQueries(6),
       getFeaturedBusinessLunches(3),
@@ -84,15 +92,7 @@ export default async function HomePage(): Promise<React.JSX.Element> {
       </div>
 
       {/* Categories */}
-      <div className="px-5 mt-4">
-        <div className="flex gap-2 overflow-x-auto no-scrollbar">
-          {CATEGORIES.map((c, i) => (
-            <Chip key={c.key} active={i === 0}>
-              {c.label}
-            </Chip>
-          ))}
-        </div>
-      </div>
+      <CategoryChips categories={CATEGORIES} activeKey={activeCat} />
 
       {/* Popular queries */}
       <section className="px-5 mt-5">
@@ -183,10 +183,6 @@ export default async function HomePage(): Promise<React.JSX.Element> {
           }))}
         />
       </section>
-      {/* PWA install prompt — shown on mobile home only, hides itself when
-          the browser does not fire beforeinstallprompt or the app is already
-          installed. Positioned fixed above the BottomTabBar. */}
-      <PWAInstallBanner className="md:hidden" />
       </div>
     </>
   );

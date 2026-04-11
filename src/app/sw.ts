@@ -1,12 +1,6 @@
 import { defaultCache } from "@serwist/next/worker";
-import type { PrecacheEntry, RuntimeCaching, SerwistGlobalConfig } from "serwist";
-import {
-  CacheFirst,
-  ExpirationPlugin,
-  NetworkFirst,
-  Serwist,
-  StaleWhileRevalidate,
-} from "serwist";
+import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
+import { Serwist } from "serwist";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -16,65 +10,12 @@ declare global {
 
 declare const self: ServiceWorkerGlobalScope;
 
-const FIVE_MINUTES = 5 * 60;
-
-const apiRuntimeCaching: RuntimeCaching[] = [
-  {
-    matcher: ({ url, request, sameOrigin }) =>
-      sameOrigin &&
-      request.method === "GET" &&
-      (url.pathname.startsWith("/api/search") ||
-        url.pathname.startsWith("/api/restaurants") ||
-        url.pathname.startsWith("/api/business-lunch")),
-    handler: new NetworkFirst({
-      cacheName: "lh-api-cache",
-      networkTimeoutSeconds: 5,
-      plugins: [
-        new ExpirationPlugin({
-          maxEntries: 64,
-          maxAgeSeconds: FIVE_MINUTES,
-        }),
-      ],
-    }),
-  },
-  {
-    matcher: ({ request, sameOrigin }) =>
-      sameOrigin && request.destination === "image",
-    handler: new StaleWhileRevalidate({
-      cacheName: "lh-image-cache",
-      plugins: [
-        new ExpirationPlugin({
-          maxEntries: 128,
-          maxAgeSeconds: 60 * 60 * 24 * 7,
-        }),
-      ],
-    }),
-  },
-  {
-    matcher: ({ request, sameOrigin }) =>
-      sameOrigin &&
-      (request.destination === "style" ||
-        request.destination === "script" ||
-        request.destination === "font"),
-    handler: new CacheFirst({
-      cacheName: "lh-static-cache",
-      plugins: [
-        new ExpirationPlugin({
-          maxEntries: 128,
-          maxAgeSeconds: 60 * 60 * 24 * 30,
-        }),
-      ],
-    }),
-  },
-  ...(defaultCache as RuntimeCaching[]),
-];
-
 const serwist = new Serwist({
   precacheEntries: self.__SW_MANIFEST,
   skipWaiting: true,
   clientsClaim: true,
   navigationPreload: true,
-  runtimeCaching: apiRuntimeCaching,
+  runtimeCaching: defaultCache,
   fallbacks: {
     entries: [
       {
@@ -88,3 +29,59 @@ const serwist = new Serwist({
 });
 
 serwist.addEventListeners();
+
+// --- Push notifications ---
+interface PushPayload {
+  title: string;
+  body: string;
+  icon?: string;
+  url?: string;
+  data?: Record<string, unknown>;
+}
+
+self.addEventListener("push", (event: PushEvent) => {
+  if (!event.data) return;
+
+  let payload: PushPayload;
+  try {
+    payload = event.data.json() as PushPayload;
+  } catch {
+    payload = { title: "lancHunter", body: event.data.text() };
+  }
+
+  const options: NotificationOptions = {
+    body: payload.body,
+    icon: payload.icon ?? "/icons/icon-192.png",
+    badge: "/icons/icon-192.png",
+    data: { url: payload.url ?? "/", ...payload.data },
+  };
+
+  event.waitUntil(self.registration.showNotification(payload.title, options));
+});
+
+self.addEventListener("notificationclick", (event: NotificationEvent) => {
+  event.notification.close();
+
+  const url = (event.notification.data as { url?: string })?.url ?? "/";
+
+  event.waitUntil(
+    self.clients
+      .matchAll({ type: "window", includeUncontrolled: true })
+      .then((clientList) => {
+        for (const client of clientList) {
+          if (client.url.includes(self.location.origin) && "focus" in client) {
+            (client as WindowClient).navigate(url);
+            return client.focus();
+          }
+        }
+        return self.clients.openWindow(url);
+      }),
+  );
+});
+
+// Поддержка prompt-for-update (SKIP_WAITING)
+self.addEventListener("message", (event: ExtendableMessageEvent) => {
+  if ((event.data as { type?: string } | undefined)?.type === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
+});

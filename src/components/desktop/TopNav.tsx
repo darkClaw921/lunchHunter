@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { UtensilsCrossed } from "lucide-react";
+import { LogIn, UtensilsCrossed } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 
 export interface TopNavLink {
@@ -15,6 +15,8 @@ export interface TopNavLink {
 export interface TopNavProps {
   links?: TopNavLink[];
   className?: string;
+  /** Инициалы или null (гость). Гость показывает иконку login. */
+  userInitials?: string | null;
 }
 
 export const DEFAULT_TOPNAV_LINKS: TopNavLink[] = [
@@ -49,6 +51,7 @@ function isActive(link: TopNavLink, pathname: string | undefined): boolean {
 export function TopNav({
   links = DEFAULT_TOPNAV_LINKS,
   className,
+  userInitials = null,
 }: TopNavProps): React.JSX.Element {
   const pathname = usePathname();
   return (
@@ -88,15 +91,26 @@ export function TopNav({
         })}
       </nav>
 
-      {/* Right — avatar */}
+      {/* Right — avatar / login */}
       <div className="flex items-center gap-4">
-        <button
-          type="button"
-          aria-label="Профиль"
-          className="h-9 w-9 rounded-full bg-accent grid place-items-center text-white text-[13px] font-semibold hover:bg-accent-dark transition-colors"
-        >
-          И
-        </button>
+        {userInitials ? (
+          <Link
+            href="/profile"
+            aria-label="Профиль"
+            className="h-9 w-9 rounded-full bg-accent grid place-items-center text-white text-[13px] font-semibold hover:bg-accent-dark transition-colors"
+          >
+            {userInitials}
+          </Link>
+        ) : (
+          <Link
+            href="/login"
+            aria-label="Войти"
+            className="inline-flex items-center gap-2 h-9 px-4 rounded-full bg-accent text-white text-[13px] font-semibold hover:bg-accent-dark transition-colors"
+          >
+            <LogIn className="h-4 w-4" aria-hidden="true" />
+            Войти
+          </Link>
+        )}
       </div>
     </header>
   );
