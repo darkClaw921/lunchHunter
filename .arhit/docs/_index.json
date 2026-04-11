@@ -822,5 +822,13 @@
     "content": "Client-кнопка 'Выйти' в /profile. POST /api/auth/logout → router.replace('/') + router.refresh(). disabled во время запроса, иконка LogOut из lucide, стиль с бордером и text-error.",
     "createdAt": "2026-04-11T19:27:03.785Z",
     "updatedAt": "2026-04-11T19:27:03.785Z"
+  },
+  {
+    "element": "docker/migrate.mjs",
+    "path": "",
+    "type": "unknown",
+    "content": "Runtime migration runner для runner-контейнера. Standalone ESM на чистом better-sqlite3. Ведёт учёт в __applied_migrations(name PK). Читает SQL из /app/docker/migrations (копируются из src/lib/db/migrations), применяет в транзакции, разделяя по '--> statement-breakpoint'. Bootstrap: при пустом трекере проверяет существующие таблицы users/push_subscriptions/reviews и помечает соответствующие миграции applied — защищает от повторного CREATE TABLE на старых volume-БД. После drizzle-миграций вызывает applyRawMigrations — JS-порт raw-migrations.ts (polymorphic favorites legacy-миграция, FTS5 menu_items_fts, R*Tree restaurants_rtree, sync-triggers). Вызывается из docker/entrypoint.sh после копирования template в volume и перед admin-upsert.mjs.",
+    "createdAt": "2026-04-11T20:09:00.060Z",
+    "updatedAt": "2026-04-11T20:09:00.060Z"
   }
 ]

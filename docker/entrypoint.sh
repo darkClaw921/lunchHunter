@@ -17,6 +17,7 @@ set -eu
 DB_PATH="/app/data/lunchhunter.db"
 TEMPLATE_PATH="/app/db-template/lunchhunter.db"
 ADMIN_SCRIPT="/app/docker/admin-upsert.mjs"
+MIGRATE_SCRIPT="/app/docker/migrate.mjs"
 
 # ---------- Фаза 1: запуск под root ----------
 if [ "$(id -u)" = "0" ]; then
@@ -46,6 +47,13 @@ if [ ! -f "$DB_PATH" ]; then
   echo "[entrypoint] Database initialized: $DB_PATH"
 else
   echo "[entrypoint] Database already exists: $DB_PATH"
+fi
+
+if [ -f "$MIGRATE_SCRIPT" ]; then
+  echo "[entrypoint] Applying pending migrations..."
+  node "$MIGRATE_SCRIPT"
+else
+  echo "[entrypoint] WARN: migrate script not found at $MIGRATE_SCRIPT" >&2
 fi
 
 if [ -f "$ADMIN_SCRIPT" ]; then

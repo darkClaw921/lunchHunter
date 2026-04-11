@@ -81,8 +81,9 @@ lunchHunter/
 ├── .dockerignore             # Исключения для docker build context
 ├── .npmrc                    # pnpm public-hoist-pattern для native subpackages
 ├── docker/
-│   ├── entrypoint.sh         # Runner entrypoint: init DB + admin upsert + node server.js
-│   └── admin-upsert.mjs      # Idempotent upsert admin из ADMIN_EMAIL/ADMIN_PASSWORD
+│   ├── entrypoint.sh         # Runner entrypoint: init DB + migrate + admin upsert + node server.js
+│   ├── admin-upsert.mjs      # Idempotent upsert admin из ADMIN_EMAIL/ADMIN_PASSWORD
+│   └── migrate.mjs           # Runtime drizzle + raw migration runner (standalone ESM)
 ├── README.md                 # Инструкции установки/запуска/тестов
 └── package.json              # pnpm + скрипты
 ```
@@ -146,8 +147,12 @@ Multi-stage production-образ на базе `node:20-slim` (debian, не alp
 Runner entrypoint-скрипт. При старте контейнера:
 1. Проверяет `$TEMPLATE_PATH=/app/db-template/lunchhunter.db` — FATAL если нет.
 2. Если `$DB_PATH=/app/data/lunchhunter.db` не существует (пустой volume на первом запуске) → `cp` template в volume. Иначе — сохраняет existing.
-3. `node /app/docker/admin-upsert.mjs` — пересоздаёт/обновляет admin-пользователя из `ADMIN_EMAIL`/`ADMIN_PASSWORD` env vars (идемпотентно, выполняется каждый старт — поддерживает ротацию пароля через `.env` без ручных SQL).
-4. `exec node server.js` — запуск Next.js standalone-сервера.
+3. `node /app/docker/migrate.mjs` — применяет pending drizzle-миграции + raw (FTS5/R*Tree/triggers) к existing БД в volume. Идемпотентно.
+4. `node /app/docker/admin-upsert.mjs` — пересоздаёт/обновляет admin-пользователя из `ADMIN_EMAIL`/`ADMIN_PASSWORD` env vars (идемпотентно, выполняется каждый старт — поддерживает ротацию пароля через `.env` без ручных SQL).
+5. `exec node server.js` — запуск Next.js standalone-сервера.
+
+### [docker/migrate.mjs](./docker/migrate.mjs)
+Standalone ESM-скрипт runtime-миграций для runner-контейнера. Drizzle `migrate()` требует `drizzle-kit`/`tsx`, которых нет в standalone-образе, поэтому скрипт реализует минимальный собственный трекер через таблицу `__applied_migrations (name PK, applied_at)`. Читает SQL-файлы из `/app/docker/migrations` (копируются в Dockerfile из `src/lib/db/migrations`), сортирует по имени, применяет недостающие в транзакции, разделяя по `--> statement-breakpoint`. Bootstrap-логика: если трекер пустой, но сущностные таблицы (`users`, `push_subscriptions`, `reviews`) уже существуют — помечает соответствующие миграции как applied, чтобы не падать на повторном `CREATE TABLE` на старых volume-БД. После drizzle-миграций запускает `applyRawMigrations` — JS-порт `src/lib/db/raw-migrations.ts` (полиморфные favorites с legacy-миграцией, FTS5 virtual table `menu_items_fts`, R*Tree `restaurants_rtree`, sync-триггеры). Использует `better-sqlite3` из standalone `node_modules`.
 
 ### [docker/admin-upsert.mjs](./docker/admin-upsert.mjs)
 Standalone Node.js ESM-скрипт для admin upsert. Читает `DATABASE_URL`, `ADMIN_EMAIL`, `ADMIN_PASSWORD` из env. Хэширует пароль через `@node-rs/argon2` с теми же OWASP-параметрами, что и `src/lib/auth/password.ts` (`memoryCost: 19456, timeCost: 2, outputLen: 32, parallelism: 1`). UPSERT по email: если админ есть — обновляет `password_hash` + `role='admin'`, иначе INSERT с UUID id. Использует `better-sqlite3` и `@node-rs/argon2` из standalone `node_modules` — никаких дополнительных зависимостей или tsx/tsc в runner не требуется.

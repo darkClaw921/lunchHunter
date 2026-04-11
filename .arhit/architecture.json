@@ -1,6 +1,6 @@
 {
   "root": "/Users/igorgerasimov/claudeWorkspace/lunchHunter",
-  "generatedAt": "2026-04-11T19:26:25.247Z",
+  "generatedAt": "2026-04-11T20:09:17.874Z",
   "nodes": [
     {
       "id": "drizzle.config.ts",
@@ -493,11 +493,19 @@
       ],
       "children": [
         {
+          "id": "src/app/(site)/layout.tsx:computeInitials",
+          "name": "computeInitials",
+          "type": "function",
+          "path": "src/app/(site)/layout.tsx",
+          "line": 12,
+          "exports": []
+        },
+        {
           "id": "src/app/(site)/layout.tsx:SiteLayout",
           "name": "SiteLayout",
           "type": "function",
           "path": "src/app/(site)/layout.tsx",
-          "line": 27,
+          "line": 37,
           "exports": [
             "SiteLayout"
           ]
@@ -507,7 +515,7 @@
           "name": "metadata",
           "type": "variable",
           "path": "src/app/(site)/layout.tsx",
-          "line": 7,
+          "line": 8,
           "exports": [
             "metadata"
           ]
@@ -816,7 +824,7 @@
           "name": "isActive",
           "type": "function",
           "path": "src/components/desktop/TopNav.tsx",
-          "line": 27,
+          "line": 29,
           "exports": []
         },
         {
@@ -824,7 +832,7 @@
           "name": "TopNav",
           "type": "function",
           "path": "src/components/desktop/TopNav.tsx",
-          "line": 49,
+          "line": 51,
           "exports": [
             "TopNav"
           ]
@@ -854,7 +862,7 @@
           "name": "DEFAULT_TOPNAV_LINKS",
           "type": "variable",
           "path": "src/components/desktop/TopNav.tsx",
-          "line": 20,
+          "line": 22,
           "exports": [
             "DEFAULT_TOPNAV_LINKS"
           ]
@@ -1056,7 +1064,7 @@
           "name": "isTabActive",
           "type": "function",
           "path": "src/components/mobile/BottomTabBar.tsx",
-          "line": 84,
+          "line": 77,
           "exports": []
         },
         {
@@ -1064,7 +1072,7 @@
           "name": "BottomTabBar",
           "type": "function",
           "path": "src/components/mobile/BottomTabBar.tsx",
-          "line": 98,
+          "line": 91,
           "exports": [
             "BottomTabBar"
           ]
@@ -1074,7 +1082,7 @@
           "name": "BottomTabItem",
           "type": "interface",
           "path": "src/components/mobile/BottomTabBar.tsx",
-          "line": 49,
+          "line": 48,
           "exports": [
             "BottomTabItem"
           ]
@@ -1084,7 +1092,7 @@
           "name": "BottomTabBarProps",
           "type": "interface",
           "path": "src/components/mobile/BottomTabBar.tsx",
-          "line": 93,
+          "line": 86,
           "exports": [
             "BottomTabBarProps"
           ]
@@ -1094,7 +1102,7 @@
           "name": "DEFAULT_TABS",
           "type": "variable",
           "path": "src/components/mobile/BottomTabBar.tsx",
-          "line": 60,
+          "line": 59,
           "exports": [
             "DEFAULT_TABS"
           ]

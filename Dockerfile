@@ -93,10 +93,14 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 # через docker/entrypoint.sh. Single-file (WAL-артефакты удалены в builder).
 COPY --from=builder --chown=nextjs:nodejs /app/data/lunchhunter.db /app/db-template/lunchhunter.db
 
-# Entrypoint + admin upsert скрипт. admin-upsert.mjs использует
+# Entrypoint + admin upsert + runtime migrations. Все .mjs используют
 # better-sqlite3 и @node-rs/argon2 из standalone node_modules.
+# migrate.mjs читает SQL из /app/docker/migrations — папка копируется
+# отдельно, чтобы runtime-миграции работали на старых volume-БД.
 COPY --chown=nextjs:nodejs docker/entrypoint.sh /app/docker/entrypoint.sh
 COPY --chown=nextjs:nodejs docker/admin-upsert.mjs /app/docker/admin-upsert.mjs
+COPY --chown=nextjs:nodejs docker/migrate.mjs /app/docker/migrate.mjs
+COPY --chown=nextjs:nodejs src/lib/db/migrations /app/docker/migrations
 RUN chmod +x /app/docker/entrypoint.sh
 
 # Директории для persistent данных (volumes из docker-compose).

@@ -1,0 +1,3 @@
+# docker/migrate.mjs
+
+Runtime migration runner для runner-контейнера. Standalone ESM на чистом better-sqlite3. Ведёт учёт в __applied_migrations(name PK). Читает SQL из /app/docker/migrations (копируются из src/lib/db/migrations), применяет в транзакции, разделяя по '--> statement-breakpoint'. Bootstrap: при пустом трекере проверяет существующие таблицы users/push_subscriptions/reviews и помечает соответствующие миграции applied — защищает от повторного CREATE TABLE на старых volume-БД. После drizzle-миграций вызывает applyRawMigrations — JS-порт raw-migrations.ts (polymorphic favorites legacy-миграция, FTS5 menu_items_fts, R*Tree restaurants_rtree, sync-triggers). Вызывается из docker/entrypoint.sh после копирования template в volume и перед admin-upsert.mjs.

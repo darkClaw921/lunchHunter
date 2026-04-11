@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-11T19:26:42.180Z",
+  "generatedAt": "2026-04-11T20:09:35.244Z",
   "dependencies": [
     {
       "from": "drizzle.config.ts",
@@ -2380,6 +2380,33 @@
       "toElement": "RouteProgress"
     },
     {
+      "from": "src/app/(site)/layout.tsx",
+      "to": "@/lib/auth/session",
+      "type": "import",
+      "toElement": "validateSession"
+    },
+    {
+      "from": "src/app/(site)/layout.tsx",
+      "to": "src/app/(site)/layout.tsx",
+      "type": "call",
+      "fromElement": "computeInitials",
+      "toElement": "source.split"
+    },
+    {
+      "from": "src/app/(site)/layout.tsx",
+      "to": "src/app/(site)/layout.tsx",
+      "type": "call",
+      "fromElement": "SiteLayout",
+      "toElement": "validateSession"
+    },
+    {
+      "from": "src/app/(site)/layout.tsx",
+      "to": "src/app/(site)/layout.tsx",
+      "type": "call",
+      "fromElement": "SiteLayout",
+      "toElement": "computeInitials"
+    },
+    {
       "from": "src/app/(site)/loading.tsx",
       "to": "@/components/ui/Skeleton",
       "type": "import",
@@ -2742,6 +2769,12 @@
       "to": "node_modules/.pnpm/next@15.1.6_@opentelemetry+api@1.9.0_@playwright+test@1.59.1_react-dom@19.0.0_react@19.0.0__react@19.0.0/node_modules/next/navigation.d.ts",
       "type": "import",
       "toElement": "usePathname"
+    },
+    {
+      "from": "src/components/desktop/TopNav.tsx",
+      "to": "node_modules/.pnpm/lucide-react@1.7.0_react@19.0.0/node_modules/lucide-react/dist/lucide-react.d.ts",
+      "type": "import",
+      "toElement": "LogIn"
     },
     {
       "from": "src/components/desktop/TopNav.tsx",
@@ -3370,12 +3403,6 @@
       "to": "node_modules/.pnpm/lucide-react@1.7.0_react@19.0.0/node_modules/lucide-react/dist/lucide-react.d.ts",
       "type": "import",
       "toElement": "Heart"
-    },
-    {
-      "from": "src/components/mobile/BottomTabBar.tsx",
-      "to": "node_modules/.pnpm/lucide-react@1.7.0_react@19.0.0/node_modules/lucide-react/dist/lucide-react.d.ts",
-      "type": "import",
-      "toElement": "Trophy"
     },
     {
       "from": "src/components/mobile/BottomTabBar.tsx",
