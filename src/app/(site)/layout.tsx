@@ -4,6 +4,8 @@ import { TelegramWebAppBootstrap } from "@/components/mobile/TelegramWebAppBoots
 import { TopNav } from "@/components/desktop/TopNav";
 import { RouteProgress } from "@/components/ui/RouteProgress";
 import { validateSession } from "@/lib/auth/session";
+import { CompareProvider } from "@/lib/compare/CompareContext";
+import { CompareFAB } from "@/components/compare/CompareFAB";
 
 export const metadata: Metadata = {
   title: "lancHunter — поиск бизнес-ланчей рядом",
@@ -45,29 +47,34 @@ export default async function SiteLayout({
     : null;
 
   return (
-    <div className="min-h-screen">
-      {/* Глобальный прогресс-бар переходов: рендерится в DOM всегда,
-          но видим только во время pending-навигации (см. RouteProgress). */}
-      <RouteProgress />
+    <CompareProvider>
+      <div className="min-h-screen">
+        {/* Глобальный прогресс-бар переходов: рендерится в DOM всегда,
+            но видим только во время pending-навигации (см. RouteProgress). */}
+        <RouteProgress />
 
-      {/* Невидимый client-bootstrap для Telegram WebApp: вызывает
-          WebApp.ready() + WebApp.expand() если приложение открыто внутри
-          Telegram (в т.ч. после redirect с /tg). БЕЗ этого вызова
-          HapticFeedback.* методы no-op в большинстве клиентов. Для
-          обычного веба — silent no-op. */}
-      <TelegramWebAppBootstrap />
+        {/* Невидимый client-bootstrap для Telegram WebApp: вызывает
+            WebApp.ready() + WebApp.expand() если приложение открыто внутри
+            Telegram (в т.ч. после redirect с /tg). БЕЗ этого вызова
+            HapticFeedback.* методы no-op в большинстве клиентов. Для
+            обычного веба — silent no-op. */}
+        <TelegramWebAppBootstrap />
 
-      {/* Desktop TopNav (hidden <md via TopNav's own md:flex) */}
-      <TopNav userInitials={userInitials} />
+        {/* Desktop TopNav (hidden <md via TopNav's own md:flex) */}
+        <TopNav userInitials={userInitials} />
 
-      {/* Wrapper: mobile центрирует 430px колонку на тёплом фоне,
-          desktop — прозрачный (body bg-[page-bg] виден насквозь) */}
-      <div className="flex md:block justify-center md:bg-transparent">
-        <div className="relative w-full max-w-[430px] md:max-w-none min-h-[calc(100vh-64px)] bg-surface-primary md:bg-transparent shadow-sm md:shadow-none flex flex-col">
-          <main className="flex-1 pb-24 md:pb-0">{children}</main>
-          <BottomTabBar className="md:hidden" />
+        {/* Wrapper: mobile центрирует 430px колонку на тёплом фоне,
+            desktop — прозрачный (body bg-[page-bg] виден насквозь) */}
+        <div className="flex md:block justify-center md:bg-transparent">
+          <div className="relative w-full max-w-[430px] md:max-w-none min-h-[calc(100vh-64px)] bg-surface-primary md:bg-transparent shadow-sm md:shadow-none flex flex-col">
+            <main className="flex-1 pb-24 md:pb-0">{children}</main>
+            <BottomTabBar className="md:hidden" />
+          </div>
         </div>
+
+        {/* Floating compare button — appears when 1+ lunches are in compare list */}
+        <CompareFAB />
       </div>
-    </div>
+    </CompareProvider>
   );
 }

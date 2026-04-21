@@ -94,8 +94,41 @@ export function BottomTabBar({
 }: BottomTabBarProps): React.JSX.Element {
   const pathname = usePathname() ?? "/";
   const haptics = useHaptics();
+  const prevIndexRef = React.useRef<number>(-1);
+
+  // Найти индекс активного таба
+  const currentIndex = items.findIndex((item) => isTabActive(pathname, item));
+
+  // При смене активного таба — запустить последовательный хаптик через промежуточные элементы
+  React.useEffect(() => {
+    if (prevIndexRef.current === -1) {
+      // Первый рендер, не запускаем анимацию
+      prevIndexRef.current = currentIndex;
+      return;
+    }
+
+    const prevIndex = prevIndexRef.current;
+    const distance = Math.abs(currentIndex - prevIndex);
+    const delayBetweenSteps = 50; // мс между шагами (синхронно с морфингом View Transitions)
+
+    // Проходим через промежуточные элементы и срабатываем хаптик на каждом
+    let step = 0;
+    const interval = setInterval(() => {
+      if (step <= distance) {
+        haptics.selection();
+        step++;
+      } else {
+        clearInterval(interval);
+      }
+    }, delayBetweenSteps);
+
+    prevIndexRef.current = currentIndex;
+
+    return () => clearInterval(interval);
+  }, [currentIndex, haptics]);
 
   const handleTabClick = React.useCallback(() => {
+    // Хаптик уже срабатывает через useEffect, но на клик тоже можно оставить для мгновенной обратной связи
     haptics.selection();
   }, [haptics]);
 

@@ -1,6 +1,6 @@
 {
   "root": "/Users/igorgerasimov/claudeWorkspace/lunchHunter",
-  "generatedAt": "2026-04-11T20:09:17.874Z",
+  "generatedAt": "2026-04-21T18:46:13.153Z",
   "nodes": [
     {
       "id": "drizzle.config.ts",
@@ -100,10 +100,10 @@
       "children": []
     },
     {
-      "id": "public/swe-worker-development.js",
-      "name": "swe-worker-development.js",
+      "id": "public/swe-worker-ab00d3c7d2d59769.js",
+      "name": "swe-worker-ab00d3c7d2d59769.js",
       "type": "file",
-      "path": "public/swe-worker-development.js",
+      "path": "public/swe-worker-ab00d3c7d2d59769.js",
       "exports": [],
       "children": []
     },
@@ -497,7 +497,7 @@
           "name": "computeInitials",
           "type": "function",
           "path": "src/app/(site)/layout.tsx",
-          "line": 12,
+          "line": 14,
           "exports": []
         },
         {
@@ -505,7 +505,7 @@
           "name": "SiteLayout",
           "type": "function",
           "path": "src/app/(site)/layout.tsx",
-          "line": 37,
+          "line": 39,
           "exports": [
             "SiteLayout"
           ]
@@ -515,7 +515,7 @@
           "name": "metadata",
           "type": "variable",
           "path": "src/app/(site)/layout.tsx",
-          "line": 8,
+          "line": 10,
           "exports": [
             "metadata"
           ]
@@ -772,6 +772,64 @@
           "exports": [
             "ADMIN_NAV"
           ]
+        }
+      ]
+    },
+    {
+      "id": "src/components/compare/CompareButton.tsx",
+      "name": "CompareButton.tsx",
+      "type": "file",
+      "path": "src/components/compare/CompareButton.tsx",
+      "exports": [
+        "CompareButton"
+      ],
+      "children": [
+        {
+          "id": "src/components/compare/CompareButton.tsx:CompareButton",
+          "name": "CompareButton",
+          "type": "function",
+          "path": "src/components/compare/CompareButton.tsx",
+          "line": 14,
+          "exports": [
+            "CompareButton"
+          ]
+        },
+        {
+          "id": "src/components/compare/CompareButton.tsx:CompareButtonProps",
+          "name": "CompareButtonProps",
+          "type": "interface",
+          "path": "src/components/compare/CompareButton.tsx",
+          "line": 8,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/components/compare/CompareFAB.tsx",
+      "name": "CompareFAB.tsx",
+      "type": "file",
+      "path": "src/components/compare/CompareFAB.tsx",
+      "exports": [
+        "CompareFAB"
+      ],
+      "children": [
+        {
+          "id": "src/components/compare/CompareFAB.tsx:CompareFAB",
+          "name": "CompareFAB",
+          "type": "function",
+          "path": "src/components/compare/CompareFAB.tsx",
+          "line": 13,
+          "exports": [
+            "CompareFAB"
+          ]
+        },
+        {
+          "id": "src/components/compare/CompareFAB.tsx:CompareFABProps",
+          "name": "CompareFABProps",
+          "type": "interface",
+          "path": "src/components/compare/CompareFAB.tsx",
+          "line": 9,
+          "exports": []
         }
       ]
     },
@@ -1882,6 +1940,89 @@
           "type": "variable",
           "path": "src/lib/auth/telegram.ts",
           "line": 34,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/lib/compare/CompareContext.tsx",
+      "name": "CompareContext.tsx",
+      "type": "file",
+      "path": "src/lib/compare/CompareContext.tsx",
+      "exports": [
+        "CompareProvider",
+        "useCompare",
+        "CompareLunch"
+      ],
+      "children": [
+        {
+          "id": "src/lib/compare/CompareContext.tsx:readFromStorage",
+          "name": "readFromStorage",
+          "type": "function",
+          "path": "src/lib/compare/CompareContext.tsx",
+          "line": 34,
+          "exports": []
+        },
+        {
+          "id": "src/lib/compare/CompareContext.tsx:CompareProvider",
+          "name": "CompareProvider",
+          "type": "function",
+          "path": "src/lib/compare/CompareContext.tsx",
+          "line": 46,
+          "exports": [
+            "CompareProvider"
+          ]
+        },
+        {
+          "id": "src/lib/compare/CompareContext.tsx:useCompare",
+          "name": "useCompare",
+          "type": "function",
+          "path": "src/lib/compare/CompareContext.tsx",
+          "line": 135,
+          "exports": [
+            "useCompare"
+          ]
+        },
+        {
+          "id": "src/lib/compare/CompareContext.tsx:CompareLunch",
+          "name": "CompareLunch",
+          "type": "interface",
+          "path": "src/lib/compare/CompareContext.tsx",
+          "line": 5,
+          "exports": [
+            "CompareLunch"
+          ]
+        },
+        {
+          "id": "src/lib/compare/CompareContext.tsx:CompareContextValue",
+          "name": "CompareContextValue",
+          "type": "interface",
+          "path": "src/lib/compare/CompareContext.tsx",
+          "line": 20,
+          "exports": []
+        },
+        {
+          "id": "src/lib/compare/CompareContext.tsx:CompareContext",
+          "name": "CompareContext",
+          "type": "variable",
+          "path": "src/lib/compare/CompareContext.tsx",
+          "line": 29,
+          "exports": []
+        },
+        {
+          "id": "src/lib/compare/CompareContext.tsx:STORAGE_KEY",
+          "name": "STORAGE_KEY",
+          "type": "variable",
+          "path": "src/lib/compare/CompareContext.tsx",
+          "line": 31,
+          "exports": []
+        },
+        {
+          "id": "src/lib/compare/CompareContext.tsx:MAX_COMPARE",
+          "name": "MAX_COMPARE",
+          "type": "variable",
+          "path": "src/lib/compare/CompareContext.tsx",
+          "line": 32,
           "exports": []
         }
       ]
@@ -5688,7 +5829,7 @@
           "name": "buildHref",
           "type": "function",
           "path": "src/app/(site)/business-lunch/_components/DesktopBusinessLunch.tsx",
-          "line": 40,
+          "line": 43,
           "exports": []
         },
         {
@@ -5696,7 +5837,7 @@
           "name": "DesktopBusinessLunch",
           "type": "function",
           "path": "src/app/(site)/business-lunch/_components/DesktopBusinessLunch.tsx",
-          "line": 64,
+          "line": 67,
           "exports": [
             "DesktopBusinessLunch"
           ]
@@ -5706,7 +5847,7 @@
           "name": "DesktopBusinessLunchItem",
           "type": "interface",
           "path": "src/app/(site)/business-lunch/_components/DesktopBusinessLunch.tsx",
-          "line": 6,
+          "line": 9,
           "exports": [
             "DesktopBusinessLunchItem"
           ]
@@ -5716,7 +5857,7 @@
           "name": "DesktopBusinessLunchProps",
           "type": "interface",
           "path": "src/app/(site)/business-lunch/_components/DesktopBusinessLunch.tsx",
-          "line": 21,
+          "line": 24,
           "exports": [
             "DesktopBusinessLunchProps"
           ]
@@ -5726,7 +5867,7 @@
           "name": "PriceFilter",
           "type": "interface",
           "path": "src/app/(site)/business-lunch/_components/DesktopBusinessLunch.tsx",
-          "line": 28,
+          "line": 31,
           "exports": []
         },
         {
@@ -5734,7 +5875,36 @@
           "name": "PRICE_FILTERS",
           "type": "variable",
           "path": "src/app/(site)/business-lunch/_components/DesktopBusinessLunch.tsx",
-          "line": 34,
+          "line": 37,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/business-lunch/_components/LunchCard.tsx",
+      "name": "LunchCard.tsx",
+      "type": "file",
+      "path": "src/app/(site)/business-lunch/_components/LunchCard.tsx",
+      "exports": [
+        "LunchCard"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/business-lunch/_components/LunchCard.tsx:LunchCard",
+          "name": "LunchCard",
+          "type": "function",
+          "path": "src/app/(site)/business-lunch/_components/LunchCard.tsx",
+          "line": 14,
+          "exports": [
+            "LunchCard"
+          ]
+        },
+        {
+          "id": "src/app/(site)/business-lunch/_components/LunchCard.tsx:LunchCardProps",
+          "name": "LunchCardProps",
+          "type": "interface",
+          "path": "src/app/(site)/business-lunch/_components/LunchCard.tsx",
+          "line": 10,
           "exports": []
         }
       ]
@@ -5754,7 +5924,7 @@
           "name": "daysMaskToLabel",
           "type": "function",
           "path": "src/app/(site)/business-lunch/[id]/page.tsx",
-          "line": 29,
+          "line": 30,
           "exports": []
         },
         {
@@ -5762,7 +5932,7 @@
           "name": "isServingNow",
           "type": "function",
           "path": "src/app/(site)/business-lunch/[id]/page.tsx",
-          "line": 42,
+          "line": 43,
           "exports": []
         },
         {
@@ -5770,7 +5940,7 @@
           "name": "parseCourses",
           "type": "function",
           "path": "src/app/(site)/business-lunch/[id]/page.tsx",
-          "line": 57,
+          "line": 58,
           "exports": []
         },
         {
@@ -5778,7 +5948,7 @@
           "name": "BusinessLunchDetailPage",
           "type": "function",
           "path": "src/app/(site)/business-lunch/[id]/page.tsx",
-          "line": 69,
+          "line": 70,
           "exports": [
             "BusinessLunchDetailPage"
           ]
@@ -5788,7 +5958,7 @@
           "name": "PageProps",
           "type": "interface",
           "path": "src/app/(site)/business-lunch/[id]/page.tsx",
-          "line": 23,
+          "line": 24,
           "exports": []
         },
         {
@@ -5796,7 +5966,7 @@
           "name": "dynamic",
           "type": "variable",
           "path": "src/app/(site)/business-lunch/[id]/page.tsx",
-          "line": 18,
+          "line": 19,
           "exports": [
             "dynamic"
           ]
@@ -5806,7 +5976,7 @@
           "name": "DEFAULT_LAT",
           "type": "variable",
           "path": "src/app/(site)/business-lunch/[id]/page.tsx",
-          "line": 20,
+          "line": 21,
           "exports": []
         },
         {
@@ -5814,7 +5984,7 @@
           "name": "DEFAULT_LNG",
           "type": "variable",
           "path": "src/app/(site)/business-lunch/[id]/page.tsx",
-          "line": 21,
+          "line": 22,
           "exports": []
         },
         {
@@ -5822,7 +5992,151 @@
           "name": "WEEKDAY_LABELS",
           "type": "variable",
           "path": "src/app/(site)/business-lunch/[id]/page.tsx",
-          "line": 27,
+          "line": 28,
+          "exports": []
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/business-lunch/compare/page.tsx",
+      "name": "page.tsx",
+      "type": "file",
+      "path": "src/app/(site)/business-lunch/compare/page.tsx",
+      "exports": [
+        "ComparePage",
+        "dynamic"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/business-lunch/compare/page.tsx:parseCourses",
+          "name": "parseCourses",
+          "type": "function",
+          "path": "src/app/(site)/business-lunch/compare/page.tsx",
+          "line": 25,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/compare/page.tsx:daysMaskToLabel",
+          "name": "daysMaskToLabel",
+          "type": "function",
+          "path": "src/app/(site)/business-lunch/compare/page.tsx",
+          "line": 39,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/compare/page.tsx:isServingNow",
+          "name": "isServingNow",
+          "type": "function",
+          "path": "src/app/(site)/business-lunch/compare/page.tsx",
+          "line": 52,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/compare/page.tsx:loadLunchData",
+          "name": "loadLunchData",
+          "type": "function",
+          "path": "src/app/(site)/business-lunch/compare/page.tsx",
+          "line": 80,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/compare/page.tsx:BestBadge",
+          "name": "BestBadge",
+          "type": "function",
+          "path": "src/app/(site)/business-lunch/compare/page.tsx",
+          "line": 138,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/compare/page.tsx:WorstBadge",
+          "name": "WorstBadge",
+          "type": "function",
+          "path": "src/app/(site)/business-lunch/compare/page.tsx",
+          "line": 146,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/compare/page.tsx:CompareRow",
+          "name": "CompareRow",
+          "type": "function",
+          "path": "src/app/(site)/business-lunch/compare/page.tsx",
+          "line": 161,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/compare/page.tsx:ComparePage",
+          "name": "ComparePage",
+          "type": "function",
+          "path": "src/app/(site)/business-lunch/compare/page.tsx",
+          "line": 183,
+          "exports": [
+            "ComparePage"
+          ]
+        },
+        {
+          "id": "src/app/(site)/business-lunch/compare/page.tsx:PageProps",
+          "name": "PageProps",
+          "type": "interface",
+          "path": "src/app/(site)/business-lunch/compare/page.tsx",
+          "line": 16,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/compare/page.tsx:DayRow",
+          "name": "DayRow",
+          "type": "interface",
+          "path": "src/app/(site)/business-lunch/compare/page.tsx",
+          "line": 20,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/compare/page.tsx:LunchData",
+          "name": "LunchData",
+          "type": "interface",
+          "path": "src/app/(site)/business-lunch/compare/page.tsx",
+          "line": 63,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/compare/page.tsx:CompareRowProps",
+          "name": "CompareRowProps",
+          "type": "interface",
+          "path": "src/app/(site)/business-lunch/compare/page.tsx",
+          "line": 154,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/compare/page.tsx:dynamic",
+          "name": "dynamic",
+          "type": "variable",
+          "path": "src/app/(site)/business-lunch/compare/page.tsx",
+          "line": 11,
+          "exports": [
+            "dynamic"
+          ]
+        },
+        {
+          "id": "src/app/(site)/business-lunch/compare/page.tsx:DEFAULT_LAT",
+          "name": "DEFAULT_LAT",
+          "type": "variable",
+          "path": "src/app/(site)/business-lunch/compare/page.tsx",
+          "line": 13,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/compare/page.tsx:DEFAULT_LNG",
+          "name": "DEFAULT_LNG",
+          "type": "variable",
+          "path": "src/app/(site)/business-lunch/compare/page.tsx",
+          "line": 14,
+          "exports": []
+        },
+        {
+          "id": "src/app/(site)/business-lunch/compare/page.tsx:WEEKDAY_LABELS",
+          "name": "WEEKDAY_LABELS",
+          "type": "variable",
+          "path": "src/app/(site)/business-lunch/compare/page.tsx",
+          "line": 37,
           "exports": []
         }
       ]
@@ -7325,6 +7639,35 @@
           "exports": [
             "AdminAddRestaurantPage"
           ]
+        }
+      ]
+    },
+    {
+      "id": "src/app/(site)/business-lunch/[id]/_components/DetailCompareButton.tsx",
+      "name": "DetailCompareButton.tsx",
+      "type": "file",
+      "path": "src/app/(site)/business-lunch/[id]/_components/DetailCompareButton.tsx",
+      "exports": [
+        "DetailCompareButton"
+      ],
+      "children": [
+        {
+          "id": "src/app/(site)/business-lunch/[id]/_components/DetailCompareButton.tsx:DetailCompareButton",
+          "name": "DetailCompareButton",
+          "type": "function",
+          "path": "src/app/(site)/business-lunch/[id]/_components/DetailCompareButton.tsx",
+          "line": 11,
+          "exports": [
+            "DetailCompareButton"
+          ]
+        },
+        {
+          "id": "src/app/(site)/business-lunch/[id]/_components/DetailCompareButton.tsx:DetailCompareButtonProps",
+          "name": "DetailCompareButtonProps",
+          "type": "interface",
+          "path": "src/app/(site)/business-lunch/[id]/_components/DetailCompareButton.tsx",
+          "line": 7,
+          "exports": []
         }
       ]
     },

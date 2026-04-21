@@ -10,10 +10,11 @@ import {
 } from "@/lib/db/schema";
 import { haversineDistance } from "@/lib/geo/haversine";
 import { formatPrice, formatDistance } from "@/lib/utils/format";
-import { Button } from "@/components/ui/Button";
+import { Button, buttonVariants } from "@/components/ui/Button";
 import { FavoriteButton } from "@/components/ui/FavoriteButton";
 import { validateSession } from "@/lib/auth/session";
 import { isFavorited } from "@/lib/db/favorites";
+import { DetailCompareButton } from "./_components/DetailCompareButton";
 
 export const dynamic = "force-dynamic";
 
@@ -160,6 +161,22 @@ export default async function BusinessLunchDetailPage({
             isAuthenticated={isAuthenticated}
             variant="iconFloating"
           />
+          <DetailCompareButton
+            lunch={{
+              id: lunch.id,
+              name: lunch.name,
+              price: lunch.price,
+              timeFrom: lunch.timeFrom,
+              timeTo: lunch.timeTo,
+              restaurantName: restaurant.name,
+              restaurantSlug: restaurant.slug,
+              rating: restaurant.rating,
+              distanceMeters: distance,
+              servingNow: servingNow,
+              courses: groupedCourses,
+              coverUrl: restaurant.coverUrl,
+            }}
+          />
           <button
             type="button"
             aria-label="Поделиться"
@@ -251,9 +268,14 @@ export default async function BusinessLunchDetailPage({
 
       {/* Actions */}
       <div className="px-5 mt-5 mb-4 grid grid-cols-2 gap-2">
-        <Button variant="secondary" size="lg" fullWidth>
-          Маршрут
-        </Button>
+        <a
+          href={`https://yandex.ru/maps/?ll=${restaurant.lng},${restaurant.lat}&z=17&pt=${restaurant.lng},${restaurant.lat}&text=${encodeURIComponent(restaurant.name)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={buttonVariants({ variant: "secondary", size: "lg", fullWidth: true })}
+        >
+          Я.Карты
+        </a>
         <Button variant="primary" size="lg" fullWidth>
           Забронировать
         </Button>

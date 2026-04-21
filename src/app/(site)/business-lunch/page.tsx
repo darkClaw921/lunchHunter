@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { SlidersHorizontal, ArrowDownUp, Clock, Star } from "lucide-react";
+import { SlidersHorizontal, ArrowDownUp } from "lucide-react";
 import { sqlite } from "@/lib/db/client";
 import { bboxFromRadius, haversineDistance } from "@/lib/geo/haversine";
-import { formatPrice, formatDistance, formatRating } from "@/lib/utils/format";
 import { DesktopBusinessLunch } from "./_components/DesktopBusinessLunch";
+import { LunchCard } from "./_components/LunchCard";
 
 export const dynamic = "force-dynamic";
 
@@ -252,51 +252,7 @@ export default async function BusinessLunchListPage({
           </div>
         ) : (
           lunches.map((l) => (
-            <Link
-              key={l.id}
-              href={{ pathname: `/business-lunch/${l.id}` }}
-              className="block rounded-2xl border border-border bg-surface-primary p-4 shadow-hover"
-            >
-              <div className="flex items-start justify-between gap-3">
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-[16px] font-bold text-fg-primary truncate min-h-[1.375rem]">
-                      {l.restaurantName}
-                    </h3>
-                  </div>
-                  <div className="mt-1 flex items-center gap-1 text-[12px] text-fg-secondary">
-                    <Clock className="h-3.5 w-3.5" aria-hidden="true" />
-                    <span>
-                      {l.timeFrom} — {l.timeTo}
-                    </span>
-                  </div>
-                  <div className="mt-1 text-[12px] text-fg-secondary line-clamp-1">
-                    {l.courses.length > 0
-                      ? l.courses.join(" · ")
-                      : `${l.name}`}
-                  </div>
-                  <div className="mt-2 flex items-center gap-2">
-                    <span className="inline-flex items-center gap-0.5 text-[12px] text-fg-secondary">
-                      <Star className="h-3 w-3 fill-current text-amber-500" aria-hidden="true" />
-                      {formatRating(l.rating)}
-                    </span>
-                    <span className="inline-flex items-center h-5 px-2 rounded-full bg-accent-light text-accent text-[11px] font-medium">
-                      {formatDistance(l.distanceMeters)}
-                    </span>
-                  </div>
-                </div>
-                <div className="shrink-0 flex flex-col items-end gap-2">
-                  {l.servingNow ? (
-                    <span className="inline-flex items-center h-5 px-2 rounded-full bg-success/15 text-success text-[10px] font-semibold">
-                      Сейчас подают
-                    </span>
-                  ) : null}
-                  <div className="text-[22px] font-bold text-accent leading-none">
-                    {formatPrice(l.price)}
-                  </div>
-                </div>
-              </div>
-            </Link>
+            <LunchCard key={l.id} lunch={l} />
           ))
         )}
       </div>

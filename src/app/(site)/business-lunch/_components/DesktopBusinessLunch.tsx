@@ -1,7 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import { Search, Star, Clock } from "lucide-react";
 import { formatPrice, formatDistance, formatRating } from "@/lib/utils/format";
 import { cn } from "@/lib/utils/cn";
+import { CompareButton } from "@/components/compare/CompareButton";
 
 export interface DesktopBusinessLunchItem {
   id: number;
@@ -219,6 +222,9 @@ export function DesktopBusinessLunch({
                       />
                       {formatRating(l.rating)}
                     </span>
+                  </div>
+                  <div className="pt-2">
+                    <CompareButton lunch={l} variant="card" />
                   </div>
                 </div>
               </Link>

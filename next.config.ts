@@ -31,9 +31,7 @@ const nextConfig: NextConfig = {
   // server.js и только необходимые файлы из node_modules. Не влияет на dev/start
   // локально, только на финальный артефакт next build.
   output: "standalone",
-  experimental: {
-    typedRoutes: true,
-  },
+  typedRoutes: true,
   serverExternalPackages: ["better-sqlite3"],
   // Нативные модули с .node бинарниками: standalone трассировщик не всегда
   // вытягивает их автоматически, поэтому включаем руками для всех роутов.

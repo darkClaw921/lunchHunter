@@ -830,5 +830,53 @@
     "content": "Runtime migration runner для runner-контейнера. Standalone ESM на чистом better-sqlite3. Ведёт учёт в __applied_migrations(name PK). Читает SQL из /app/docker/migrations (копируются из src/lib/db/migrations), применяет в транзакции, разделяя по '--> statement-breakpoint'. Bootstrap: при пустом трекере проверяет существующие таблицы users/push_subscriptions/reviews и помечает соответствующие миграции applied — защищает от повторного CREATE TABLE на старых volume-БД. После drizzle-миграций вызывает applyRawMigrations — JS-порт raw-migrations.ts (polymorphic favorites legacy-миграция, FTS5 menu_items_fts, R*Tree restaurants_rtree, sync-triggers). Вызывается из docker/entrypoint.sh после копирования template в volume и перед admin-upsert.mjs.",
     "createdAt": "2026-04-11T20:09:00.060Z",
     "updatedAt": "2026-04-11T20:09:00.060Z"
+  },
+  {
+    "element": "src/lib/compare/CompareContext.tsx",
+    "path": "src/lib/compare/CompareContext.tsx",
+    "type": "file",
+    "content": "React Context + Provider для хранения списка ланчей в режиме сравнения. Использует localStorage (ключ 'lh_compare_lunches') для персистентности. Максимум 4 ланча одновременно. Экспортирует: CompareProvider (оборачивает app), useCompare (хук с методами add/remove/toggle/has/clear), CompareLunch (тип данных ланча).",
+    "createdAt": "2026-04-15T10:44:30.465Z",
+    "updatedAt": "2026-04-15T10:44:30.465Z"
+  },
+  {
+    "element": "src/components/compare/CompareButton.tsx",
+    "path": "src/components/compare/CompareButton.tsx",
+    "type": "file",
+    "content": "Кнопка добавления/удаления ланча из списка сравнения. Два варианта: variant='card' (pill-кнопка под карточкой с текстом 'Сравнить'/'В сравнении'), variant='floating' (круглая иконка-кнопка для overlay на фото). Использует useCompare из CompareContext.",
+    "createdAt": "2026-04-15T10:44:34.959Z",
+    "updatedAt": "2026-04-15T10:44:34.959Z"
+  },
+  {
+    "element": "src/components/compare/CompareFAB.tsx",
+    "path": "src/components/compare/CompareFAB.tsx",
+    "type": "file",
+    "content": "Плавающая кнопка-бар (Floating Action Button) сравнения. Появляется когда 1+ ланчей добавлено в сравнение. Показывает счётчик и кнопку очистки. По клику переходит на /business-lunch/compare?ids=... Позиционирована над BottomTabBar (bottom-24 mobile, bottom-6 desktop).",
+    "createdAt": "2026-04-15T10:44:35.169Z",
+    "updatedAt": "2026-04-15T10:44:35.169Z"
+  },
+  {
+    "element": "src/app/(site)/business-lunch/compare/page.tsx",
+    "path": "src/app/(site)/business-lunch/compare/page.tsx",
+    "type": "file",
+    "content": "Страница сравнения бизнес-ланчей. URL: /business-lunch/compare?ids=1,2,3,4. Серверный компонент: загружает данные по IDs из БД (до 4 ланчей). Показывает сравнительную таблицу с подсветкой лучших/худших значений: цена (дешевле/дороже), расстояние (ближе/дальше), рейтинг (выше/ниже), время работы, дни недели, статус 'сейчас подают', адрес, позиции меню. Горизонтальная прокрутка для 3-4 ланчей.",
+    "createdAt": "2026-04-15T10:44:43.448Z",
+    "updatedAt": "2026-04-15T10:44:43.448Z"
+  },
+  {
+    "element": "src/app/(site)/business-lunch/_components/LunchCard.tsx",
+    "path": "src/app/(site)/business-lunch/_components/LunchCard.tsx",
+    "type": "file",
+    "content": "Client-компонент карточки бизнес-ланча для мобильного списка. Оборачивает ранее инлайновую карточку из page.tsx. Добавляет CompareButton (variant='card') под основным контентом карточки. Ссылка на детальную страницу остаётся через Link.",
+    "createdAt": "2026-04-15T10:44:43.656Z",
+    "updatedAt": "2026-04-15T10:44:43.656Z"
+  },
+  {
+    "element": "BottomTabBar",
+    "path": "src/components/mobile/BottomTabBar.tsx",
+    "type": "function",
+    "content": "Компонент мобильной навигации с 5 табами (Поиск, Бизнес-ланч, Карта, Избранное, Профиль).\n\n**Основная функциональность:**\n- Фиксированная позиция внизу экрана с поддержкой safe-area-inset-bottom\n- Активный таб подсвечивается pill-фоном с accent-цветом\n- Навигация через Link из next/link с View Transitions API для морфинга индикатора\n- Хаптик-обратная связь через useHaptics hook\n\n**Анимация при переходе между табами:**\n- При смене активного таба индикатор морфируется через промежуточные позиции\n- На каждую промежуточную позицию срабатывает haptics.selection() (50мс между шагами)\n- Синхронизировано с View Transitions API морфингом pill-индикатора\n- viewTransitionName: 'bottom-tab-indicator' вешается только на активный таб\n\n**Props:**\n- items: массив BottomTabItem (href, label, icon, matchPrefixes)\n- className: дополнительные CSS классы\n\n**Использование:**\n- Вставляется в (site)/layout.tsx для мобильной версии\n- Автоматически отслеживает pathname через usePathname()\n- Поддерживает customizable tabs через DEFAULT_TABS",
+    "createdAt": "2026-04-15T11:14:07.422Z",
+    "updatedAt": "2026-04-15T11:14:07.422Z"
   }
 ]
